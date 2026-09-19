@@ -1,0 +1,42 @@
+{
+  "name": "ai-software-factory",
+  "version": "2.2.1",
+  "codename": "Guided Model Routing",
+  "core_skills": [
+    "closure-evidence",
+    "context-scout",
+    "impact-analysis",
+    "implementation-reviewer",
+    "model-router",
+    "plan-reviewer",
+    "project-discovery",
+    "requirement-state",
+    "slice-executor",
+    "test-strategy"
+  ],
+  "scripts": [
+    "adopt-project.sh",
+    "configure-model-profiles.sh",
+    "doctor.sh",
+    "init-project.sh",
+    "install.sh",
+    "uninstall.sh"
+  ],
+  "install_scope": {
+    "global_agents": "~/.codex/AGENTS.md managed block",
+    "global_skills": "~/.agents/skills symlinks",
+    "project": "opt-in scaffold only"
+  },
+  "features": [
+    "ai_model_routing",
+    "codex_named_profiles",
+    "dedicated_review_policy",
+    "guided_mode",
+    "guided_model_gates",
+    "model_router_skill",
+    "per_requirement_ai_strategy",
+    "per_slice_ai_profile",
+    "reasoning_routing",
+    "switch_threshold"
+  ]
+}

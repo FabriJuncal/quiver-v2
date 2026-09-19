@@ -1,15 +1,21 @@
 # CAPABILITY_MAP
 
-| Capacidad | Existe | Solución actual | Acción | Motivo |
-|---|---:|---|---|---|
-| Auth | | | KEEP/ADD/WRAP/IMPROVE/REPLACE_LATER/IGNORE | |
-| Database | | | | |
-| API | | | | |
-| Multi-tenant | | | | |
-| Billing | | | | |
-| Email | | | | |
-| Storage | | | | |
-| Support | | | | |
-| Observability | | | | |
-| Testing | | | | |
-| CI/CD | | | | |
+Usar para proyectos nuevos y existentes.
+
+| Capacidad | Existe | Solución actual/propuesta | Acción | Riesgo/nota |
+|---|---|---|---|---|
+| UI |  |  | KEEP / ADD / WRAP / IMPROVE / REPLACE_LATER / IGNORE | |
+| Auth |  |  |  | |
+| Database |  |  |  | |
+| API |  |  |  | |
+| Multi-tenant |  |  |  | |
+| Billing |  |  |  | |
+| Email |  |  |  | |
+| Files |  |  |  | |
+| Support |  |  |  | |
+| Analytics |  |  |  | |
+| Observability |  |  |  | |
+| CI/CD |  |  |  | |
+| AI |  |  |  | |
+
+No agregar capacidades que el producto no necesita.

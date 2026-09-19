@@ -1,13 +1,16 @@
 # UI Capability Pack
 
-Usar si el proyecto tiene UI relevante.
+Activar cuando el proyecto tiene UI significativa.
 
-## Componentes
+Opcionales recomendados:
 
-- Impeccable: diseño/UX/sistema visual.
-- Browser Testing with DevTools: validación runtime.
-- Accessibility audit: solo auditorías profundas o superficies críticas.
+- Impeccable para sistema visual/UX;
+- Browser DevTools para verificación real;
+- accessibility audit para superficies críticas.
 
-## Regla
+No activar auditorías completas por cambios triviales.
 
-No activar Impeccable en backend-only. No ejecutar auditorías completas por cambios visuales triviales.
+Si se usa Impeccable, evitar duplicar documentación:
+- `PRODUCT.md` → verdad de producto;
+- `DESIGN.md` → sistema visual;
+- `PROJECT_PROFILE.md` → perfil técnico.

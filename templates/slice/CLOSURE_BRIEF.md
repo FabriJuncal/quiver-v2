@@ -1,8 +1,21 @@
 # Closure Brief
 
-- Criterios a verificar:
-- Evidencia:
-- Pruebas ejecutadas:
-- Resultado:
-- Desviaciones:
-- Pendientes:
+## Criteria to verify
+
+-
+
+## Evidence to record
+
+-
+
+## Tests to report
+
+-
+
+## Deviations
+
+-
+
+## Risks / pending
+
+-

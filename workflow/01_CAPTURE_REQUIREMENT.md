@@ -1,9 +1,29 @@
-# Prompt — Capturar requirement
+# 01 — Capturar requirement
 
-Tomá el requerimiento recibido en texto o archivo y persistilo en `docs/requirements/<ticket>/00_REQUIREMENT.md`.
+Primero clasificar N0–N3 con `docs/concepts/RISK_AND_WORKFLOW.md`. Para N0/N1 autorizados usar la ruta compacta allí definida; las rutas de archivos siguientes corresponden al flujo completo.
 
-Creá también `STATE.md` con estado `draft`.
+Persistir el requerimiento recibido en:
 
-No diseñes todavía la solución.
-No implementes.
-No agregues requisitos.
+```text
+docs/requirements/<ticket-o-slug>/00_REQUIREMENT.md
+```
+
+Crear/actualizar:
+
+```text
+docs/requirements/<ticket-o-slug>/STATE.md
+```
+
+Estado inicial:
+
+- `Status: defining`
+- `Phase: requirement`
+- próxima acción: definir criterios.
+
+No diseñar solución todavía.
+
+No implementar.
+
+No agregar requisitos que no fueron solicitados.
+
+Si el requerimiento está suficientemente claro, continuar automáticamente a criterios.

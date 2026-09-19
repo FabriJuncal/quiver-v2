@@ -1,8 +1,27 @@
 # Slice Spec
 
-- Objetivo:
-- Alcance:
-- Criterios relacionados:
-- Dependencias:
-- Pasos:
-- Validación:
+## Goal
+
+-
+
+## Scope
+
+-
+
+## Criteria covered
+
+-
+
+## Dependencies
+
+-
+
+## Validation
+
+-
+
+## AI Profile Recommendation
+
+- Profile:
+- Reasoning:
+- Reason:

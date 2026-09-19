@@ -1,31 +1,21 @@
 # PROJECT_STATE
 
-> Estado operativo actual del proyecto.
->
-> Debe permitir que una nueva sesión comprenda rápidamente dónde está el proyecto y cuál es la próxima acción sin depender del historial del chat.
-
----
-
 ## Identificación
 
-- **Project:**
-- **Status:** not-started | active | blocked | paused | completed
-- **Current phase:**
-- **Current focus:**
-- **Active requirement:**
-- **Current slice:**
+- **Project:** por identificar en Discovery
+- **Status:** not-started
+- **Current phase:** discovery
+- **Current focus:** comprender el proyecto antes de implementar
+- **Active requirement:** none
+- **Current slice:** none
 - **Last updated:**
 
----
-
-## Ruta del proyecto
-
-> Mantener corta. Actualizar cuando cambie de fase.
+## Ruta
 
 ```text
 [ ] Discovery
 [ ] Producto / problema
-[ ] Investigación externa, si corresponde
+[ ] Investigación externa
 [ ] Flujo / reglas
 [ ] Arquitectura / decisión técnica
 [ ] Backlog / requirements
@@ -34,106 +24,49 @@
 [ ] Release
 ```
 
----
-
 ## Progreso
 
 ### Completed
-
 -
 
 ### In progress
-
 -
 
 ### Pending
-
 -
-
----
 
 ## Próxima acción
 
-- **Next action:**
-- **Why this is next:**
+- **Next action:** ejecutar Project Discovery sobre este directorio, sin modificar código de aplicación.
+- **Why this is next:** el scaffold aún no describe propósito, stack ni capacidades del proyecto.
 - **User action required:** false
 - **Decision required:** none
-- **Expected output:**
-- **After this:**
+- **Expected output:** PROJECT_PROFILE, CAPABILITY_MAP y este estado completados con evidencia y preguntas bloqueantes concretas.
+- **After this:** capturar el primer requirement indicado por el usuario o presentar la decisión de producto que falte; no inventar trabajo.
 - **Blocked by:** none
-
----
 
 ## Reanudación
 
-- **Resume instruction:**
+- **Resume instruction:** leer las instrucciones locales y aplicar project-discovery; continuar lo derivable y detenerse solo ante información o decisión material faltante.
 
-Ejemplo:
-
-```text
-Continuar desde la verificación documental.
-Leer primero el STATE del requirement activo y producir la matriz de campos.
-No requiere decisión del usuario.
-```
-
----
-
-## Estado de decisiones
-
-### Decisiones cerradas
+## Decisiones cerradas
 
 -
 
-### Decisiones pendientes
+## Decisiones pendientes
 
 -
-
----
 
 ## Bloqueos
 
-### Known blockers
-
 -
-
-### Missing information
-
--
-
----
 
 ## Contexto operativo relevante
 
-> Incluir únicamente información que afecte el trabajo actual.
-
 -
-
----
 
 ## Últimos cambios relevantes
 
 -
 
----
-
-## Reglas de mantenimiento
-
-Actualizar este archivo cuando:
-
-- cambie la fase;
-- cambie el foco actual;
-- se active o cierre un requirement;
-- aparezca o desaparezca un bloqueo;
-- se alcance una decisión importante;
-- cambie la próxima acción.
-
-No convertir este archivo en un historial completo.
-
-El historial detallado pertenece a:
-
-- Git;
-- requirements;
-- ADRs;
-- closure documents.
-
-`PROJECT_STATE.md` debe representar **el presente operativo**.
+> Mantener este documento como presente operativo, no como historial completo.

@@ -1,7 +1,22 @@
 # Database Capability Pack
 
-- `database-change-safety`.
-- `project-database-rules` si existen reglas propias.
-- DB MCP opcional para consultar estructura real.
+Activar ante:
 
-No migrar de motor/ORM solo para estandarizar la Factory.
+- cambios de schema;
+- migraciones;
+- transformaciones;
+- DB legacy;
+- riesgo de pérdida de datos.
+
+Recomendación:
+crear/usar `database-change-safety`.
+
+Preguntas mínimas:
+
+- ¿hay datos existentes?
+- ¿es reversible?
+- ¿afecta consumidores?
+- ¿hay rollback?
+- ¿backup?
+- ¿transacción?
+- ¿compatibilidad?

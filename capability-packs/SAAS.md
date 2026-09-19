@@ -1,15 +1,26 @@
 # SaaS Capability Pack
 
-No forma parte del core universal.
+SaaS es una capacidad/tipo de producto, no el centro obligatorio de Factory.
 
-Activar capacidades según producto:
+Posibles módulos:
 
-- auth.
-- multi-tenant.
-- teams/roles/invitations.
-- billing.
-- entitlements.
-- emails.
-- support.
+- auth;
+- organizations/tenants;
+- roles;
+- invitations;
+- billing;
+- entitlements;
+- email;
+- support;
+- audit;
+- analytics.
 
-No instalar proveedores hasta que la capacidad sea necesaria.
+Elegir proveedores después de entender:
+
+- mercado;
+- país/entidad;
+- B2B/B2C;
+- modelo de pricing;
+- stack existente.
+
+No instalar todos los módulos por defecto.

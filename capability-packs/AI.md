@@ -1,13 +1,17 @@
 # AI Capability Pack
 
-Usar solo si el producto incluye IA/LLM.
+Activar solamente si el producto incluye IA como capacidad real.
 
-Puede incluir:
+Considerar cuando corresponda:
 
-- ai-system-architecture.
-- evals.
-- model routing.
-- tools/MCP.
-- memory/RAG cuando exista necesidad real.
+- tools;
+- MCP;
+- retrieval;
+- memory;
+- model routing;
+- evals;
+- guardrails;
+- human-in-the-loop;
+- observability.
 
-No introducir agentes/RAG/memory solo porque la Factory usa IA para desarrollar.
+No implementar RAG, vector DB o multi-agent automáticamente.

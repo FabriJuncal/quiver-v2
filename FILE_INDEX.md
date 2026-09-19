@@ -1,50 +1,40 @@
-# Índice de archivos
+# File Index
 
-- `00_GUIA_PARA_COMENZAR.md`
-- `01_EXPLICACION_COMPLETA_DEL_PROYECTO.md`
-- `02_ARQUITECTURA_Y_PRINCIPIOS.md`
-- `03_DECISIONES_Y_NO_OBJETIVOS.md`
-- `04_ARGENTINA_Y_PROVEEDORES.md`
-- `05_NEW_VS_EXISTING.md`
-- `06_HERRAMIENTAS_DE_CONOCIMIENTO.md`
-- `07_SKILLS_Y_ROUTING.md`
-- `08_GIT_Y_WORKTREES.md`
-- `09_MCP_Y_TOOLS.md`
-- `10_EVALS_Y_TELEMETRIA.md`
-- `11_ROADMAP.md`
-- `MANIFEST.md`
+## Primeros pasos
+
 - `README.md`
-- `capability-packs/AI.md`
-- `capability-packs/DATABASE.md`
-- `capability-packs/MOBILE.md`
-- `capability-packs/SAAS.md`
-- `capability-packs/UI.md`
-- `examples/EXISTING_PROJECT_EXAMPLE.md`
-- `examples/NEW_SAAS_EXAMPLE.md`
-- `skills/EVALS_GUIDE.md`
-- `skills/README.md`
-- `skills/SKILL_ROUTING.md`
-- `skills/create/database-change-safety.md`
-- `skills/create/legacy-migration.md`
-- `skills/create/mobile-release.md`
-- `skills/create/project-api-conventions.md`
-- `skills/create/project-business-rules.md`
-- `skills/create/project-database-rules.md`
-- `templates/AGENTS.md`
-- `templates/CAPABILITY_MAP.md`
-- `templates/PROJECT_PROFILE.md`
-- `templates/PROJECT_STATE.md`
-- `templates/requirement/00_REQUIREMENT.md`
-- `templates/requirement/01_ACCEPTANCE_CRITERIA.md`
-- `templates/requirement/02_DECISION.md`
-- `templates/requirement/03_PLAN.md`
-- `templates/requirement/04_PLAN_REVIEW.md`
-- `templates/requirement/05_IMPLEMENTATION_REVIEW.md`
-- `templates/requirement/06_CLOSURE.md`
-- `templates/requirement/STATE.md`
-- `templates/slice/CLOSURE_BRIEF.md`
-- `templates/slice/EXECUTION_BRIEF.md`
-- `templates/slice/SPEC.md`
+- `QUICK_START.md`
+- `FACTORY_VERSION.md`
+
+## Configuración
+
+- `config/MODEL_CATALOG.md`
+
+## Conceptos
+
+- `docs/concepts/ARCHITECTURE.md`
+- `docs/concepts/DECISION_BOUNDARIES.md`
+- `docs/concepts/NEW_VS_EXISTING.md`
+- `docs/concepts/PROJECT_MODEL.md`
+- `docs/concepts/SOURCE_OF_TRUTH.md`
+- `docs/concepts/TESTING_PROFILES.md`
+- `docs/concepts/RISK_AND_WORKFLOW.md`
+
+## Guías
+
+- `docs/guides/CONFIGURACION_CODEX.md`
+- `docs/guides/PROYECTO_EXISTENTE.md`
+- `docs/guides/PROYECTO_NUEVO.md`
+- `docs/guides/GUIDED_MODE.md`
+- `docs/guides/SKILLS_Y_ROUTING.md`
+- `docs/guides/GIT_WORKFLOW.md`
+- `docs/guides/HERRAMIENTAS_DE_CONOCIMIENTO.md`
+- `docs/guides/ARGENTINA_Y_PROVEEDORES.md`
+- `docs/guides/AI_MODEL_ROUTING.md`
+- `docs/guides/UPGRADE_2_1_TO_2_2.md`
+
+## Workflow
+
 - `workflow/00_SHARED_CONTRACT.md`
 - `workflow/01_CAPTURE_REQUIREMENT.md`
 - `workflow/02_ACCEPTANCE_AND_OPTIONS.md`
@@ -56,3 +46,41 @@
 - `workflow/08_IMPLEMENTATION_REVIEW.md`
 - `workflow/09_CLOSURE.md`
 - `workflow/10_RESUME.md`
+
+## Scripts
+
+- `scripts/install.sh`
+- `scripts/doctor.sh`
+- `scripts/uninstall.sh`
+- `scripts/init-project.sh`
+- `scripts/adopt-project.sh`
+- `tests/test_scripts.py` — regresiones de filesystem y lifecycle
+
+## Skills
+
+- `skills/core/`
+- `skills/THIRD_PARTY_CATALOG.md`
+- `skills/PROJECT_SKILLS_GUIDE.md`
+
+## Templates
+
+- `templates/`
+
+
+## Guided Model Routing
+
+- `config/MODEL_CATALOG.md`
+- `config/codex-profiles/`
+- `docs/guides/AI_MODEL_ROUTING.md`
+- `docs/guides/GUIDED_MODEL_GATES.md`
+- `docs/guides/CODEX_MODEL_PROFILES.md`
+- `docs/guides/UPGRADE_2_2_TO_2_2_1.md`
+- `skills/core/model-router/SKILL.md`
+- `scripts/configure-model-profiles.sh`
+
+## Mantenimiento
+
+- `MANIFEST.json` — manifest único de versión y componentes
+- `docs/maintainers/RELEASE_CHECKLIST.md`
+- `docs/requirements/preproduction-hardening/STATE.md` — correcciones de auditoría
+- `docs/archive/` — historia excluida de releases, nunca fuente de instrucciones actuales

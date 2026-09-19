@@ -1,48 +1,37 @@
-# Skills de AI Software Factory
+# Skills
 
-## Globales externas recomendadas
+## Core
 
-```text
-systematic-debugging
-source-driven-development
-api-and-interface-design
-architecture-decision-framework
-token-optimization
-using-git-worktrees
-security-best-practices
-```
+`skills/core/` contiene skills propias de AI Software Factory.
 
-## Skills propias core
+El instalador crea symlinks en:
 
 ```text
-project-discovery
-requirement-state
-context-scout
-impact-analysis
-test-strategy
-plan-reviewer
-slice-executor
-implementation-reviewer
-closure-evidence
+~/.agents/skills/
 ```
 
-## Skills locales sugeridas
+## Terceros
 
-Crear solo si el proyecto lo necesita:
+No se instalan automáticamente.
+
+Ver:
+
+[`THIRD_PARTY_CATALOG.md`](THIRD_PARTY_CATALOG.md)
+
+## Project-specific
+
+Crear dentro del proyecto:
 
 ```text
-project-business-rules
-project-api-conventions
-project-database-rules
-legacy-migration
-mobile-release
-database-change-safety
+.agents/skills/
 ```
 
-## Capability packs
+cuando sea conocimiento específico de ese producto/organización.
 
-- UI: Impeccable + Browser Testing.
-- Database: database-change-safety + DB MCP opcional.
-- Mobile: mobile-release.
-- SaaS: multi-tenant/billing/entitlements solo si aplica.
-- AI: ai-system-architecture + evals solo si el producto usa IA.
+Ejemplos:
+
+- reglas de negocio;
+- API conventions;
+- DB legacy;
+- release mobile;
+- legacy migration.

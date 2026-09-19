@@ -1,17 +1,3 @@
 # Manifest
 
-```json
-{
-  "name": "AI Software Factory",
-  "version": "2.0",
-  "date": "2026-09-18",
-  "markdown_files": 56,
-  "principles": [
-    "proportionality",
-    "repo-source-of-truth",
-    "progressive-context",
-    "integrate-before-migrate",
-    "evidence-before-completion"
-  ]
-}
-```
+El manifest canónico es [MANIFEST.json](MANIFEST.json), versión 2.2.1 — Guided Model Routing. Este archivo conserva un enlace para lectores anteriores; no mantiene una segunda copia de metadatos.

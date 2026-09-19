@@ -1,317 +1,208 @@
 # Contrato compartido de AI Software Factory
 
-Este contrato define las reglas comunes para todos los prompts, skills y etapas de AI Software Factory.
+## Fuente de verdad
 
-Su objetivo es mantener el trabajo **guiado, proporcional, verificable y simple**, sin convertir cada tarea en un proceso burocrático.
+El repositorio del proyecto es la fuente de verdad.
 
----
+El chat no es memoria persistente.
 
-## 1. Fuente de verdad
+## Principios
 
-El repositorio del proyecto actual es la fuente de verdad sobre:
+- proporcionalidad al alcance/riesgo;
+- contexto mínimo necesario;
+- no inventar archivos/contratos;
+- no agregar requirements silenciosamente;
+- no reabrir decisiones aprobadas sin nueva evidencia;
+- integrar antes que migrar;
+- solución mínima suficiente;
+- evidencia antes de afirmar éxito.
 
-- código;
-- arquitectura;
-- requerimientos;
-- decisiones aprobadas;
-- estado del trabajo;
-- reglas de negocio;
-- convenciones del proyecto.
+## Guided Mode
 
-El historial del chat no es una fuente de verdad persistente.
+El agente guía hasta el próximo **Decision Boundary**.
 
-Toda decisión, aprobación, cambio de alcance, hallazgo bloqueante o resultado de ejecución que deba sobrevivir a la sesión debe quedar persistido en el repositorio.
+Antes de detenerse:
 
----
+1. identificar fase;
+2. identificar progreso;
+3. determinar próxima acción;
+4. determinar si necesita al usuario;
+5. continuar si no requiere decisión;
+6. actualizar estado.
 
-## 2. Principios generales
+## Decision Boundaries
 
-- Trabajar proporcionalmente al alcance, riesgo e incertidumbre.
-- Cargar únicamente el contexto que pueda cambiar una decisión o implementación.
-- No inventar archivos, componentes, contratos, reglas o comportamientos no verificados.
-- No agregar requirements nuevos sin una decisión explícita.
-- No reabrir decisiones aprobadas salvo nueva evidencia material.
-- Integrar antes que migrar en proyectos existentes.
-- Respetar el stack, arquitectura y convenciones existentes salvo requerimiento contrario.
-- Preferir la solución mínima suficiente.
-- No introducir dependencias, proveedores, infraestructura, abstracciones o agentes sin valor concreto.
-- Nunca declarar éxito sin evidencia actual.
+Continuar automáticamente para:
 
----
-
-## 3. Guided Mode
-
-AI Software Factory utiliza **Guided Mode** por defecto.
-
-El usuario no debe tener que descubrir manualmente qué paso sigue.
-
-Antes de finalizar una ejecución con trabajo pendiente, el agente debe:
-
-1. identificar la fase actual;
-2. identificar qué se completó;
-3. determinar el siguiente paso concreto;
-4. determinar si ese paso necesita intervención humana;
-5. continuar automáticamente si no existe un Decision Boundary;
-6. actualizar el estado persistente correspondiente.
-
-No finalizar una ejecución únicamente con un resumen si todavía existe trabajo permitido dentro del alcance aprobado.
-
----
-
-## 4. Decision Boundaries
-
-Un **Decision Boundary** es un punto donde continuar automáticamente podría cambiar el alcance, asumir una preferencia material, introducir riesgo relevante o ejecutar una acción que debe decidir el usuario.
-
-### Continuar automáticamente cuando corresponda
-
-No solicitar intervención humana únicamente para:
-
-- leer documentación;
-- inspeccionar código;
-- analizar el repositorio;
-- localizar implementaciones existentes;
-- buscar patrones o convenciones ya usadas;
-- investigar fuentes verificables;
-- comparar código existente;
+- leer;
+- investigar;
+- inspeccionar;
 - preparar matrices;
-- detectar dependencias;
-- identificar casos de uso;
-- generar artefactos previamente aprobados;
-- actualizar `PROJECT_STATE.md`;
-- actualizar el `STATE.md` de un requirement;
-- ejecutar validaciones previamente aprobadas;
-- avanzar entre tareas que no cambien alcance, costo o riesgo material.
+- generar artefactos aprobados;
+- actualizar `STATE`;
+- ejecutar verificaciones aprobadas.
+- realizar review automático permitido dentro del alcance aprobado.
 
-### Detenerse y pedir decisión cuando corresponda
+Detenerse para:
 
-Solicitar intervención humana ante decisiones materiales sobre:
-
-- alcance;
-- criterios de aceptación;
-- alternativa de implementación con trade-offs reales;
-- perfil de testing;
+- aprobar criterios;
+- seleccionar alternativa;
+- seleccionar testing cuando exista una decisión material no aprobada;
+- aprobar plan;
+- cambio de alcance;
 - arquitectura difícil de revertir;
-- proveedor externo relevante;
-- costo significativo;
-- seguridad;
-- manejo de datos sensibles;
+- costo material;
 - migración destructiva;
-- pérdida potencial de datos;
-- despliegue;
-- operación irreversible;
-- cambio material respecto de una decisión aprobada.
+- deploy;
+- operación irreversible.
+- AI Model Gate pendiente con beneficio HIGH;
+- review dedicado que requiera intervención;
+- blocker real que impida continuar trabajo autorizado.
 
-### Los approval gates siguen vigentes
+Guided Mode no elimina approval gates.
 
-Guided Mode **no elimina aprobaciones explícitas**.
+`User action required` es true si existe **cualquier** boundary pendiente para la próxima acción. La ausencia de Model Gate no lo convierte en false. Antes de actuar, contrastar el indicador con las decisiones, bloqueos y autorizaciones persistidas. Las autorizaciones explícitas previas siguen vigentes dentro de su alcance; no pedirlas de nuevo.
 
-Si una etapa o requirement exige aprobación humana, detenerse en ese punto aunque técnicamente sea posible continuar.
+Clasificar riesgo y elegir ruta compacta/full según [Riesgo y tamaño del workflow](../docs/concepts/RISK_AND_WORKFLOW.md). N0/N1 no requieren todos los artefactos del flujo completo.
 
----
+## Comunicación
 
-## 5. Cómo detenerse correctamente
-
-No preguntar de forma genérica:
-
-- "¿Cómo continuamos?"
-- "¿Qué querés hacer ahora?"
-- "¿Cuál es el siguiente paso?"
-
-cuando el siguiente paso pueda derivarse del estado del proyecto.
-
-Al detenerse, informar de forma breve:
-
-### Estado
-
-- Fase actual:
-- Qué se completó:
-- Próximo paso:
-- Por qué sigue ese paso:
-- Resultado esperado:
-
-### Acción del usuario
-
-Usar exactamente una de estas opciones:
-
-`ACCIÓN DEL USUARIO: ninguna`
-
-o:
-
-`ACCIÓN DEL USUARIO: requerida`
-
-Si la acción del usuario es `ninguna`, continuar con el siguiente paso permitido en la misma ejecución.
-
----
-
-## 6. Cómo presentar una decisión
-
-Cuando exista una decisión real, presentar únicamente opciones materialmente diferentes.
-
-Formato recomendado:
+No preguntar:
 
 ```text
-DECISIÓN NECESARIA
-
-Opción A
-Qué se hará, explicado de forma simple.
-Tiempo relativo:
-Complejidad:
-Consumo IA:
-Trade-off principal:
-
-Opción B
-...
-
-RECOMENDACIÓN:
-...
-
-RESPUESTA SIMPLE:
-A + T2
+¿Cómo continuamos?
 ```
 
-No crear alternativas artificiales.
+cuando el siguiente paso sea derivable.
 
-Si solo existe una solución razonable, explicar la decisión necesaria sin inventar opciones.
-
----
-
-## 7. Ruta guiada del proyecto
-
-En proyectos nuevos, al cambiar de fase puede mostrarse una ruta corta de progreso.
-
-Ejemplo:
+Si no necesita usuario:
 
 ```text
-[✓] Discovery
-[✓] Producto
-[▶] Investigación
-[ ] Flujo
-[ ] Arquitectura
-[ ] Backlog
-[ ] Implementación
-[ ] Release
+ACCIÓN DEL USUARIO: ninguna
 ```
 
-No repetir esta ruta en cada respuesta.
+y continuar.
 
-Mostrarla principalmente cuando:
+Si necesita usuario:
 
-- se inicializa el proyecto;
-- cambia la fase;
-- el usuario pregunta por el estado;
-- se alcanza un Decision Boundary.
+```text
+ACCIÓN DEL USUARIO: requerida
+```
 
----
+presentar opciones reales, trade-offs, recomendación y respuesta corta.
 
-## 8. Estado persistente
+Explicar qué está pasando, por qué se necesita al usuario, qué debe hacer, comando y opción exactos cuando correspondan, y qué debe escribir para reanudar. Si hay una sola acción válida, indicarla sin inventar alternativas. En un bloqueo, identificar el dato/acceso faltante y la acción concreta para resolverlo. No terminar con una recomendación vaga.
 
-Todo proyecto adoptado por AI Software Factory debe mantener, cuando corresponda:
+## Estado
 
-- `PROJECT_PROFILE.md`
-- `PROJECT_STATE.md`
-- `CAPABILITY_MAP.md`
+Todo estado activo debe indicar:
 
-Todo requirement activo debe mantener:
+- `Next action`;
+- `Why this is next`;
+- `User action required`;
+- `Decision required`;
+- `Expected output`;
+- `After this`;
+- `Blocked by`;
+- `Resume instruction`.
 
-`docs/requirements/<ticket-o-slug>/STATE.md`
+Persistir por separado aprobación del reviewer, aprobación humana del plan y autorización de ejecución, vinculadas a la versión/alcance correspondiente. Una aprobación no equivale automáticamente a las otras. Puede registrarse autorización de ejecución ya contenida en la petición original.
 
-Después de una acción significativa:
+## Evidence Before Completion
 
-- actualizar el estado;
-- registrar una próxima acción concreta;
-- indicar si requiere al usuario;
-- registrar el resultado esperado;
-- indicar qué viene después.
-
-Una nueva sesión debe poder continuar sin depender del chat.
-
----
-
-## 9. Implementación y etapas
-
-No implementar código antes de que existan las aprobaciones requeridas por el workflow.
-
-Una vez aprobado el alcance necesario para ejecutar una etapa:
-
-- avanzar automáticamente por las acciones no decisionales de esa etapa;
-- no pedir confirmaciones intermedias innecesarias;
-- detenerse al siguiente Decision Boundary.
-
-La unidad de interacción deja de ser:
-
-> una etapa por respuesta
-
-y pasa a ser:
-
-> avanzar hasta el próximo Decision Boundary.
-
----
-
-## 10. Testing
-
-La estrategia de testing debe ser proporcional al riesgo.
-
-No exigir automáticamente:
-
-- regresión completa;
-- end-to-end;
-- performance;
-- seguridad;
-- carga;
-- concurrencia;
-
-si no existe un riesgo concreto relacionado.
-
-Cuando exista un perfil de testing aprobado (`T1`, `T2`, `T3`), respetarlo.
-
-No aumentar silenciosamente el perfil aprobado.
-
----
-
-## 11. Evidence Before Completion
-
-Nunca declarar que algo está:
+No afirmar:
 
 - terminado;
 - corregido;
 - funcionando;
-- compilando;
-- aprobado;
-- con tests exitosos;
+- tests OK;
+- build OK;
 
-sin evidencia reciente que lo demuestre.
+sin evidencia reciente.
+## AI Model Routing
 
-Antes de cerrar una implementación:
+AI Software Factory utiliza perfiles abstractos de capacidad:
 
-1. identificar qué evidencia demuestra cada afirmación;
-2. ejecutar las verificaciones requeridas cuando el entorno lo permita;
-3. revisar el resultado real;
-4. registrar la evidencia;
-5. actualizar el estado.
+- `ECONOMICAL`
+- `BALANCED`
+- `ADVANCED`
 
-La confianza del agente no sustituye evidencia.
+Persistir perfiles como estrategia normativa en el STATE del requirement. Los nombres/IDs pueden guardarse como recomendaciones resueltas con fecha de catálogo; no son verdad sobre la sesión. Decisión y plan referencian la estrategia, y las slices registran solo excepciones relevantes.
+
+El mapeo a modelos actuales vive en:
+
+`config/MODEL_CATALOG.md`
+
+Reglas:
+
+- Project Discovery define la política general del proyecto.
+- El requirement define la AI Strategy.
+- Cada slice define su AI Execution Profile.
+- Se puede escalar o hacer downgrade según evidencia.
+- No usar ADVANCED por defecto.
+- No usar ECONOMICAL cuando el riesgo/ambigüedad material requiera más capacidad.
+- No afirmar que se cambió de modelo si el runtime no lo permite.
+- Optimizar costo total por tarea, incluyendo reintentos y retrabajo.
+
+
 
 ---
 
-## 12. Simplicidad
+## Guided AI Model Routing
 
-AI Software Factory existe para reducir complejidad.
+Cuando una fase o slice tenga perfil de IA recomendado:
 
-No introducir por defecto:
+1. usar `model-router`;
+2. resolver nombre completo, ID y reasoning desde `config/MODEL_CATALOG.md`;
+3. calcular `Switch Benefit`;
+4. no asumir qué modelo está activo;
+5. generar AI Model Gate solo si el beneficio es HIGH y la necesidad no está satisfecha en la sesión; riesgo material insuficientemente cubierto se clasifica HIGH.
 
-- microservicios;
-- event-driven architecture;
-- nuevas bases de datos;
-- RAG;
-- vector databases;
-- multi-agent orchestration;
-- worktrees;
-- nuevos proveedores cloud;
-- abstracciones genéricas;
-- sistemas de plugins;
-- caches;
-- queues;
-- observabilidad avanzada;
-- migraciones tecnológicas.
+### AI Model Gate
 
-Incorporar complejidad únicamente cuando exista una necesidad real y verificable.
+Debe incluir:
+
+- próxima tarea;
+- perfil;
+- nombre completo;
+- ID;
+- reasoning;
+- fallback;
+- motivo;
+- `/status` si el usuario no sabe qué está activo;
+- `/model` si debe cambiar;
+- qué seleccionar;
+- qué escribir después (`continuar`).
+
+Nunca terminar con una recomendación vaga de modelo.
+
+### Switch Threshold
+
+No interrumpir por optimizaciones pequeñas.
+
+Un downgrade solo debe proponerse al comenzar una fase grande y mecánica.
+
+Una slice nueva no implica una fase nueva. Conservar la configuración suficiente durante la fase; no repetir un gate ya confirmado sin cambio material, ni bajar para volver a subir en el trabajo inmediatamente posterior. La política canónica de confirmación y fallback está en `config/MODEL_CATALOG.md`.
+
+### Review Gate
+
+Para N3:
+
+- `/review` es requerido cuando sea técnicamente posible; si no, documentar causa y obtener aprobación de una alternativa antes de cerrar;
+- explicar exactamente qué opción elegir;
+- pedir `continuar con review` al finalizar.
+
+Para N2, usar `/review` cuando el riesgo/diff lo justifique.
+
+El alcance y evidencia, la política de una corrección dirigida y la salida ante obligatorios pendientes se definen en `workflow/08_IMPLEMENTATION_REVIEW.md`. No reabrir indefinidamente reviews ni cerrar con hallazgos obligatorios abiertos.
+
+### Full model names
+
+Mensajes de Factory deben usar:
+
+- GPT-5.6 Luna (`gpt-5.6-luna`)
+- GPT-5.6 Terra (`gpt-5.6-terra`)
+- GPT-5.6 Sol (`gpt-5.6-sol`)
+- GPT-6 Astra (`gpt-6-astra`)
+
+No usar `GPT-5.6` a secas para indicar una selección.

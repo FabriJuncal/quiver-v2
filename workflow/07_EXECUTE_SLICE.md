@@ -1,10 +1,53 @@
-# Prompt — Ejecutar slice
+# 07 — Ejecutar slice
 
-1. Leer `PROJECT_STATE.md`.
-2. Leer requirement `STATE.md`.
-3. Leer únicamente la slice activa y contexto necesario.
-4. Activar skills por routing.
-5. Implementar solo el alcance de la slice.
-6. Ejecutar pruebas requeridas.
-7. Registrar evidencia en `CLOSURE_BRIEF.md`.
-8. No declarar terminado sin evidencia.
+1. leer `PROJECT_STATE.md`;
+2. leer requirement `STATE.md`;
+3. leer `EXECUTION_BRIEF.md`;
+4. cargar contexto mínimo;
+5. activar skills por routing;
+6. comprobar aprobación humana del plan y autorización de ejecución; evaluar AI Execution Profile;
+7. ejecutar Guided Model Gate solo si corresponde;
+8. implementar;
+9. ejecutar testing aprobado;
+10. registrar evidencia;
+11. actualizar estado.
+
+## AI Model Gate
+
+`Model Gate required` es una recomendación persistida, no un bloqueo eterno. Reevaluar antes de actuar: si la configuración suficiente ya fue confirmada en esta sesión y fase, continuar sin repetir el gate. Si falta confirmación necesaria y el beneficio es HIGH:
+
+- no asumir el modelo activo;
+- mostrar Guided Model Gate completo;
+- indicar `/status` si el usuario no sabe;
+- indicar `/model`;
+- indicar nombre completo + ID;
+- indicar reasoning;
+- indicar fallback;
+- pedir `continuar`;
+- detenerse.
+
+Cuando el usuario escriba `continuar` en respuesta a ese gate, considerar confirmada su acción para esa fase/sesión, sin afirmar introspección del runtime. No usar un `continuar` genérico en sesión nueva como aprobación de plan o cierre de review. Persistir el avance de trabajo, no el modelo activo.
+
+## Sin gate
+
+Si no hay Model Gate pendiente **ni otro Decision Boundary**:
+
+```text
+ACCIÓN DEL USUARIO: ninguna
+```
+
+y continuar.
+
+No mencionar optimizaciones de modelo de beneficio LOW.
+
+## Downgrade
+
+No interrumpir para cierres cortos.
+
+Solo proponer downgrade al comenzar una fase sustancial y mecánica con Switch Benefit HIGH.
+
+## Cierre de slice
+
+No declarar terminado sin evidencia.
+
+Si quedan slices aprobadas y no existe Decision Boundary, continuar.

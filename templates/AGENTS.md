@@ -1,276 +1,163 @@
 # AGENTS.md
 
-Instrucciones específicas del proyecto para agentes que trabajan con AI Software Factory.
+Este proyecto utiliza AI Software Factory.
 
-Mantener este archivo corto y enfocado en reglas persistentes del repositorio.
+Las instrucciones específicas de este repositorio tienen prioridad sobre recomendaciones genéricas de Factory.
 
-Las reglas específicas del proyecto tienen prioridad sobre recomendaciones genéricas de AI Software Factory cuando no existe conflicto con una instrucción explícita del usuario.
+## Inicio
 
----
+Antes de cambios significativos:
 
-## 1. Fuente de verdad
+1. leer `PROJECT_STATE.md`;
+2. identificar requirement activo;
+3. leer su `STATE.md`;
+4. cargar solo contexto necesario;
+5. usar skills específicas si aplican.
 
-Priorizar:
+## Guided Mode
 
-1. código y datos reales;
-2. requirements aprobados;
-3. ADRs y decisiones persistidas;
-4. `PROJECT_PROFILE.md`;
-5. `PROJECT_STATE.md`;
-6. `CAPABILITY_MAP.md`;
-7. documentación del repositorio;
-8. `STATE.md` del requirement activo.
+Avanzar hasta el próximo Decision Boundary.
 
-El chat no es una fuente de verdad persistente.
+No preguntar genéricamente "¿Cómo continuamos?" si existe una próxima acción derivable.
 
-No reconstruir decisiones desde memoria cuando ya existen artefactos en el repositorio.
+Si no necesita al usuario:
 
----
+```text
+ACCIÓN DEL USUARIO: ninguna
+```
 
-## 2. Inicio de una tarea
+y continuar.
 
-Antes de realizar cambios significativos:
+Si necesita decisión:
 
-1. leer `PROJECT_STATE.md` si existe;
-2. identificar el requirement activo;
-3. leer `docs/requirements/<ticket>/STATE.md` si existe;
-4. cargar únicamente el contexto necesario;
-5. revisar skills específicas de `.agents/skills/` cuando correspondan;
-6. respetar decisiones ya aprobadas.
+```text
+ACCIÓN DEL USUARIO: requerida
+```
 
-No volver a analizar el proyecto completo por defecto.
+y explicar qué ocurre, por qué requiere al usuario, acción/comando exactos, opción que debe seleccionar y respuesta para retomar. Presentar opciones + recomendación solo cuando existan alternativas materiales.
 
----
+La ausencia de Model Gate no elimina otros boundaries. Verificar criterios, aprobación humana del plan y autorización de ejecución por separado; no repetir aprobaciones explícitas vigentes ni inferirlas de un `continuar` ajeno a ese gate.
 
-## 3. Guided Mode
+## Estado persistente
 
-Este proyecto utiliza **Guided Mode**.
-
-El agente debe guiar el trabajo hasta el próximo **Decision Boundary**.
-
-Antes de detenerse con trabajo pendiente:
-
-1. identificar la fase actual;
-2. determinar el siguiente paso concreto;
-3. comprobar si requiere una decisión humana;
-4. continuar automáticamente si no requiere decisión;
-5. actualizar el estado persistente.
-
-No preguntar genéricamente:
-
-- "¿Cómo continuamos?"
-- "¿Qué querés hacer ahora?"
-- "¿Cuál es el siguiente paso?"
-
-cuando exista una próxima acción derivable.
-
-### Cuando no requiere intervención
-
-Indicar:
-
-`ACCIÓN DEL USUARIO: ninguna`
-
-y continuar con el siguiente paso permitido.
-
-### Cuando requiere intervención
-
-Indicar:
-
-`ACCIÓN DEL USUARIO: requerida`
-
-y presentar:
-
-- decisión;
-- opciones reales;
-- trade-offs;
-- recomendación;
-- respuesta simple esperada.
-
-Guided Mode no permite saltarse approval gates explícitos.
-
----
-
-## 4. Estado persistente
-
-Mantener actualizado:
+Mantener:
 
 - `PROJECT_STATE.md`;
-- `docs/requirements/<ticket>/STATE.md` para requirements activos.
+- `docs/requirements/<ticket>/STATE.md`.
 
-Todo estado activo debe indicar:
+Toda próxima acción debe ser concreta. Para N0/N1 aplicar la ruta compacta de `docs/concepts/RISK_AND_WORKFLOW.md` de la Factory: un STATE puede reunir plan breve, criterios y evidencia; no generar todo el paquete por defecto.
 
-- fase;
-- próxima acción;
-- motivo;
-- si requiere al usuario;
-- resultado esperado;
-- qué viene después;
-- bloqueos.
+## Routing
 
-Una nueva sesión debe poder continuar leyendo estos archivos.
+- bug/regresión → `systematic-debugging` si está disponible;
+- fuentes/versiones externas → `source-driven-development` si está disponible;
+- APIs/contratos → `api-and-interface-design` si está disponible;
+- arquitectura material → skill de arquitectura si está disponible;
+- DB/schema → `database-change-safety` si existe;
+- legacy → `legacy-migration` si existe;
+- UI → herramientas UI si existen.
 
----
+No activar todo por defecto.
 
-## 5. Routing de skills
+## AI Model Routing
 
-Usar skills bajo demanda.
+La Factory utiliza perfiles:
 
-### Bug, regresión o test fallido
+- ECONOMICAL
+- BALANCED
+- ADVANCED
 
-→ `systematic-debugging`
+No elegir un único modelo para todo el proyecto.
 
-Primero investigar causa raíz.
+- Project Discovery define `AI Policy`.
+- Cada requirement define `AI Strategy`.
+- Cada slice define `AI Execution Profile`.
 
-No aplicar fixes especulativos sucesivos.
+Resolver modelos concretos desde el catálogo actual de Factory.
 
-### SDK, API externa o framework sensible a versión
+No afirmar que se cambió de modelo si el runtime no lo permite.
 
-→ `source-driven-development`
+Escalar o hacer downgrade solo cuando la diferencia sea material.
 
-Consultar fuentes oficiales cuando una decisión dependa de comportamiento actual o versión.
+## Testing
 
-### API, endpoint o contrato
+Testing proporcional al perfil aprobado.
 
-→ `api-and-interface-design`
+## Evidence Before Completion
 
-### Decisión arquitectónica real
+No afirmar éxito sin evidencia reciente.
 
-→ `architecture-decision-framework`
-
-No utilizar para cambios simples.
-
-### UI
-
-→ Impeccable, si está instalado y aporta valor.
-
-→ browser testing cuando la verificación real de UI/interacción lo justifique.
-
-### Schema o datos
-
-→ `database-change-safety`, si está disponible.
-
-### Legacy o migración funcional
-
-→ `legacy-migration`, si está disponible.
-
-### Seguridad
-
-→ skill/review especializado únicamente cuando el riesgo, alcance o requerimiento lo justifique.
-
-### Tokens
-
-→ `token-optimization` únicamente cuando exista un problema real de contexto, costo o loops.
-
-No ejecutar todas las skills por defecto.
-
----
-
-## 6. Testing
-
-Aplicar testing proporcional al riesgo y al perfil aprobado.
-
-No exigir automáticamente:
-
-- regresión completa;
-- end-to-end;
-- performance;
-- seguridad;
-- carga;
-- concurrencia.
-
-Respetar `T1`, `T2` o `T3` cuando exista un perfil aprobado.
-
-No aumentar silenciosamente el nivel de testing.
-
----
-
-## 7. Evidence Before Completion
-
-No afirmar:
-
-- completado;
-- fixed;
-- funcionando;
-- build OK;
-- tests OK;
-- listo para merge;
-- listo para producción;
-
-sin evidencia reciente.
-
-Antes del cierre:
-
-1. ejecutar las validaciones necesarias cuando sea posible;
-2. revisar el resultado real;
-3. registrar evidencia relevante;
-4. actualizar `CLOSURE_BRIEF`;
-5. actualizar `STATE.md`.
-
-La confianza del agente no sustituye evidencia.
-
----
-
-## 8. Git
-
-Mantener cambios enfocados y revisables.
-
-Preferir:
-
-- branch por trabajo cuando corresponda;
-- commits pequeños y coherentes;
-- mensajes claros;
-- Pull Request para cambios relevantes;
-- `main` estable.
-
-No crear worktrees por defecto.
-
-Utilizarlos únicamente cuando el aislamiento o trabajo paralelo aporte valor concreto.
-
-No ejecutar operaciones destructivas sin autorización.
-
----
-
-## 9. Proyectos existentes
-
-La Factory se adapta al proyecto.
-
-No modificar el proyecto para adaptarlo innecesariamente a la Factory.
-
-Priorizar:
-
-- `KEEP`
-- `ADD`
-- `WRAP`
-- `IMPROVE`
-- `REPLACE_LATER`
-- `IGNORE`
+## Proyectos existentes
 
 Integrar antes que migrar.
 
-No reescribir stack, arquitectura, autenticación, base de datos o deployment sin evidencia y decisión aprobada.
+No reescribir stack o arquitectura sin necesidad y decisión aprobada.
+
+## Git
+
+Cambios enfocados y revisables.
+
+No worktrees por defecto.
+
+## Simplicidad
+
+No introducir herramientas o infraestructura sin justificar valor concreto.
+
 
 ---
 
-## 10. Complejidad
+## Guided AI Model Routing
 
-No agregar automáticamente:
+Antes de una fase/slice, aplicar la estrategia persistida y la skill `model-router` cuando corresponda.
 
-- dependencias;
-- herramientas;
-- agentes;
-- microservicios;
-- queues;
-- caches;
-- RAG;
-- vector databases;
-- nuevos proveedores;
-- infraestructura;
-- abstracciones genéricas;
+No asumir el modelo activo.
 
-sin justificar un valor concreto para el requerimiento actual.
+### Default de Factory
 
-Preferir la solución mínima que:
+BALANCED:
 
-1. cumpla el objetivo;
-2. sea mantenible;
-3. permita escalar cuando aparezca una necesidad real.
+**GPT-5.6 Terra (`gpt-5.6-terra`) / Medium**
+
+### Escalamiento
+
+Para tareas críticas, la Factory puede generar un AI Model Gate hacia:
+
+**GPT-5.6 Sol (`gpt-5.6-sol`) / High**
+
+Exceptional Override:
+
+**GPT-6 Astra (`gpt-6-astra`) / High o XHigh**
+
+solo cuando esté disponible y se justifique.
+
+### Guided Model Gate
+
+Si se necesita cambiar:
+
+1. indicar `/status` si existe duda;
+2. indicar `/model`;
+3. escribir nombre completo e ID exacto;
+4. indicar reasoning;
+5. indicar fallback;
+6. pedir que el usuario escriba `continuar`.
+
+No dejar al usuario decidir cómo proseguir.
+
+### Switch Threshold
+
+No cambiar de modelo por micro-optimizaciones.
+
+Gate solo con Switch Benefit HIGH y configuración suficiente todavía no confirmada para esta fase/sesión. No repetirlo por cada slice. Persistir recomendaciones, nunca el modelo activo de sesión.
+
+Downgrade únicamente en phase boundary si queda una fase sustancial y mecánica.
+
+### Review
+
+- N0: self verification
+- N1: self review
+- N2: `/review` cuando sea material
+- N3: review dedicado requerido cuando sea técnicamente posible; si no lo es, documentar causa y solicitar aprobación explícita de una alternativa antes del cierre.
+
+No confundir cambiar el modelo del chat con tener un review dedicado.
+
+Resolver alcance/base real del review y verificar sus resultados. Aplicar el límite de correcciones y salida de `workflow/08_IMPLEMENTATION_REVIEW.md` de la Factory; no entrar en ciclos ilimitados.

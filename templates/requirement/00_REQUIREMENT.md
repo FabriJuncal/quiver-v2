@@ -1,3 +1,32 @@
-# 00 REQUIREMENT
+# Requirement
 
-Completar mediante el workflow correspondiente.
+## Identificación
+
+- Ticket:
+- Title:
+- Source:
+- Date:
+
+## Requerimiento original
+
+-
+
+## Problema
+
+-
+
+## Usuario / actor
+
+-
+
+## Alcance solicitado
+
+-
+
+## Restricciones conocidas
+
+-
+
+## Fuera de alcance explícito
+
+-

@@ -32,7 +32,7 @@ No porque sean malas, sino porque son contextuales o duplican el core.
 
 ### Verification before completion
 
-Siempre activa como regla, no como skill separada.
+Siempre activa como regla. La skill core `closure-evidence` aporta el procedimiento reutilizable para reunir y persistir evidencia; no es necesario instalar otra skill de verificación duplicada.
 
 ### Code review
 

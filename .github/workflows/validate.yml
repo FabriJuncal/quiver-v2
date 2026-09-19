@@ -1,0 +1,48 @@
+name: Validate
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Validate shell syntax
+        run: |
+          for script in scripts/*.sh scripts/lib/*.sh; do
+            bash -n "$script"
+          done
+
+      - name: Validate required files
+        run: |
+          test -f FACTORY_VERSION.md
+          test -f workflow/00_SHARED_CONTRACT.md
+          test -f templates/PROJECT_STATE.md
+          grep -q "Guided Mode" workflow/00_SHARED_CONTRACT.md
+          grep -q "User action required" templates/PROJECT_STATE.md
+          test -f config/MODEL_CATALOG.md
+          grep -q "AI Policy" templates/PROJECT_PROFILE.md
+          grep -q "AI Strategy" templates/requirement/STATE.md
+          grep -q "AI Execution Profile" templates/slice/EXECUTION_BRIEF.md
+          grep -q "GPT-5.6 Luna" config/MODEL_CATALOG.md
+          grep -q "GPT-5.6 Terra" config/MODEL_CATALOG.md
+          grep -q "GPT-5.6 Sol" config/MODEL_CATALOG.md
+          grep -q "GPT-6 Astra" config/MODEL_CATALOG.md
+          grep -q "Switch Benefit" config/MODEL_CATALOG.md
+          test -f skills/core/model-router/SKILL.md
+          test -f docs/guides/GUIDED_MODEL_GATES.md
+          bash -n scripts/configure-model-profiles.sh
+
+      - name: Filesystem regression tests (isolated homes)
+        run: |
+          python3 -B -m unittest discover -s tests -v
