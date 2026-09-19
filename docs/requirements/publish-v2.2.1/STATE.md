@@ -1,7 +1,7 @@
 # Publicación v2.2.1
 
-- **Status:** in-progress
-- **Phase:** release verification
+- **Status:** completed
+- **Phase:** closure
 - **Risk level:** N1
 - **Workflow size:** compact
 - **Authorization:** usuario confirmó https://github.com/FabriJuncal/quiver-v2 y pidió publicarlo usando gh y su alias SSH personal; 2026-09-19.
@@ -21,14 +21,17 @@
 
 ## Estado
 
-- **Completed:** autenticación gh/SSH, remoto y main comprobados; inventario de cambios y búsqueda dirigida de secrets/rutas personales sin coincidencias en archivos activos.
-- **Pending:** pruebas de revisión, commit/push, CI, tag/release y comprobación final.
-- **Next action:** ejecutar suite local y comprobar la revisión exacta que se va a publicar.
-- **Why this is next:** el HEAD inicial no contiene scripts/configuración/skills nuevos; publicar ese HEAD omitiría la versión auditada.
-- **User action required:** false
-- **Expected output:** revisión versionada y validada lista para push.
-- **After this:** publicar y comprobar CI/release con gh.
+- **Completed:** versión completa subida a main; tag v2.2.1 publicado; CI macOS/Ubuntu exitoso; release publicada con ZIP y SHA-256; descarga remota idéntica al paquete probado.
+- **Release commit:** db1eb677c6b067751fbe66cb013fea0a79ebe688
+- **Release:** https://github.com/FabriJuncal/quiver-v2/releases/tag/v2.2.1
+- **Implementation review:** self review de diff, paquete y resultados externos; sin inferencias remotas ni reviewer independiente.
+- **Pending:** none dentro de la publicación autorizada; repositorio privado por decisión de preservar su configuración.
+- **Next action:** esperar un nuevo requirement del usuario.
+- **Why this is next:** publicación y verificación completadas; nuevas funciones o cambios de visibilidad requieren alcance explícito.
+- **User action required:** true, únicamente para iniciar otro trabajo.
+- **Expected output:** nueva petición concreta.
+- **After this:** capturar y ejecutar el nuevo alcance autorizado.
 - **Blocked by:** none
-- **Resume instruction:** consultar Git y gh para saber qué operaciones se completaron; no asumir estado externo desde el chat ni recrear una release/tag ya existente.
+- **Resume instruction:** consultar EVIDENCE.md; no recrear release/tag v2.2.1 ni moverlos. El commit posterior de cierre solo registra evidencia; no altera el contenido de la release.
 
 La validación de modelos/reasoning en una sesión con inferencia paga sigue fuera de esta publicación; no declarar ese soporte como comprobado por los tests de filesystem.
