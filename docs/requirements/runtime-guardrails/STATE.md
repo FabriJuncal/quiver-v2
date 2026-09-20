@@ -30,6 +30,14 @@
 Ver EVIDENCE.md para alcance, límites y verificación oficial. READY de implementación local,
 no publicación ni prueba de inferencia. No hay trabajo de implementación pendiente autorizado.
 
+## Publicación
+
+2026-09-20: usuario autorizó publicar. `main` y tag anotado `v2.2.2` apuntan a
+`20ea27ac33f92928f2e8ebe7a0c0cf4f14bd8a67`. Release creada con ZIP y checksum;
+digest del ZIP verificado por GitHub: `30b2ff08d6e6c5f5b47bbe94b493309f9367a36b38284ae622505e0dc2cd098a`.
+Los workflows Validate y Factory v2.2.2 Runtime Guardrails finalizaron `success`.
+Referencia: https://github.com/FabriJuncal/quiver-v2/releases/tag/v2.2.2
+
 ## AI Strategy
 
 Requested profile: BALANCED para implementación; review proporcional N2.

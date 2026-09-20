@@ -63,3 +63,11 @@ Implementation Reviewer y Closure Evidence exigieron diff/pruebas actuales y reg
 
 READY para instalar y realizar la prueba operativa indicada. No equivale a publicación ni
 garantía de comportamiento del runtime. No quedan findings obligatorios abiertos.
+
+## Publicación posterior
+
+Autorizada y realizada el 2026-09-20: commit/tag anotado `v2.2.2` en
+`20ea27ac33f92928f2e8ebe7a0c0cf4f14bd8a67`; release con ZIP y checksum.
+GitHub reportó el digest del ZIP como
+`sha256:30b2ff08d6e6c5f5b47bbe94b493309f9367a36b38284ae622505e0dc2cd098a`, igual al generado.
+CI Validate y Factory v2.2.2 Runtime Guardrails: success. Esto no verifica inferencia real.
