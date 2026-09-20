@@ -27,6 +27,8 @@ if [[ -f "$PROJECT/AGENTS.md" ]]; then
 
 Este repositorio utiliza AI Software Factory.
 
+Factory version: 2.2.2 (propuesta; integrar en AGENTS antes de declarar la capa actualizada).
+
 Antes de cambios significativos:
 - leer PROJECT_STATE.md;
 - leer requirement STATE.md activo;
@@ -34,6 +36,10 @@ Antes de cambios significativos:
 - avanzar hasta el próximo Decision Boundary;
 - no declarar éxito sin evidencia;
 - integrar antes que migrar.
+- aplicar Finalization Gate e invariants de workflow/00_SHARED_CONTRACT.md de la Factory canónica;
+- trabajo autorizado ejecutable + User action required false obliga a continuar en el mismo turno;
+- STATE prevalece sobre Conversation Recap; registrar contradicciones;
+- persistir runtime limitations, pendiente y reanudación exacta sin fingir cierre.
 EOF
     echo "CREATE: $snippet"
     echo "Discovery debe comparar este snippet con AGENTS.md, integrar solo reglas compatibles si está autorizado y registrar el resultado."

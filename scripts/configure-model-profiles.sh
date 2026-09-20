@@ -55,13 +55,15 @@ done
 
 echo
 echo "Uso recomendado:"
-echo "  codex --profile asf-balanced"
+echo "  asf balanced (agregá la carpeta scripts de Factory a PATH)"
+echo "Alternativa con perfiles: codex --profile asf-balanced"
 echo
 echo "Perfiles:"
-echo "  asf-economical  → GPT-5.6 Luna / Low"
-echo "  asf-balanced    → GPT-5.6 Terra / Medium"
-echo "  asf-advanced    → GPT-5.6 Sol / High"
-echo "  asf-exceptional → GPT-6 Astra / High"
+echo "  asf-economical  → GPT-5.6 Luna (gpt-5.6-luna) / Low"
+echo "  asf-balanced    → GPT-5.6 Terra (gpt-5.6-terra) / Medium"
+echo "  asf-advanced    → GPT-5.6 Sol (gpt-5.6-sol) / High"
+echo "  asf-exceptional → GPT-6 Astra (gpt-6-astra) / High"
 echo
 echo "La disponibilidad real depende de tu cuenta. /model es la fuente final."
-echo "Requiere Codex >= 0.134.0. Configuración del proyecto y flags pueden prevalecer: comprobá /status."
+echo "Requiere Codex >= 0.134.0. Configuración del proyecto y flags pueden prevalecer sobre --profile."
+echo "Si la tarea depende materialmente de esa selección: /status; si coincide, continuar; si difiere, pegá el resultado."

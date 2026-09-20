@@ -1,7 +1,7 @@
 {
   "name": "ai-software-factory",
-  "version": "2.2.1",
-  "codename": "Guided Model Routing",
+  "version": "2.2.2",
+  "codename": "Runtime Guardrails",
   "core_skills": [
     "closure-evidence",
     "context-scout",
@@ -16,6 +16,8 @@
   ],
   "scripts": [
     "adopt-project.sh",
+    "asf.sh",
+    "check-release.sh",
     "configure-model-profiles.sh",
     "doctor.sh",
     "init-project.sh",
@@ -37,6 +39,14 @@
     "per_requirement_ai_strategy",
     "per_slice_ai_profile",
     "reasoning_routing",
-    "switch_threshold"
+    "switch_threshold",
+    "finalization_gate",
+    "state_consistency_invariants",
+    "runtime_limitations",
+    "session_preflight",
+    "deterministic_launcher",
+    "project_layer_upgrade",
+    "agents_size_diagnostics",
+    "review_loop_guard"
   ]
 }

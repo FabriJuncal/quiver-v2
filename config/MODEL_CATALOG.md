@@ -1,5 +1,10 @@
 # Model Catalog
 
+v2.2.2 — Runtime Guardrails: este catálogo define REQUESTED PROFILE. EFFECTIVE SESSION CONFIG
+es unknown por defecto y solo se confirma en sesión cuando importa materialmente.
+Consultar [Session Preflight](../docs/guides/SESSION_PREFLIGHT.md) y
+[launcher determinista](../docs/guides/ASF_LAUNCHER.md); nunca introspectar ni persistir modelo activo.
+
 > Catálogo canónico de modelos para AI Software Factory.
 >
 > **Regla de UX:** en mensajes al usuario escribir siempre **nombre completo + ID exacto**.
@@ -18,7 +23,7 @@
 
 ## Estado del catálogo
 
-- **Last verified:** 2026-09-19
+- **Last verified:** 2026-09-20 (configuración oficial; disponibilidad por cuenta NO VERIFICADA)
 - **Target:** Codex CLI / Codex local
 - **Named profiles:** Codex >= 0.134.0; modelos disponibles dependen además de cuenta, proveedor y runtime
 - **Availability source of truth:** selector `/model` del runtime actual

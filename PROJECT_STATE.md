@@ -1,17 +1,19 @@
 # PROJECT_STATE
 
-- **Project:** AI Software Factory v2.2.1 — Guided Model Routing
-- **Status:** awaiting-next-request
-- **Current phase:** v2.2.1 published
+- **Project:** AI Software Factory v2.2.2 — Runtime Guardrails
+- **Status:** ready
+- **Current phase:** handoff
 - **Active requirement:** none
+- **Last completed requirement:** docs/requirements/runtime-guardrails/STATE.md
 - **Current slice:** none
-- **Completed:** correcciones F01–F14 y release v2.2.1 publicada en FabriJuncal/quiver-v2; CI macOS/Ubuntu exitoso y ZIP descargado con checksum verificado. Evidencia en docs/requirements/publish-v2.2.1/EVIDENCE.md.
-- **Pending:** none dentro del alcance autorizado. Validación paga de modelos y cambios de visibilidad no incluidos.
-- **Next action:** esperar un nuevo requirement del usuario.
-- **Why this is next:** implementación, pruebas y publicación autorizadas están completadas.
-- **User action required:** true, únicamente para iniciar otro trabajo.
-- **Decision required:** none para la release actual; repositorio privado preservado.
-- **Expected output:** nueva petición concreta.
-- **After this:** capturar el alcance nuevo y aplicar workflow proporcional.
+- **Completed:** v2.2.2 implementada, 44 pruebas macOS OK y check-release PASS; evidencia en docs/requirements/runtime-guardrails/EVIDENCE.md. Evidencia 2.2.1 preservada en su requirement histórico.
+- **Pending:** instalación personal y prueba operativa del usuario; sin implementación pendiente.
+- **Next action:** ejecutar install.sh, configure-model-profiles.sh y doctor.sh; actualizar nuevo-proyecto con el prompt de UPGRADE_2_2_1_TO_2_2_2.md.
+- **Why this is next:** distribución validada; el reporte solicitado entrega comandos al usuario para actualizar su instalación/proyecto.
+- **User action required:** true
+- **Decision required:** none; conservar visibilidad privada, sin force-push.
+- **Expected output:** integración v2.2.2 instalada y continuidad de la slice activa comprobada en sesión real.
+- **After this:** atender resultados operativos o nuevo requirement; no publicar release sin autorización específica.
 - **Blocked by:** none
-- **Resume instruction:** leer docs/requirements/publish-v2.2.1/STATE.md y EVIDENCE.md. No repetir publicación ni modificar el tag v2.2.1; esperar nuevo alcance.
+- **Runtime limitation:** none
+- **Resume instruction:** leer runtime-guardrails/EVIDENCE.md y guía de upgrade; no repetir implementación completa ni retomar publicación histórica automáticamente. Publicación v2.2.1 conserva estado no reconciliado, fuera del alcance actual.

@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.2.2 — Runtime Guardrails
+
+- Finalization Gate canónico impide cierres con trabajo autorizado ejecutable; cuatro invariants de estado.
+- Prioridad evidencia → STATE → proyecto → artifacts/docs → recap/chat; recuperación explícita de contradicciones.
+- Runtime limitations separadas de blockers funcionales, con pendiente y reanudación exacta.
+- Requested profile separado de effective session config unknown; Session Preflight condicional.
+- Launcher `asf` con overrides CLI de modelo/reasoning, dry-run, argumentos seguros y fallos guiados.
+- Precedencia Codex y límite AGENTS verificados oficialmente; doctor de tamaños, conflictos, versiones y estados.
+- Upgrade conservador 2.2.1 → 2.2.2; metadata versionada en proyectos y AGENTS.
+- Bloque global reducido, Review Loop Guard con IDs estables y presupuesto existente justificado.
+- Pruebas temporales ampliadas y CI macOS/Linux; sin servicios, orquestación ni switching invisible.
+
 ## 2.2.1 — Guided Model Routing
 
 ### Fixed

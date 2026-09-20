@@ -4,6 +4,10 @@ AI Software Factory incluye configuraciones opcionales para iniciar sesiones con
 
 No son obligatorias.
 
+Para fijar la configuración de inicio por encima de overrides del proyecto, usar
+[asf balanced](ASF_LAUNCHER.md). Un perfil representa REQUESTED PROFILE, no prueba
+EFFECTIVE SESSION CONFIG. [Session Preflight](SESSION_PREFLIGHT.md) es condicional.
+
 Requieren **Codex >= 0.134.0**, versión que adoptó archivos de perfil separados. Comprobar con `codex --version`; `doctor.sh` detecta clientes anteriores. [Documentación oficial](https://learn.chatgpt.com/docs/config-file/config-advanced#profiles).
 
 ## Instalar
@@ -31,7 +35,7 @@ No modifica `~/.codex/config.toml`.
 codex --profile asf-economical
 ```
 
-Usa:
+Solicita (sujeto a precedencia):
 
 **GPT-5.6 Luna (`gpt-5.6-luna`) / Low**
 
@@ -41,7 +45,7 @@ Usa:
 codex --profile asf-balanced
 ```
 
-Usa:
+Solicita (sujeto a precedencia):
 
 **GPT-5.6 Terra (`gpt-5.6-terra`) / Medium**
 
@@ -55,7 +59,7 @@ y configura review con:
 codex --profile asf-advanced
 ```
 
-Usa:
+Solicita (sujeto a precedencia):
 
 **GPT-5.6 Sol (`gpt-5.6-sol`) / High**
 
@@ -65,7 +69,7 @@ Usa:
 codex --profile asf-exceptional
 ```
 
-Usa:
+Solicita (sujeto a precedencia):
 
 **GPT-6 Astra (`gpt-6-astra`) / High**
 
@@ -98,6 +102,10 @@ Factory no cambia este archivo automáticamente porque es una preferencia person
 ---
 
 # Prioridad de configuración
+
+Orden completo verificado: CLI/`--config` > proyecto confiable (más cercano) > archivo de
+perfil > config usuario > defaults cloud > sistema > defaults integrados. Ver
+[referencia oficial y límites](../references/OPENAI_CODEX_MODEL_ROUTING.md).
 
 Los flags CLI pueden sobrescribir perfiles.
 

@@ -1,5 +1,22 @@
 # File Index
 
+AI Software Factory v2.2.2 — Runtime Guardrails
+
+## Runtime Guardrails
+
+- `docs/guides/RUNTIME_GUARDRAILS.md`
+- `docs/guides/SESSION_PREFLIGHT.md`
+- `docs/guides/ASF_LAUNCHER.md`
+- `docs/guides/UPGRADE_2_2_1_TO_2_2_2.md`
+- `docs/troubleshooting/PREMATURE_STOP.md`
+- `docs/troubleshooting/PROFILE_MISMATCH.md`
+- `docs/references/OPENAI_CODEX_MODEL_ROUTING.md`
+- `scripts/asf` / `scripts/asf.sh`
+- `scripts/lib/runtime_doctor.py`
+- `scripts/check-release.sh` / `.github/workflows/ci.yml`
+- `tests/test_runtime_guardrails.py`
+- `docs/requirements/runtime-guardrails/STATE.md`
+
 ## Primeros pasos
 
 - `README.md`

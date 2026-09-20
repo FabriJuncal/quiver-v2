@@ -2,6 +2,8 @@
 
 Este proyecto utiliza AI Software Factory.
 
+Factory version: 2.2.2
+
 Las instrucciones específicas de este repositorio tienen prioridad sobre recomendaciones genéricas de Factory.
 
 ## Inicio
@@ -13,6 +15,9 @@ Antes de cambios significativos:
 3. leer su `STATE.md`;
 4. cargar solo contexto necesario;
 5. usar skills específicas si aplican.
+
+Consultar `workflow/00_SHARED_CONTRACT.md` de la instalación canónica indicada en AGENTS
+global. Si esa ruta falta, informar la limitación y cómo restaurarla; no buscar otra copia.
 
 ## Guided Mode
 
@@ -26,7 +31,11 @@ Si no necesita al usuario:
 ACCIÓN DEL USUARIO: ninguna
 ```
 
-y continuar.
+y ejecutar la próxima acción en el mismo turno. Es continuidad, nunca frase de cierre.
+
+Aplicar **Finalization Gate** y **State Consistency Invariants** del contrato canónico:
+trabajo activo autorizado + usuario false + sin impedimento real => PROHIBIDO FINALIZAR.
+Registrar runtime limitation explícita cuando corresponda, con pendiente y reanudación exacta.
 
 Si necesita decisión:
 
@@ -39,6 +48,11 @@ y explicar qué ocurre, por qué requiere al usuario, acción/comando exactos, o
 La ausencia de Model Gate no elimina otros boundaries. Verificar criterios, aprobación humana del plan y autorización de ejecución por separado; no repetir aprobaciones explícitas vigentes ni inferirlas de un `continuar` ajeno a ese gate.
 
 ## Estado persistente
+
+Jerarquía de evidencia: código/evidencia real > requirement STATE > PROJECT_STATE >
+artifacts aprobados > docs de proyecto > Conversation Recap > historial del chat.
+Aplicar `docs/concepts/SOURCE_OF_TRUTH.md`: si recap contradice STATE, ignorar recap,
+registrar inconsistencia y continuar desde STATE verificado. No editar recap ni usarlo para cerrar.
 
 Mantener:
 

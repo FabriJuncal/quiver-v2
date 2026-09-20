@@ -2,6 +2,11 @@
 
 Guided Mode es la experiencia por defecto.
 
+Aplicar [Finalization Gate e invariants](../../workflow/00_SHARED_CONTRACT.md#finalization-gate--canónico)
+antes de toda respuesta final. `ACCIÓN DEL USUARIO: ninguna` es una instrucción de continuidad,
+no una frase de cierre: debe seguir ejecución real en el mismo turno. Si un límite del runtime
+impide avanzar, usar estado explícito y reanudación exacta de [Runtime Guardrails](RUNTIME_GUARDRAILS.md).
+
 La Factory debe:
 
 1. saber dónde está;

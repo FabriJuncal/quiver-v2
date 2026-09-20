@@ -79,6 +79,21 @@ Downgrade only at meaningful phase boundaries when substantial mechanical work r
 
 ## Runtime model
 
+Distinguish REQUESTED PROFILE (Factory recommendation) from EFFECTIVE SESSION CONFIG
+(model/reasoning actually used, **unknown by default**). Do not introspect or infer runtime
+identity from config files, launch intent, project state or your own generated text.
+
+Recommend `asf balanced` (or the resolved profile) for deterministic startup overrides;
+see `../../../docs/guides/ASF_LAUNCHER.md`. This does not establish model availability.
+Use `../../../docs/guides/SESSION_PREFLIGHT.md` only when configuration materially affects
+the next task; normal work continues without interruption. Reuse confirmed configuration
+within the same session/phase, never store it as project truth.
+
+Missing required capability/model is a runtime limitation, not a product blocker. Follow
+the canonical contract for evidence, pending work and exact resume instructions. A HIGH
+Switch Benefit gate with unresolved material need sets user action true; otherwise apply
+the Finalization Gate and execute the next authorized action in the same turn.
+
 Never infer the active model as project truth.
 
 If a gate requires verification:

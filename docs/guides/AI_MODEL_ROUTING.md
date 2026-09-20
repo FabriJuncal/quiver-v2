@@ -1,5 +1,11 @@
 # AI Model Routing
 
+En v2.2.2 se distingue REQUESTED PROFILE de EFFECTIVE SESSION CONFIG (unknown por defecto).
+No asumir coincidencia ni introspectar modelo. [Session Preflight](SESSION_PREFLIGHT.md) solo
+interrumpe por necesidad material; [asf](ASF_LAUNCHER.md) ofrece overrides deterministas de inicio.
+Aplicar Finalization Gate del contrato: toda aparición de `ACCIÓN DEL USUARIO: ninguna` en
+estos ejemplos es una actualización seguida de ejecución, nunca cierre con trabajo pendiente.
+
 AI Software Factory gestiona modelos de forma **guiada**, no automática.
 
 La Factory:
@@ -62,7 +68,7 @@ Ejemplo:
 Perfil requerido:
 BALANCED — GPT-5.6 Terra (gpt-5.6-terra) / Medium
 
-El perfil actual no necesita intervención para esta etapa.
+Esta etapa no depende materialmente de verificar la configuración efectiva.
 
 ACCIÓN DEL USUARIO: ninguna
 
@@ -147,7 +153,7 @@ no afirmar que el modelo cambió por introspección.
 
 Interpretar la respuesta como confirmación del usuario de que completó el gate.
 
-Responder:
+Mostrar como actualización, seguida de ejecución real:
 
 ```text
 AI MODEL GATE confirmado.

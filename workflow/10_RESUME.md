@@ -2,6 +2,13 @@
 
 Reanudar sin depender del chat.
 
+Aplicar la jerarquía de [Source of Truth](../docs/concepts/SOURCE_OF_TRUTH.md) y el
+[Finalization Gate e invariants](00_SHARED_CONTRACT.md#finalization-gate--canónico).
+Leer primero STATE; comparar después Conversation Recap. Una contradicción se registra en
+STATE y se ignora el recap. Nunca inferir «sin pendientes» si existe una slice activa.
+Verificar `Runtime limitation`, conservar pendiente/reanudación y limpiarla solo con evidencia
+de resolución. No confundir límites del runtime con blockers del producto.
+
 ## 1. Estado general
 
 Leer:

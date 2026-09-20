@@ -23,13 +23,17 @@ Todo PR debería:
 - mantener compatibilidad con proyectos existentes;
 - evitar dependencias nuevas salvo necesidad;
 - actualizar docs si cambia UX;
-- ejecutar:
+- ejecutar con Python >= 3.11 (en macOS puede llamarse `python3.14`):
 
 ```bash
-for script in scripts/*.sh scripts/lib/*.sh; do bash -n "$script"; done
+bash scripts/check-release.sh
 python3 -B -m unittest discover -s tests -v
 ./scripts/doctor.sh
 ```
+
+La suite usa HOME/directorios temporales y Codex simulado; no prueba inferencia ni toca
+configuración personal. El doctor final usa instalación real y puede informar warnings de
+actualización. No interpretar esos warnings como disponibilidad verificada de modelos.
 
 ## Skills
 

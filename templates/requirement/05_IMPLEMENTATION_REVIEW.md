@@ -19,6 +19,12 @@
 
 Pendiente de revisión. Separar hallazgos obligatorios y opcionales; no preaprobar el template.
 
+| ID estable | Obligatorio/opcional | Evidencia | Estado | Corrección | Verificación de cierre |
+|---|---|---|---|---|---|
+
+Aplicar Review Loop Guard de workflow/08_IMPLEMENTATION_REVIEW.md: review inicial + una
+ronda dirigida; re-review de pendientes/áreas cambiadas. No reabrir cerrados sin nueva evidencia.
+
 ## Verdict
 
 - Status:

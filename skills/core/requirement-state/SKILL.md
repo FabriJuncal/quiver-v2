@@ -25,6 +25,7 @@ Required fields:
 - After this
 - Blocked by
 - Resume instruction
+- Runtime limitation (none by default; type/evidence/pending/resume when present)
 
 Never write:
 
@@ -34,6 +35,12 @@ when a concrete step can be derived.
 
 Guided Mode:
 if user action is false, continue until the next Decision Boundary.
+
+Before any final response apply the canonical **Finalization Gate** and all four
+**State Consistency Invariants** in `../../../workflow/00_SHARED_CONTRACT.md`.
+An active slice requires a concrete Next action. Read persisted STATE before recap;
+record contradictions and ignore recap. Never finish with user action false and executable
+approved work. Record real runtime limitations separately from product blockers.
 
 ## AI Strategy
 

@@ -1,5 +1,10 @@
 # Configuración de Codex
 
+v2.2.2 — Runtime Guardrails. Para inicio determinista de modelo/reasoning usar
+[asf balanced](ASF_LAUNCHER.md); `--profile` queda por debajo de la configuración del proyecto.
+La [precedencia oficial verificada](../references/OPENAI_CODEX_MODEL_ROUTING.md) distingue
+intención de inicio de configuración efectiva, unknown por defecto.
+
 La forma recomendada es utilizar:
 
 ```bash
@@ -13,6 +18,11 @@ El instalador administra un bloque marcado dentro de:
 ```
 
 No reemplaza el resto del archivo.
+
+El bloque global conserva solo ruta, reglas críticas y referencias al contrato. Doctor mide
+AGENTS global/proyecto y estima la cadena relevante; advierte al 80% del límite de referencia.
+Detalle en [Runtime Guardrails](RUNTIME_GUARDRAILS.md). Texto personal fuera del bloque se
+preserva: su simplificación requiere revisar y conservar reglas únicas, no borrar automáticamente.
 
 ## Verificar
 

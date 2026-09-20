@@ -6,6 +6,9 @@ El repositorio del proyecto es la fuente de verdad.
 
 El chat no es memoria persistente.
 
+Jerarquía canónica: [Source of Truth](../docs/concepts/SOURCE_OF_TRUTH.md).
+STATE prevalece sobre Conversation Recap; el recap es contexto auxiliar y nunca prueba de cierre.
+
 ## Principios
 
 - proporcionalidad al alcance/riesgo;
@@ -29,6 +32,67 @@ Antes de detenerse:
 4. determinar si necesita al usuario;
 5. continuar si no requiere decisión;
 6. actualizar estado.
+
+## Finalization Gate — canónico
+
+Antes de emitir cualquier respuesta final, evaluar contra estado y evidencia:
+
+```text
+requirement activo
+AND (slice activa OR próxima acción pendiente)
+AND User action required = false
+AND no blocker real
+AND próxima acción dentro del alcance aprobado
+AND runtime permite continuar
+=> PROHIBIDO FINALIZAR: ejecutar Next action en el mismo turno.
+```
+
+Cerrar una slice no cierra el requirement: activar y ejecutar la siguiente autorizada.
+También continuar acciones autorizadas de discovery o proyecto sin requirement creado.
+No basta anunciar «continúo»: debe seguir una acción efectiva, herramientas o elaboración
+del artefacto requerido, antes de evaluar otra vez este gate.
+
+Solo finalizar por requirement completado (sin otro trabajo autorizado pendiente),
+Decision Boundary real, `User action required = true`, blocker real, próxima acción
+fuera de alcance, limitación real del runtime u operación irreversible que requiere aprobación.
+No inventar límites, blockers ni decisiones para justificar un cierre.
+
+`ACCIÓN DEL USUARIO: ninguna` es una instrucción de continuidad, no una frase de cierre.
+Usarla en actualizaciones seguidas de ejecución; para un cierre por limitación usar el
+estado explícito siguiente, nunca esa frase como última línea.
+
+## State Consistency Invariants — canónicas
+
+1. **INVARIANT 1:** si `requirement.status != completed` y existe trabajo activo/pendiente,
+   `Next action` MUST existir y ser concreta.
+2. **INVARIANT 2:** si `User action required = false`, el agente MUST ejecutar `Next action`,
+   registrar un blocker real o registrar una runtime limitation. Nunca simplemente detenerse.
+3. **INVARIANT 3:** si `slice.status = active`, el requirement NO puede declararse sin próximos
+   pasos ni completado; reconciliar primero evidencia y estado.
+4. **INVARIANT 4:** Conversation Recap nunca sobrescribe estado persistido. Leer STATE antes
+   de reanudar; si contradice el recap, ignorar el recap, registrar la inconsistencia en STATE
+   y continuar desde STATE contrastado con evidencia. No editar el recap del runtime.
+
+Validar al cambiar fase, cerrar/activar slice y antes de responder. Si falta un campo derivable,
+repararlo con evidencia y continuar; preguntar solo por información o autorización material faltante.
+
+## Runtime limitation
+
+Campo explícito separado de `Blocked by` (bloqueo funcional del producto):
+
+`none | context-limit | tool-failure | permission | unavailable-model | unavailable-runtime-capability | other`
+
+Ante una limitación real, persistir tipo, evidencia/causa, trabajo pendiente, `Next action`,
+`Resume instruction` con comando/prompt exacto y si requiere intervención humana.
+`User action required` refleja la intervención real, no se vuelve true automáticamente.
+Si aún queda trabajo autorizado independiente ejecutable, continuarlo antes de finalizar.
+Si no se puede escribir STATE, informar archivo/campos pendientes y prompt de recuperación;
+no afirmar que se persistió. Una compacción prevista sin impedimento real no autoriza detenerse.
+
+Cierre por limitación: `ESTADO: PAUSADO POR RUNTIME`, tipo y causa, pendiente y pasos exactos.
+Si requiere usuario: `ACCIÓN DEL USUARIO: requerida` y acción concreta; si el runtime puede
+reanudar solo: `REANUDACIÓN: automática` con el mecanismo real. No prometer automatismos inexistentes.
+En la nueva sesión verificar si la limitación sigue vigente, limpiarla si se resolvió y aplicar este gate.
 
 ## Decision Boundaries
 
@@ -105,6 +169,7 @@ Todo estado activo debe indicar:
 - `After this`;
 - `Blocked by`;
 - `Resume instruction`.
+- `Runtime limitation` (por defecto `none`; incluir detalle si no es none).
 
 Persistir por separado aprobación del reviewer, aprobación humana del plan y autorización de ejecución, vinculadas a la versión/alcance correspondiente. Una aprobación no equivale automáticamente a las otras. Puede registrarse autorización de ejecución ya contenida en la petición original.
 
@@ -128,6 +193,13 @@ AI Software Factory utiliza perfiles abstractos de capacidad:
 - `ADVANCED`
 
 Persistir perfiles como estrategia normativa en el STATE del requirement. Los nombres/IDs pueden guardarse como recomendaciones resueltas con fecha de catálogo; no son verdad sobre la sesión. Decisión y plan referencian la estrategia, y las slices registran solo excepciones relevantes.
+
+`REQUESTED PROFILE` es intención de Factory. `EFFECTIVE SESSION CONFIG` es modelo/reasoning
+efectivamente usados por Codex, **unknown por defecto**: ni archivos ni launcher prueban ejecución
+real. No introspección del agente ni persistencia del modelo activo como verdad de proyecto.
+Usar [Session Preflight](../docs/guides/SESSION_PREFLIGHT.md) solo cuando la próxima tarea dependa
+materialmente de esa configuración; tareas normales continúan sin interrumpir. Recomendar
+[launcher](../docs/guides/ASF_LAUNCHER.md) para inicio determinista de la configuración solicitada.
 
 El mapeo a modelos actuales vive en:
 

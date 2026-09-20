@@ -1,5 +1,25 @@
 # AI Software Factory
 
+AI Software Factory v2.2.2 — Runtime Guardrails
+
+Inicio determinista desde la carpeta de Factory:
+
+```bash
+ASF_ROOT="$(pwd -P)"
+./scripts/install.sh
+export PATH="$ASF_ROOT/scripts:$PATH"
+asf balanced
+```
+
+Alternativa con perfiles instalados: `codex --profile asf-balanced` (la configuración del
+proyecto puede prevalecer). Ver [Quick Start](QUICK_START.md) para instalación, init/adopt y
+[upgrade de proyectos](docs/guides/UPGRADE_2_2_1_TO_2_2_2.md).
+
+Runtime Guardrails agrega continuidad obligatoria, prioridad de STATE sobre recap y diagnóstico
+de configuración/estado. `ACCIÓN DEL USUARIO: ninguna` exige ejecución en el mismo turno.
+El [contrato canónico](workflow/00_SHARED_CONTRACT.md) define excepciones reales; las instrucciones
+no pueden garantizar obediencia del modelo ni evitar que el runtime interrumpa un proceso.
+
 **AI Software Factory** es un workflow liviano y reutilizable para crear y evolucionar software con agentes de IA sin convertir cada repositorio en una colección de prompts, documentos y automatizaciones difíciles de mantener.
 
 Funciona con:
@@ -32,7 +52,7 @@ La Factory aporta **método, estado persistente, planificación proporcional, re
 
 ## Instalación rápida
 
-Requisitos: Bash, Git y Codex CLI **>= 0.134.0** para los perfiles incluidos. Python >= 3.11 es opcional para que doctor valide TOML; no es necesario para instalar.
+Requisitos: Bash, Git y Codex CLI **>= 0.134.0** para los perfiles incluidos. Python >= 3.11 habilita diagnóstico completo de TOML, estados y tamaños; no es necesario para instalar ni lanzar.
 
 Repositorio: [FabriJuncal/quiver-v2](https://github.com/FabriJuncal/quiver-v2). Si tenés acceso al repositorio, podés obtenerlo con GitHub CLI:
 
@@ -41,7 +61,7 @@ gh repo clone FabriJuncal/quiver-v2
 cd quiver-v2
 ```
 
-También podés descargar el ZIP de la [release v2.2.1](https://github.com/FabriJuncal/quiver-v2/releases/tag/v2.2.1). Dentro de la carpeta clonada o extraída:
+Usá la distribución v2.2.2 verificada o consultá las [releases publicadas](https://github.com/FabriJuncal/quiver-v2/releases). Dentro de la carpeta clonada o extraída, comprobá FACTORY_VERSION.md antes de instalar:
 
 ```bash
 ASF_ROOT="$(pwd -P)"
@@ -158,7 +178,7 @@ Empezá por:
 
 Esta versión corresponde a:
 
-**AI Software Factory 2.2.1 — Guided Model Routing**
+**AI Software Factory v2.2.2 — Runtime Guardrails**
 
 Ver [`FACTORY_VERSION.md`](FACTORY_VERSION.md).
 

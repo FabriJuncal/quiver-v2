@@ -35,32 +35,20 @@ Instalación canónica:
 
 \`$ROOT\`
 
-Utilizo AI Software Factory como metodología reutilizable para proyectos nuevos y existentes.
+Factory version: 2.2.2
 
-Reglas globales:
-
-- la Factory se adapta al proyecto;
-- el repositorio actual es la fuente de verdad;
-- el chat no es memoria persistente;
-- cargar únicamente contexto relevante;
-- integrar antes que migrar;
-- no introducir capacidades SaaS si el producto no las necesita;
-- utilizar Guided Mode;
-- avanzar automáticamente hasta el próximo Decision Boundary;
-- no preguntar "¿Cómo continuamos?" cuando la siguiente acción pueda derivarse del estado;
-- cuando no se requiera decisión: \`ACCIÓN DEL USUARIO: ninguna\` y continuar;
-- mantener \`PROJECT_STATE.md\` y requirement \`STATE.md\` con próxima acción explícita;
-- testing proporcional al riesgo;
-- AI Model Routing guiado: usar Model Gates solo cuando Switch Benefit sea HIGH;
-- escribir siempre nombre completo + ID exacto de modelo;
-- no asumir el modelo activo de la sesión;
-- evidencia antes de afirmar éxito;
-- skills bajo demanda;
-- utilizar AI Model Routing por perfiles ECONOMICAL / BALANCED / ADVANCED;
-- no fijar un único modelo para todo el proyecto;
-- resolver perfiles concretos desde el catálogo central y configuración disponible;
-- no afirmar cambios de modelo que el runtime no haya realizado;
-- no usar worktrees, parallel agents, auditorías completas o infraestructura adicional por defecto.
+- La Factory se adapta al proyecto: integrar antes que migrar; contexto/skills bajo demanda.
+- Guided Mode: ejecutar trabajo autorizado hasta un Decision Boundary real.
+- Finalization Gate: con trabajo pendiente ejecutable y usuario false, PROHIBIDO FINALIZAR.
+  \`ACCIÓN DEL USUARIO: ninguna\` exige continuar en el mismo turno; no es cierre.
+- Source of Truth: evidencia/código > requirement STATE > PROJECT_STATE > artifacts aprobados
+  > docs > Conversation Recap > chat. Registrar contradicciones; STATE vence al recap.
+- Mantener próxima acción, motivo, usuario requerido, resultado, después y reanudación;
+  registrar limitaciones reales de runtime por separado. Evidencia antes de afirmar éxito.
+- Testing proporcional; sin infraestructura, worktrees ni multi-agent por defecto.
+- Routing: ECONOMICAL / BALANCED / ADVANCED desde config/MODEL_CATALOG.md;
+  nombre completo + ID exacto. Perfil solicitado no prueba modelo/reasoning activo.
+  Session Preflight solo por necesidad material; Model Gate solo con Switch Benefit HIGH.
 
 Cuando un proyecto use AI Software Factory:
 

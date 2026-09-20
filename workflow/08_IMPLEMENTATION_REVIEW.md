@@ -84,6 +84,38 @@ Validar:
 
 No reabrir arquitectura aprobada sin evidencia nueva.
 
+## Review Loop Guard
+
+Asignar IDs estables `F01`, `F02`… con severidad, evidencia, estado, cambio de corrección y
+verificación de cierre. Conservar IDs entre sesiones. Re-review limitado a findings pendientes
+y áreas modificadas; no reabrir un finding cerrado sin nueva evidencia concreta, registrada
+bajo su mismo ID. No reiniciar el contador al cambiar de sesión, reviewer o modelo.
+
+Default: review inicial + **una ronda dirigida de corrección y re-review**. Se conserva el límite
+de v2.2.1: una ronda permite comprobar la hipótesis de solución; reiteración de obligatorios
+indica que hace falta una decisión o investigación distinta, y evita gasto sin convergencia.
+No limita los tests/debugging de implementación antes del review formal. Extender el presupuesto
+solo por decisión explícita, con alcance y nuevo límite persistidos.
+
+Si quedan obligatorios al agotar esa ronda:
+
+```text
+REVIEW ESCALATION
+Los mismos findings siguen reapareciendo: [IDs y evidencia]; o siguen sin resolver: [IDs].
+ACCIÓN DEL USUARIO: requerida
+
+Opciones:
+A. Autorizar una investigación dirigida de [causa concreta] y una ronda adicional.
+   Tiempo/complejidad/consumo IA: mayor que B; permite conservar el alcance.
+B. Pausar este requirement y resolver [dato o dependencia concreta] mediante [acción exacta].
+   Menor consumo inmediato; demora la entrega. No cierra findings ni elimina criterios.
+Recomendación: [A o B, sustentada en evidencia].
+RESPUESTA SIMPLE: A
+```
+
+Adaptar opciones al problema real, sin inventar alternativas. Persistir Decision Boundary y
+`User action required: true`. Finalization Gate permite esta escalación; nunca cierre falso.
+
 Estados:
 
 - APROBADO

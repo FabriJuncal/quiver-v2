@@ -46,7 +46,7 @@
 
 ## AI / Factory
 
-- Factory version: 2.2.1 — Guided Model Routing
+- Factory version: 2.2.2
 - Knowledge tooling: none | graphify | codebase-memory
 - Notes:
 

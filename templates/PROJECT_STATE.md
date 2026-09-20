@@ -44,6 +44,8 @@
 - **Expected output:** PROJECT_PROFILE, CAPABILITY_MAP y este estado completados con evidencia y preguntas bloqueantes concretas.
 - **After this:** capturar el primer requirement indicado por el usuario o presentar la decisión de producto que falte; no inventar trabajo.
 - **Blocked by:** none
+- **Runtime limitation:** none
+- **Runtime limitation detail:** none; si ocurre, registrar causa/evidencia y trabajo pendiente.
 
 ## Reanudación
 
@@ -70,3 +72,4 @@
 -
 
 > Mantener este documento como presente operativo, no como historial completo.
+> Validar Finalization Gate e invariants de workflow/00_SHARED_CONTRACT.md antes de finalizar.

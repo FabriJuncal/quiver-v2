@@ -1,3 +1,2 @@
 # Historical update bundles must never be applied to the current release.
 docs/archive export-ignore
-.github export-ignore

@@ -88,6 +88,8 @@
 - **Expected output:**
 - **After this:**
 - **Blocked by:** none
+- **Runtime limitation:** none
+- **Runtime limitation detail:** none; si ocurre, causa/evidencia, pendiente y reanudación exacta.
 
 ## Decision Boundary
 
@@ -113,3 +115,4 @@
 -
 
 > Evitar `Next action: revisar qué hacer`.
+> Validar Finalization Gate e invariants del contrato canónico: slice activa implica Next action.

@@ -23,18 +23,18 @@ Un futuro starter de SaaS sí puede ser un GitHub Template separado.
 
 ## Release
 
-Primera release sugerida:
+Release objetivo (requiere autorización separada de implementación):
 
 ```text
-v2.2.1
+v2.2.2
 ```
 
 Tag:
 
 ```bash
 git status --porcelain
-git tag v2.2.1
-git archive --format=zip --output=../ai-software-factory-v2.2.1.zip v2.2.1
+git tag v2.2.2
+git archive --format=zip --output=../ai-software-factory-v2.2.2.zip v2.2.2
 ```
 
 El primer comando debe estar vacío y el commit debe contener todos los archivos probados, incluidos scripts/config/skills. Probar el ZIP extraído en un directorio temporal. `.gitattributes` excluye material histórico del export.

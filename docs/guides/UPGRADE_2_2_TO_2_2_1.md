@@ -1,5 +1,8 @@
 # Upgrade 2.2.0 → 2.2.1
 
+Guía histórica de esa transición. Para llegar a la versión actual, aplicar después
+[2.2.1 → 2.2.2](UPGRADE_2_2_1_TO_2_2_2.md) sin perder metadata ni estados existentes.
+
 La versión 2.2.1 corrige y completa AI Model Routing.
 
 ## Cambios

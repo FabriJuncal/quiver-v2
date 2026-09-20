@@ -1,5 +1,16 @@
 # Release Checklist
 
+Target: AI Software Factory v2.2.2 — Runtime Guardrails. No confundir validación local con publicación.
+
+- [ ] `bash scripts/check-release.sh`: versiones, archivos, mappings, instrucciones y rutas.
+- [ ] Launcher: cuatro dry-runs, argv literal, espacios, Codex ausente y modelo rechazado simulado.
+- [ ] Doctor: activo sin next action falla; activo/false/con next action pasa; no escrituras.
+- [ ] Metadata init/adopt 2.2.2; capa 2.2.1 detectada, sin upgrade silencioso.
+- [ ] Tamaños AGENTS/override/cap configurable y conflictos de configuración verificados.
+- [ ] Finalization Gate/invariants y Review Loop Guard canónicos referenciados.
+- [ ] Upgrade conserva criterios, decisiones, código y slices cerradas.
+- [ ] Prueba manual real de continuidad S04 → S05 y `/status`, separada de tests estáticos.
+
 - [ ] `FACTORY_VERSION.md` actualizado.
 - [ ] `config/MODEL_CATALOG.md` actualizado/revisado.
 - [ ] AI Policy / AI Strategy / AI Execution Profile validados.

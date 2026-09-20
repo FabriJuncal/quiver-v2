@@ -51,3 +51,7 @@ Solo proponer downgrade al comenzar una fase sustancial y mecánica con Switch B
 No declarar terminado sin evidencia.
 
 Si quedan slices aprobadas y no existe Decision Boundary, continuar.
+
+Aplicar Finalization Gate de `00_SHARED_CONTRACT.md`: activar la siguiente slice autorizada
+y ejecutar su Next action en el mismo turno. Un cierre de slice no habilita cierre prematuro
+del turno. Si el runtime lo impide, registrar limitación real y reanudación exacta.

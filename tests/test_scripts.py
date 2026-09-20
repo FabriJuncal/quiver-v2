@@ -71,7 +71,7 @@ class Scripts(unittest.TestCase):
 
     def test_manifest_matches_shipped_resources(self):
         manifest = json.loads((ROOT / 'MANIFEST.json').read_text())
-        self.assertEqual(manifest['version'], '2.2.1')
+        self.assertEqual(manifest['version'], '2.2.2')
         self.assertIn('**Version:** ' + manifest['version'], (ROOT / 'FACTORY_VERSION.md').read_text())
         self.assertEqual(sorted(manifest['scripts']), sorted(p.name for p in (ROOT / 'scripts').glob('*.sh')))
         self.assertEqual(sorted(manifest['core_skills']),
@@ -97,6 +97,9 @@ class Scripts(unittest.TestCase):
             self.assertFalse(any(name.startswith('docs/archive/') for name in names))
             self.assertFalse(any(name.endswith('.zip') for name in names))
             self.assertIn('scripts/install.sh', names)
+            self.assertIn('scripts/asf', names)
+            self.assertIn('.github/workflows/ci.yml', names)
+            self.assertTrue((archive.getinfo('scripts/asf').external_attr >> 16) & 0o111)
             self.assertTrue((archive.getinfo('scripts/install.sh').external_attr >> 16) & 0o111,
                             'The release must preserve install.sh executable permissions')
             archive.extractall(unpacked)
@@ -261,7 +264,7 @@ class Scripts(unittest.TestCase):
         for entry in ('AGENTS.md', 'PROJECT_PROFILE.md', 'PROJECT_STATE.md', 'CAPABILITY_MAP.md',
                       'docs/requirements', '.agents/skills', '.git'):
             self.assertTrue((self.project / entry).exists(), entry)
-        self.assertIn('2.2.1', (self.project / 'PROJECT_PROFILE.md').read_text())
+        self.assertIn('2.2.2', (self.project / 'PROJECT_PROFILE.md').read_text())
         self.assertIn('ejecutar Project Discovery', (self.project / 'PROJECT_STATE.md').read_text())
         before = snapshot(self.project)
         self.run_script('init-project', '--git-init')

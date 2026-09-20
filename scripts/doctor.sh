@@ -41,6 +41,13 @@ else
   bad "Guided Mode no detectado en contrato"
 fi
 
+for marker in 'Finalization Gate' 'INVARIANT 1' 'INVARIANT 2' 'INVARIANT 3' 'INVARIANT 4' 'Runtime limitation'; do
+  grep -q "$marker" "$ROOT/workflow/00_SHARED_CONTRACT.md" && ok "$marker" || bad "$marker ausente"
+done
+for resource in scripts/asf scripts/asf.sh scripts/lib/runtime_doctor.py docs/guides/RUNTIME_GUARDRAILS.md docs/guides/SESSION_PREFLIGHT.md; do
+  [[ -f "$ROOT/$resource" ]] && ok "$resource" || bad "$resource ausente"
+done
+
 if grep -q "Decision Bound" "$ROOT/workflow/00_SHARED_CONTRACT.md" 2>/dev/null; then
   ok "Decision Boundaries"
 else
@@ -105,6 +112,9 @@ elif [[ -f "$AGENTS_FILE" ]]; then
   grep -Fq "$ROOT" "$AGENTS_FILE" \
     && ok "Ruta canónica coincide" \
     || bad "AGENTS global no apunta a esta Factory"
+  if ! sed -n '/^<!-- AI-SOFTWARE-FACTORY:START -->$/,/^<!-- AI-SOFTWARE-FACTORY:END -->$/p' "$AGENTS_FILE" | grep -Fq "Factory version: $version"; then
+    warning "Capa global Factory desactualizada o sin versión. Ejecutá el install.sh de esta instalación y abrí una nueva sesión."
+  fi
 else
   bad "No existe $AGENTS_FILE"
 fi
@@ -204,14 +214,7 @@ if [[ -n "$PROJECT" ]]; then
       warning "AGENTS.override.md del proyecto prevalece sobre AGENTS.md: verificar que conserve la integración Factory."
     fi
     if [[ -f "$PROJECT/.codex/config.toml" ]]; then
-      warning "La configuración del proyecto puede prevalecer sobre --profile: comprobá /status y /model."
-    fi
-    if [[ -f "$PROJECT/PROJECT_STATE.md" ]]; then
-      for field in 'Next action' 'Why this is next' 'Expected output' 'After this' 'Resume instruction'; do
-        if ! grep -Eq "^[- ]*\\*\\*$field:\\*\\* +[^[:space:]]" "$PROJECT/PROJECT_STATE.md"; then
-          bad "PROJECT_STATE sin $field concreto; completar antes de reanudar."
-        fi
-      done
+      warning "Existe config del proyecto: puede prevalecer sobre --profile. Si la selección es material: /status; si difiere de lo solicitado, pegá el resultado; si coincide, continuar."
     fi
     [[ -d "$PROJECT/docs/requirements" ]] \
       && ok "docs/requirements/" \
@@ -219,9 +222,19 @@ if [[ -n "$PROJECT" ]]; then
   fi
 fi
 
+if [[ -n "$parser" ]]; then
+  runtime_args=(--root "$ROOT" --codex-home "$(codex_dir)")
+  [[ -z "$PROJECT" ]] || runtime_args+=(--project "$PROJECT")
+  runtime_report="$("$parser" -I -B "$SCRIPT_DIR/lib/runtime_doctor.py" "${runtime_args[@]}" 2>&1)" || bad "Runtime guardrails: corregir errores indicados debajo."
+  printf '%s\n' "$runtime_report"
+  if [[ "$runtime_report" == *'WARN:'* ]]; then warning "Diagnóstico estático con advertencias (ver acciones arriba)."; fi
+else
+  warning "Runtime guardrails/AGENTS size/project state NO VERIFICADOS. Instalá Python >= 3.11 y repetí doctor.sh --project ."
+fi
+
 echo
 echo "Alcance: archivos, enlaces y configuración estática. Disponibilidad, reasoning efectivo y review en runtime: NO VERIFICADOS."
-echo "En una sesión nueva, usá /status para configuración y /model para disponibilidad; después escribí continuar."
+echo "Solo si la próxima tarea depende materialmente de configuración: /status; si coincide, continuar; si difiere, pegá el resultado."
 if (( fail > 0 )); then
   echo "STATUS: FAIL ($fail error/es, $warn warning/s)"
   exit 1

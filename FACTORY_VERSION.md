@@ -1,13 +1,19 @@
 # AI Software Factory Version
 
-- **Version:** 2.2.1
-- **Codename:** Guided Model Routing
+- **Version:** 2.2.2
+- **Codename:** Runtime Guardrails
 - **Release line:** 2.2.x
 - **Repository:** https://github.com/FabriJuncal/quiver-v2
-- **Release tag:** v2.2.1
-- **Updated:** 2026-09-19
+- **Release tag:** v2.2.2 (target; publicación no incluida)
+- **Updated:** 2026-09-20
 
 ## Active capabilities
+
+- Finalization Gate + State Consistency Invariants
+- Runtime limitations + recap/STATE reconciliation
+- Conditional Session Preflight + deterministic ASF launcher
+- Read-only project version/state/instruction diagnostics
+- Conservative project upgrade + Review Loop Guard
 
 - Guided Mode
 - Decision Boundaries

@@ -30,3 +30,9 @@ Record evidence in `CLOSURE_BRIEF.md`.
 Update requirement state.
 
 If next approved slice has no Decision Boundary, continue.
+
+Apply the **Finalization Gate** and **State Consistency Invariants** in
+`../../../workflow/00_SHARED_CONTRACT.md` before responding finally: completing S04 while
+S05 is active requires executing S05 in the same turn when authorized and feasible.
+`ACCIÓN DEL USUARIO: ninguna` signals execution, never closure. Real runtime limitations
+must preserve pending work and exact resume steps; recap cannot override STATE.

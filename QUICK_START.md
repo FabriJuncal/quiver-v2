@@ -1,5 +1,7 @@
 # Quick Start
 
+AI Software Factory v2.2.2 — Runtime Guardrails
+
 Esta guía busca llevarte de cero a un proyecto funcionando con AI Software Factory en pocos minutos.
 
 ---
@@ -11,7 +13,7 @@ Necesitás:
 - Git;
 - Bash/zsh;
 - Codex CLI >= 0.134.0 para usar los perfiles incluidos;
-- opcional: Python >= 3.11 para validar TOML con doctor (instalación y workflow no lo requieren).
+- Python >= 3.11 recomendado para diagnóstico completo de TOML, estados y tamaño AGENTS (install/launcher no lo requieren).
 
 Comprobar:
 
@@ -33,7 +35,7 @@ gh repo clone FabriJuncal/quiver-v2
 cd quiver-v2
 ```
 
-Alternativamente, descargá y extraé el ZIP de la [release v2.2.1](https://github.com/FabriJuncal/quiver-v2/releases/tag/v2.2.1), y entrá en esa carpeta. Conservá su ruta en esta terminal:
+Alternativamente, usá una distribución v2.2.2 verificada de las [releases publicadas](https://github.com/FabriJuncal/quiver-v2/releases). Comprobá FACTORY_VERSION.md; esta guía no afirma que el tag ya esté publicado. Conservá su ruta en esta terminal:
 
 ```bash
 ASF_ROOT="$(pwd -P)"
@@ -57,6 +59,7 @@ Mostrará qué archivos/configuraciones tocaría.
 
 ```bash
 ./scripts/install.sh
+export PATH="$ASF_ROOT/scripts:$PATH"
 ```
 
 El instalador:
@@ -185,7 +188,9 @@ Para reanudar otro día:
 Continuá PROJ-123.
 ```
 
-Codex debe leer primero el estado persistido, no pedirte reconstruir el chat.
+Codex debe leer primero el estado persistido, no pedirte reconstruir el chat. Si recap contradice
+STATE, STATE prevalece. Con trabajo autorizado ejecutable, Finalization Gate exige continuar:
+`ACCIÓN DEL USUARIO: ninguna` nunca es frase de cierre. Una limitación real exige pendiente y reanudación exacta.
 
 ---
 
@@ -214,6 +219,17 @@ Ver: `docs/guides/AI_MODEL_ROUTING.md`.
 ---
 
 # Configuración opcional de modelos
+
+Inicio recomendado con overrides CLI (superan la configuración del proyecto):
+
+```bash
+asf balanced --dry-run
+asf balanced
+```
+
+No modifica config.toml ni presupone acceso al modelo. La selección efectiva solo se comprueba
+con [Session Preflight](docs/guides/SESSION_PREFLIGHT.md) cuando la tarea dependa materialmente.
+Para otras terminales, configurá PATH según [ASF Launcher](docs/guides/ASF_LAUNCHER.md).
 
 La Factory funciona usando simplemente:
 
@@ -248,7 +264,7 @@ Actualizá la carpeta Factory desde una release/revisión verificada y ejecutá:
 "$ASF_ROOT/scripts/doctor.sh"
 ```
 
-Seguí la [guía de upgrade](docs/guides/UPGRADE_2_2_TO_2_2_1.md) para metadata de proyectos existentes, sin reemplazarla con templates vacíos. Si cambiaste de carpeta, actualizá ASF_ROOT y revisá los enlaces que doctor marque como pertenecientes a otra copia.
+Seguí la [guía de upgrade 2.2.1 → 2.2.2](docs/guides/UPGRADE_2_2_1_TO_2_2_2.md) para metadata de proyectos existentes, sin reemplazarla con templates vacíos. Si cambiaste de carpeta, actualizá ASF_ROOT y revisá los enlaces que doctor marque como pertenecientes a otra copia.
 
 Para desinstalar la integración global:
 
