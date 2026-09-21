@@ -65,7 +65,32 @@ SHA-256 antes/después coincidentes en comprobación selectiva:
 No certifica todos los logs del cliente. No se copian credenciales ni IDs de plugins
 personales a la propuesta pública; se preservan trials originales solo en copia local.
 
-## Pendiente de esta preparación
+## Artefacto y verificaciones finales
 
-Probar ZIP final y persistir revisión/estado. CI remota/macOS+Linux y review
-independiente no ejecutados. No se probó continuidad viva S04→S05 ni modelo efectivo.
+- Código preparado en commit local `c1e9f2402d6c2c2d955fee01a7e22a54357e01fe`.
+- Suite en checkout de ese commit: **117 OK, 27.187 s**.
+- ZIP generado por `git archive` y extraído con unzip en carpeta con versión RC:
+  **117 OK, 25.657 s**, mismo comando unittest dentro del directorio extraído.
+- `bash scripts/check-release.sh` desde ZIP: PASS; ejemplos v1/v2 STATIC PASS;
+  checker de propuesta exit 2, DISABLED/NOT RUN, como se exige.
+- Smoke adicional `upgrade_smoke.py`: instaló la **2.2.2 real del checkout publicado**,
+  adoptó proyecto sintético y actualizó con el ZIP RC en HOME temporal. PASS:
+  dry-runs/reinstall/perfiles/doctor/uninstall; configuración, perfil personalizado y
+  proyecto conservados; capa antigua y enlaces a skills viejas avisados. No agentes.
+- Evidencia completa del smoke: `/private/tmp/asf-release-candidate.lV4Sv6/UPGRADE_RESULT.json`.
+- Escaneo dirigido de patrones de claves/tokens privados sobre candidata: sin
+  coincidencias (rg exit 1). No equivale a garantía de ausencia de todo secreto.
+- `git diff --cached --check` detectó cuatro líneas vacías finales heredadas en
+  briefs cerrados S01–S04; se preservaron sin reescribir evidencia histórica.
+  `git -c core.whitespace=-blank-at-eof diff --cached --check`: exit 0.
+- Source local no tenía Git: rama creada en clon separado, sin alterar checkout
+  de publicación previo. Cambio ajeno de publish-v2.2.1 preservado solo en source.
+- `config.toml` y `AGENTS.md` habituales nuevamente idénticos a hashes iniciales.
+
+Paquete/sha256/bundle final se guardan en `.release-candidates/2.3.0-rc.1/`
+(ignorado por Git). Su ARTIFACTS.json identifica revisión y hashes sin ciclo de
+autorreferencia. El commit de cierre modifica solo evidencia/estado excluidos del
+ZIP; comparar contenido y permisos de cada entrada contra el ZIP que pasó tests.
+
+CI remota macOS/Linux y review independiente NO ejecutados. No se probó continuidad
+viva S04→S05, modelo efectivo ni comportamiento de ayudante. Publicación no autorizada.

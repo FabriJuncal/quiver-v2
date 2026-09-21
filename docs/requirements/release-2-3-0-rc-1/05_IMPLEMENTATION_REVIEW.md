@@ -31,6 +31,9 @@ No reviewer independiente, `/review` ni agentes de revisión lanzados.
 - La reconciliación local de publish-v2.2.1 no se incluye en la candidata: su cierre
   remoto ya era correcto y el cambio es ajeno. Se conserva en la fuente de trabajo.
 
-Veredicto provisional: APROBADO CON NOTAS para preparación offline; pendiente test
-del artefacto final. REQUIERE ATENCIÓN para activar/publicar como multiagente operativo.
+Veredicto: APROBADO CON NOTAS para preparación offline; ZIP exportado con 117 tests
+OK y smoke real de upgrade 2.2.2. REQUIERE ATENCIÓN para activar/publicar como multiagente operativo.
 Rondas de review: inicial; no ciclos adicionales ni reapertura de findings cerrados.
+
+Cuatro blanks EOF heredados en briefs cerrados se preservan; no afectan el export
+(docs de desarrollo excluidas). Escaneo dirigido sin claves/tokens detectados.
