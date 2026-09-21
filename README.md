@@ -1,6 +1,10 @@
 # AI Software Factory
 
-AI Software Factory v2.2.2 — Runtime Guardrails
+AI Software Factory v2.3.0-rc.1 — Supervised Delegation Preview
+
+Candidata local, **no publicada ni lista para activar ayudantes**. Incluye contratos
+y pruebas offline; piloto vivo NOT RUN por controles runtime pendientes.
+Ver [estado y notas de la candidata](docs/releases/v2.3.0-rc.1.md).
 
 Inicio determinista desde la carpeta de Factory:
 
@@ -13,14 +17,22 @@ asf balanced
 
 Alternativa con perfiles instalados: `codex --profile asf-balanced` (la configuración del
 proyecto puede prevalecer). Ver [Quick Start](QUICK_START.md) para instalación, init/adopt y
-[upgrade de proyectos](docs/guides/UPGRADE_2_2_1_TO_2_2_2.md).
+[upgrade de proyectos](docs/guides/UPGRADE_2_2_2_TO_2_3_0.md).
 
-Runtime Guardrails agrega continuidad obligatoria, prioridad de STATE sobre recap y diagnóstico
+Conserva Runtime Guardrails: continuidad obligatoria, prioridad de STATE sobre recap y diagnóstico
 de configuración/estado. `ACCIÓN DEL USUARIO: ninguna` exige ejecución en el mismo turno.
 El [contrato canónico](workflow/00_SHARED_CONTRACT.md) define excepciones reales; las instrucciones
 no pueden garantizar obediencia del modelo ni evitar que el runtime interrumpa un proceso.
 
 **AI Software Factory** es un workflow liviano y reutilizable para crear y evolucionar software con agentes de IA sin convertir cada repositorio en una colección de prompts, documentos y automatizaciones difíciles de mantener.
+
+Trabajo local aún no publicado: [piloto de delegación guiada](docs/guides/GUIDED_DELEGATION.md),
+con contrato, ejemplos sintéticos y validador offline. Incluye la modalidad
+[Factory multiagente supervisada](examples/supervised-multiagent/README.md): auditoría
+de copias y rechazo de incidentes, **sin garantía de solo lectura ni piloto vivo validado**.
+Inline sigue siendo default. La [integración mínima del ayudante](docs/guides/ASSISTANT_INTEGRATION.md)
+incluye configuración inactiva y chequeo fail-closed; no incluye dispatcher operativo.
+Instalar/configurar perfiles no habilita workers ni modifica config.toml.
 
 Funciona con:
 
@@ -61,7 +73,9 @@ gh repo clone FabriJuncal/quiver-v2
 cd quiver-v2
 ```
 
-Usá la distribución v2.2.2 verificada o consultá las [releases publicadas](https://github.com/FabriJuncal/quiver-v2/releases). Dentro de la carpeta clonada o extraída, comprobá FACTORY_VERSION.md antes de instalar:
+El clon remoto no contiene necesariamente esta candidata local. Para evaluarla, usá
+el paquete local entregado; para uso estable consultá las [releases publicadas](https://github.com/FabriJuncal/quiver-v2/releases).
+Dentro de la carpeta extraída, comprobá FACTORY_VERSION.md antes de instalar:
 
 ```bash
 ASF_ROOT="$(pwd -P)"
@@ -178,7 +192,7 @@ Empezá por:
 
 Esta versión corresponde a:
 
-**AI Software Factory v2.2.2 — Runtime Guardrails**
+**AI Software Factory v2.3.0-rc.1 — Supervised Delegation Preview**
 
 Ver [`FACTORY_VERSION.md`](FACTORY_VERSION.md).
 

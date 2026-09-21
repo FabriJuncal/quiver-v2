@@ -12,6 +12,7 @@ import unittest
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
+VERSION = json.loads((ROOT / 'MANIFEST.json').read_text())['version']
 START = '<!-- AI-SOFTWARE-FACTORY:START -->'
 END = '<!-- AI-SOFTWARE-FACTORY:END -->'
 
@@ -71,7 +72,7 @@ class Scripts(unittest.TestCase):
 
     def test_manifest_matches_shipped_resources(self):
         manifest = json.loads((ROOT / 'MANIFEST.json').read_text())
-        self.assertEqual(manifest['version'], '2.2.2')
+        self.assertEqual(manifest['version'], '2.3.0-rc.1')
         self.assertIn('**Version:** ' + manifest['version'], (ROOT / 'FACTORY_VERSION.md').read_text())
         self.assertEqual(sorted(manifest['scripts']), sorted(p.name for p in (ROOT / 'scripts').glob('*.sh')))
         self.assertEqual(sorted(manifest['core_skills']),
@@ -95,6 +96,10 @@ class Scripts(unittest.TestCase):
         with zipfile.ZipFile(io.BytesIO(git('archive', '--format=zip', 'HEAD'))) as archive:
             names = archive.namelist()
             self.assertFalse(any(name.startswith('docs/archive/') for name in names))
+            self.assertFalse(any(name.startswith('docs/requirements/') for name in names))
+            self.assertNotIn('PROJECT_STATE.md', names)
+            self.assertIn('templates/PROJECT_STATE.md', names)
+            self.assertFalse(any('/.codex/' in name for name in names))
             self.assertFalse(any(name.endswith('.zip') for name in names))
             self.assertIn('scripts/install.sh', names)
             self.assertIn('scripts/asf', names)
@@ -104,6 +109,8 @@ class Scripts(unittest.TestCase):
                             'The release must preserve install.sh executable permissions')
             archive.extractall(unpacked)
         self.run_script('install', root=unpacked)
+        self.assertFalse((self.home / '.codex/agents').exists())
+        self.assertFalse((self.home / '.codex/config.toml').exists())
         self.run_script('configure-model-profiles', root=unpacked)
         self.run_script('doctor', root=unpacked)
         self.run_script('uninstall', root=unpacked)
@@ -264,7 +271,7 @@ class Scripts(unittest.TestCase):
         for entry in ('AGENTS.md', 'PROJECT_PROFILE.md', 'PROJECT_STATE.md', 'CAPABILITY_MAP.md',
                       'docs/requirements', '.agents/skills', '.git'):
             self.assertTrue((self.project / entry).exists(), entry)
-        self.assertIn('2.2.2', (self.project / 'PROJECT_PROFILE.md').read_text())
+        self.assertIn(VERSION, (self.project / 'PROJECT_PROFILE.md').read_text())
         self.assertIn('ejecutar Project Discovery', (self.project / 'PROJECT_STATE.md').read_text())
         before = snapshot(self.project)
         self.run_script('init-project', '--git-init')

@@ -5,6 +5,12 @@ description: Use in projects using AI Software Factory when a requirement change
 
 # Requirement State
 
+Only the coordinator/inline executor writes central state. A delegated worker returns
+evidence/proposals and never activates other slices. Follow the opt-in contract in
+[Guided Delegation](../../../docs/guides/GUIDED_DELEGATION.md) when applicable.
+Audited incidents reject delivery, not user changes: preserve evidence and reconcile
+before integration. Unknown stop keeps capacity occupied; never restore the original automatically.
+
 Every active state must answer:
 
 1. where are we?

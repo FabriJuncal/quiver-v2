@@ -1,22 +1,23 @@
 # PROJECT_STATE
 
-- **Project:** AI Software Factory v2.2.2 — Runtime Guardrails
-- **Status:** awaiting-next-request
-- **Current phase:** v2.2.2 published
-- **Active requirement:** none
-- **Last completed requirement:** docs/requirements/runtime-guardrails/STATE.md
+- **Project:** AI Software Factory v2.3.0-rc.1 — Supervised Delegation Preview
+- **Status:** in-progress
+- **Current phase:** preparando candidata local e integración inactiva
+- **Active requirement:** docs/requirements/release-2-3-0-rc-1/STATE.md
+- **Last completed requirement:** docs/requirements/sandbox-isolation-probe/STATE.md
 - **Current slice:** none
-- **Completed:** v2.2.2 implementada, 44 pruebas macOS OK y check-release PASS; evidencia en docs/requirements/runtime-guardrails/EVIDENCE.md. Evidencia 2.2.1 preservada en su requirement histórico.
-- **Pending:** ninguna dentro del alcance de publicación autorizado. La instalación y prueba operativa están documentadas en release/upgrade.
-- **Next action:** esperar una nueva petición del usuario o evidencia operativa de nuevo-proyecto.
-- **Why this is next:** v2.2.2, tag, release, assets y CI fueron verificados; no hay trabajo autorizado pendiente.
-- **User action required:** true
-- **Decision required:** none; conservar visibilidad privada, sin force-push.
-- **Expected output:** nuevo requirement concreto o resultado operativo a evaluar.
-- **After this:** capturar alcance proporcional; no modificar/recrear v2.2.2 sin nueva autorización.
+- **Completed:** S01–S04 offline y 111 tests previos preservados. Prueba nueva codex sandbox 0.155.1: 22/22 casos, configuración temporal, sin agentes/modelos adicionales. Protección de archivos ficticios observada; evidencia en docs/requirements/sandbox-isolation-probe/REPORT.md. Config habitual preservada, sin release nueva.
+- **Pending:** validar candidata, artefacto exportado y diff; piloto condicionado a controles.
+- **Next action:** ejecutar regresiones offline y verificación del artefacto local.
+- **Why this is next:** preparación autorizada; no habilitar piloto sin controles efectivos.
+- **User action required:** false
+- **Decision required:** none para el trabajo completado.
+- **Expected output:** candidata con evidencia y límite de activación explícito.
+- **After this:** entregar para revisión/aprobación final; no publicar.
 - **Blocked by:** none
-- **Runtime limitation:** none
-- **Resume instruction:** v2.2.2 está publicada. Leer runtime-guardrails/EVIDENCE.md y los enlaces de release/CI antes de reproducir una publicación. No reemplazar tag/assets; esperar nuevo alcance.
+- **Runtime limitation:** unavailable-runtime-capability
+- **Runtime limitation detail:** piloto: esta interfaz no permite seleccionar rol/permisos ni verificar ausencia de recursión/herramientas mutantes del ayudante. Preparación offline continúa.
+- **Resume instruction:** leer docs/requirements/release-2-3-0-rc-1/STATE.md y PLAN.md. Un único piloto sintético condicional autorizado, todavía no lanzado; no push/tag/publicación ni cambios de configuración habitual.
 
 ## Publicación v2.2.2
 

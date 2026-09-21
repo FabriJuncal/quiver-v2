@@ -1,0 +1,8 @@
+{
+  "audit_version": 1,
+  "scope_id": "attempt-1:copy",
+  "before_digest": "86172d870260dc05e2fca52756d95d471c9a6afa2f31e6c79fb84ba260946c22",
+  "after_digest": "86172d870260dc05e2fca52756d95d471c9a6afa2f31e6c79fb84ba260946c22",
+  "result": "clean",
+  "changes": []
+}

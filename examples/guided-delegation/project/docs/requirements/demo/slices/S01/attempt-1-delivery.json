@@ -1,0 +1,20 @@
+{
+  "attempt_id": "attempt-1",
+  "base_digest": "c7032c822a0a9b155d20b2f9a973ecd9886020e7ba032314f15e4aed7869fd21",
+  "kind": "analysis",
+  "proposed_files": [],
+  "worker_write_paths": [],
+  "criteria_covered": [
+    "AC01"
+  ],
+  "commands": [
+    {
+      "command": "none (analysis only)",
+      "result": "not-run",
+      "evidence_ref": null
+    }
+  ],
+  "findings": [],
+  "pending": [],
+  "summary": "SYNTHETIC response for offline validation."
+}

@@ -6,6 +6,9 @@
 - Skills globales: pocas y de alto retorno.
 - Skills del proyecto: capturan reglas propias, no tutoriales.
 - Worktrees y parallel agents son opt-in.
+- Delegación guiada secuencial: opt-in separado, un worker read-only/proponente y
+  coordinador único; [contrato](docs/guides/GUIDED_DELEGATION.md). Inline sigue default.
+  Implementar/probar ese soporte offline no autoriza lanzar workers reales.
 - TDD no es una regla universal.
 - Verification-before-completion se absorbe como regla del core.
 - Code review externo no se instala si duplica Implementation Reviewer.

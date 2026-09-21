@@ -1,13 +1,17 @@
 # AI Software Factory Version
 
-- **Version:** 2.2.2
-- **Codename:** Runtime Guardrails
-- **Release line:** 2.2.x
+- **Version:** 2.3.0-rc.1
+- **Codename:** Supervised Delegation Preview
+- **Release line:** 2.3.x (prerelease)
 - **Repository:** https://github.com/FabriJuncal/quiver-v2
-- **Release tag:** v2.2.2 (target; publicación no incluida)
-- **Updated:** 2026-09-20
+- **Release tag:** v2.3.0-rc.1 (reserved locally; no tag or publication created)
+- **Updated:** 2026-09-21
+- **Live delegation:** disabled; pilot NOT RUN, mandatory runtime controls unverified
 
 ## Active capabilities
+
+- Offline supervised delegation contracts v1/v2, context briefs and workspace audits
+- Inactive assistant proposal with fail-closed static check (not a live dispatcher)
 
 - Finalization Gate + State Consistency Invariants
 - Runtime limitations + recap/STATE reconciliation

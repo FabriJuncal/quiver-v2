@@ -79,6 +79,12 @@ Downgrade only at meaningful phase boundaries when substantial mechanical work r
 
 ## Runtime model
 
+For opted-in delegation, keep requested profile, resolved configuration and observed
+configuration separate per attempt under [Guided Delegation](../../../docs/guides/GUIDED_DELEGATION.md).
+Reuse this catalog, not a developer-1/developer-2 mapping. Custom agent configuration
+may override spawn intent; missing effective observations remain unknown. Delegation
+Benefit does not replace Switch Benefit. Historical observations never set project runtime truth.
+
 Distinguish REQUESTED PROFILE (Factory recommendation) from EFFECTIVE SESSION CONFIG
 (model/reasoning actually used, **unknown by default**). Do not introspect or infer runtime
 identity from config files, launch intent, project state or your own generated text.

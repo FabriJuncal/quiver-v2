@@ -173,6 +173,18 @@ Todo estado activo debe indicar:
 
 Persistir por separado aprobación del reviewer, aprobación humana del plan y autorización de ejecución, vinculadas a la versión/alcance correspondiente. Una aprobación no equivale automáticamente a las otras. Puede registrarse autorización de ejecución ya contenida en la petición original.
 
+## Delegación opt-in
+
+Inline sigue default. Solo con autorización explícita para ejecución delegada aplicar
+[Guided Delegation](../docs/guides/GUIDED_DELEGATION.md): un coordinador escribe estado,
+un worker máximo devuelve propuestas/evidencia sin editar el proyecto ni delegar.
+En política supervisada v2, no escribir en la copia es una instrucción auditada,
+no garantía técnica; preservar controles restantes y no restaurar trabajo humano.
+Una entrega no cierra una slice. La autorización del piloto offline no autoriza workers.
+Sin capacidades verificables, continuar inline si es suficiente o registrar limitación.
+No considerar registros históricos discrepantes como nuevos encargos ejecutables;
+reconciliar vigencia/evidencia antes de reanudar. No repetir efectos externos.
+
 ## Evidence Before Completion
 
 No afirmar:

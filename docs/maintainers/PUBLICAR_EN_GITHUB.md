@@ -23,20 +23,23 @@ Un futuro starter de SaaS sí puede ser un GitHub Template separado.
 
 ## Release
 
-Release objetivo (requiere autorización separada de implementación):
+La preparación actual NO autoriza push, tags ni publicación. Candidata local:
 
 ```text
-v2.2.2
+v2.3.0-rc.1
 ```
 
-Tag:
+Preparación sin tag, desde el commit revisado:
 
 ```bash
 git status --porcelain
-git tag v2.2.2
-git archive --format=zip --output=../ai-software-factory-v2.2.2.zip v2.2.2
+git archive --format=zip --output=../ai-software-factory-v2.3.0-rc.1.zip HEAD
 ```
 
 El primer comando debe estar vacío y el commit debe contener todos los archivos probados, incluidos scripts/config/skills. Probar el ZIP extraído en un directorio temporal. `.gitattributes` excluye material histórico del export.
 
 Solo tras autorización explícita para publicar, subir el tag al destino confirmado y crear la release. No reutilizar un tag publicado para contenido diferente.
+
+Antes, resolver [RELEASE_CHECKLIST](RELEASE_CHECKLIST.md) y el alcance de
+[las notas RC](../releases/v2.3.0-rc.1.md). No promover multiagente operativo sin
+piloto aceptado; una preview offline requiere aprobación explícita como tal.

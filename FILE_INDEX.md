@@ -1,8 +1,17 @@
 # File Index
 
-AI Software Factory v2.2.2 — Runtime Guardrails
+AI Software Factory v2.3.0-rc.1 — Supervised Delegation Preview
 
-## Runtime Guardrails
+## Supervised Delegation Preview
+
+- `docs/releases/v2.3.0-rc.1.md` — candidata local, ayudante deshabilitado
+- `docs/guides/ASSISTANT_INTEGRATION.md` — integración inactiva y controles pendientes
+- `docs/guides/UPGRADE_2_2_2_TO_2_3_0.md` — upgrade conservador
+- `config/assistant-proposal/` — TOML inactivo, no instalado
+- `scripts/lib/check_assistant_proposal.py` — exit 2 no equivale a aptitud viva
+- `tests/test_release_candidate.py` — RC, upgrade y propuesta
+
+## Runtime Guardrails conservados
 
 - `docs/guides/RUNTIME_GUARDRAILS.md`
 - `docs/guides/SESSION_PREFLIGHT.md`
@@ -15,7 +24,6 @@ AI Software Factory v2.2.2 — Runtime Guardrails
 - `scripts/lib/runtime_doctor.py`
 - `scripts/check-release.sh` / `.github/workflows/ci.yml`
 - `tests/test_runtime_guardrails.py`
-- `docs/requirements/runtime-guardrails/STATE.md`
 
 ## Primeros pasos
 
@@ -97,7 +105,16 @@ AI Software Factory v2.2.2 — Runtime Guardrails
 
 ## Mantenimiento
 
+- `docs/guides/GUIDED_DELEGATION.md` — contrato operativo opt-in
+- `templates/slice/RUN.schema.json` — schema de intentos, no scheduler
+- `scripts/lib/check_execution.py` — validación read-only de registros
+- `tests/test_delegation_contract.py` — fixtures y regresiones offline
+- `examples/guided-delegation/README.md` — ejemplo sintético y recorridos guiados
+- `scripts/lib/audit_workspace.py` — inventario/comparación read-only; no sandbox ni restauración
+- `tests/test_supervised_delegation.py` — contrato v2 y compatibilidad v1
+- `tests/test_workspace_audit.py` — filesystem temporal, diferencias y límites de snapshots
+- `examples/supervised-multiagent/README.md` — ejemplo v2 sintético y comandos reproducibles
 - `MANIFEST.json` — manifest único de versión y componentes
 - `docs/maintainers/RELEASE_CHECKLIST.md`
-- `docs/requirements/preproduction-hardening/STATE.md` — correcciones de auditoría
+- `docs/requirements/` — evidencia de desarrollo, excluida del paquete instalable
 - `docs/archive/` — historia excluida de releases, nunca fuente de instrucciones actuales

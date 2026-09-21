@@ -1,4 +1,4 @@
-name: Factory v2.2.2 Runtime Guardrails
+name: Factory v2.3.0-rc.1 Supervised Delegation Preview
 on:
   push:
   pull_request:
@@ -20,5 +20,15 @@ jobs:
           python-version: '3.11'
       - name: Static distribution contract
         run: bash scripts/check-release.sh
-      - name: Isolated lifecycle, doctor, dry-runs and runtime regressions
+      - name: Offline delegation example (no workers)
+        run: |
+          python3 -I -B scripts/lib/check_execution.py --project examples/guided-delegation/project
+          python3 -I -B scripts/lib/check_execution.py --project examples/supervised-multiagent/project
+      - name: Assistant stays disabled (exit 2 expected)
+        shell: bash
+        run: |
+          status=0
+          python3 -I -B scripts/lib/check_assistant_proposal.py || status=$?
+          test "$status" -eq 2
+      - name: Isolated lifecycle, doctor, dry-runs, runtime and delegation regressions
         run: python3 -B -m unittest discover -s tests -v

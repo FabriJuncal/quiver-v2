@@ -1,7 +1,7 @@
 {
   "name": "ai-software-factory",
-  "version": "2.2.2",
-  "codename": "Runtime Guardrails",
+  "version": "2.3.0-rc.1",
+  "codename": "Supervised Delegation Preview",
   "core_skills": [
     "closure-evidence",
     "context-scout",
@@ -47,6 +47,9 @@
     "deterministic_launcher",
     "project_layer_upgrade",
     "agents_size_diagnostics",
-    "review_loop_guard"
+    "review_loop_guard",
+    "offline_supervised_delegation_contracts",
+    "workspace_audit",
+    "inactive_assistant_proposal"
   ]
 }

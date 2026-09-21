@@ -23,3 +23,10 @@ Do not dump the entire repository.
 Prefer existing project patterns over generic redesign.
 
 If a code graph is available, use it only when it reduces exploration.
+
+For explicitly opted-in delegation, build the brief's context manifest under
+[Guided Delegation](../../../docs/guides/GUIDED_DELEGATION.md): relevant criteria,
+decisions/findings, files/tests, instruction version and base hashes. No full chat
+by default, no secrets. Preserve mandatory rules; expand only with a stated need.
+For the audited policy, review selected content, not just filenames; a disposable
+copy is not access isolation. Keep baselines/evidence outside the worker's authority.

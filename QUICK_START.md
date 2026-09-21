@@ -1,6 +1,9 @@
 # Quick Start
 
-AI Software Factory v2.2.2 — Runtime Guardrails
+AI Software Factory v2.3.0-rc.1 — Supervised Delegation Preview
+
+Candidata local no publicada. Inline funciona como antes; **ayudante deshabilitado**,
+sin piloto vivo validado. Ver [notas y límites](docs/releases/v2.3.0-rc.1.md).
 
 Esta guía busca llevarte de cero a un proyecto funcionando con AI Software Factory en pocos minutos.
 
@@ -35,7 +38,9 @@ gh repo clone FabriJuncal/quiver-v2
 cd quiver-v2
 ```
 
-Alternativamente, usá una distribución v2.2.2 verificada de las [releases publicadas](https://github.com/FabriJuncal/quiver-v2/releases). Comprobá FACTORY_VERSION.md; esta guía no afirma que el tag ya esté publicado. Conservá su ruta en esta terminal:
+El clon remoto ofrece la versión publicada, no necesariamente esta candidata.
+Para evaluar v2.3.0-rc.1 usá el paquete local entregado; no existe un tag creado por
+esta preparación. Comprobá FACTORY_VERSION.md y conservá su ruta en esta terminal:
 
 ```bash
 ASF_ROOT="$(pwd -P)"
@@ -264,7 +269,11 @@ Actualizá la carpeta Factory desde una release/revisión verificada y ejecutá:
 "$ASF_ROOT/scripts/doctor.sh"
 ```
 
-Seguí la [guía de upgrade 2.2.1 → 2.2.2](docs/guides/UPGRADE_2_2_1_TO_2_2_2.md) para metadata de proyectos existentes, sin reemplazarla con templates vacíos. Si cambiaste de carpeta, actualizá ASF_ROOT y revisá los enlaces que doctor marque como pertenecientes a otra copia.
+Seguí la [guía de upgrade a la candidata](docs/guides/UPGRADE_2_2_2_TO_2_3_0.md)
+para metadata de proyectos existentes, sin reemplazarla con templates vacíos.
+Si cambiaste de carpeta, actualizá ASF_ROOT y revisá los enlaces que doctor marque
+como pertenecientes a otra copia. No instalar la propuesta de ayudante en `.codex`:
+su evaluación se explica en [Integración del ayudante](docs/guides/ASSISTANT_INTEGRATION.md).
 
 Para desinstalar la integración global:
 

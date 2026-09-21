@@ -1,0 +1,24 @@
+# Inactive proposal. NOT installed by install.sh. No launch permission.
+approval_policy = "never"
+approvals_reviewer = "user"
+allow_login_shell = false
+web_search = "disabled"
+sandbox_mode = "read-only"
+
+[agents]
+enabled = false
+max_concurrent_threads_per_session = 1
+
+[features]
+apps = false
+hooks = false
+browser_use = false
+browser_use_external = false
+browser_use_full_cdp_access = false
+computer_use = false
+remote_plugin = false
+
+# Empty tables are NOT a deny-all policy for inherited integrations.
+# Only use a separately reviewed, isolated runtime, never merge into personal config.
+[mcp_servers]
+[plugins]

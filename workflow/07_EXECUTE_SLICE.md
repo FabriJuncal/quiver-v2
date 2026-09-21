@@ -1,5 +1,12 @@
 # 07 — Ejecutar slice
 
+Identificar rol antes de aplicar esta secuencia. Es para el coordinador/ejecutor inline.
+Un worker delegado solo cumple el encargo read-only/proponente y devuelve evidencia;
+no escribe STATE/CLOSURE ni activa slices. Delegación requiere opt-in explícito y
+el [contrato acotado](../docs/guides/GUIDED_DELEGATION.md), no basta leer esta guía.
+Read-only es obligación del encargo: en política auditada no implica aislamiento.
+Ante incidente preservar evidencia, no restaurar el original ni aceptar entrega.
+
 1. leer `PROJECT_STATE.md`;
 2. leer requirement `STATE.md`;
 3. leer `EXECUTION_BRIEF.md`;

@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.3.0-rc.1 — Supervised Delegation Preview (local, unpublished)
+
+- Contratos de delegación secuencial opt-in v1 y supervisada v2; contexto mínimo,
+  ownership del coordinador, intentos acotados y aceptación basada en evidencia.
+- Inventarios y auditoría de copia/original; rechazo de incidentes sin restaurar trabajo humano.
+- Ejemplos sintéticos, validación de runs y regresiones offline; no prueban conducta viva.
+- Propuesta de ayudante inactiva, sin instalación automática ni dispatcher; checker
+  devuelve exit 2 incluso con STATIC PASS: controles efectivos NO VERIFICADOS.
+- Doctor reconoce RC y ordena correctamente RC/estable; actualización de capa conservadora.
+- Paquete excluye evidencia de desarrollo y trials locales; guías de instalación y upgrade.
+- Piloto NOT RUN: interfaz evaluada no enlaza el rol/permisos del hijo ni verifica
+  bloqueo de recursión/herramientas externas. No anunciar multiagente operativo.
+
 ## 2.2.2 — Runtime Guardrails
 
 - Finalization Gate canónico impide cierres con trabajo autorizado ejecutable; cuatro invariants de estado.

@@ -48,18 +48,10 @@ Contiene exclusivamente:
 
 ## Fuente de verdad
 
-Orden recomendado:
-
-1. código/datos reales;
-2. requirements aprobados;
-3. ADRs;
-4. `PROJECT_PROFILE.md`;
-5. `PROJECT_STATE.md`;
-6. `CAPABILITY_MAP.md`;
-7. documentación;
-8. code graph derivado;
-9. memoria del modelo;
-10. chat.
+Aplicar la jerarquía canónica de [Source of Truth](SOURCE_OF_TRUTH.md).
+Esa prioridad determina hechos y progreso; no convierte código o STATE en permiso
+para cambiar criterios, decisiones o autorizaciones aprobadas. No mantener una
+segunda jerarquía aquí.
 
 El code graph ayuda a descubrir.
 
