@@ -4,6 +4,22 @@ La Factory integra contratos, selección de contexto, entrega, auditoría y acep
 supervisada. **Todavía no incluye un dispatcher operativo ni un piloto vivo aceptado.**
 Inline sigue siendo la ruta disponible. Instalar esta candidata no habilita agentes.
 
+CE-v1 agrega una alternativa más liviana, textual y también deshabilitada: selección
+mínima de contexto, reutilización local y contrato API de un intento. No resuelve los
+controles pendientes de un subagente y no los debilita. Ver
+[Ahorro de contexto y ayudante textual](CONTEXT_ECONOMY_TEXT_HELPER.md).
+
+## Alcance inicial aprobado
+
+- U01: revisar Specs/Slices proporcionadas y señalar contradicciones o criterios faltantes.
+- U02: sugerir casos de prueba con entrada, resultado esperado y criterio cubierto.
+
+El coordinador revisa y acepta/rechaza; el ayudante no implementa ni ejecuta pruebas.
+Diagnóstico de código/logs, patches, escrituras, servicios externos y paralelismo
+quedan postergados. Una tarea pequeña se resuelve inline si delegarla no compensa.
+Primer piloto autorizado: solo U01 sintético, un ayudante/un intento y controles
+previos satisfechos. Aprobar U02 no autoriza otro ensayo vivo ni garantiza su calidad.
+
 ## Componentes y pasos
 
 1. El coordinador aplica [Guided Delegation](GUIDED_DELEGATION.md), aprueba alcance,
@@ -71,3 +87,11 @@ Continuar inline. Para retomar la activación, pedir:
   sandbox de comandos no gobierna Apps/MCP/browser ni tráfico del servicio.
 
 No instalar runtimes, ampliar permisos ni habilitar herramientas como atajo.
+
+Inspección adicional del protocolo local 0.155.1 (sin iniciar servidor ni sesión):
+`thread/start` admite config/permisos y su respuesta incluye activePermissionProfile;
+no equivale a configurar el spawn_agent de esta conversación. `config/read` resuelve
+configuración en disco; no certifica herramientas efectivas de un hijo. No se encontró
+en el esquema un método de inventario completo de herramientas nativas por hilo.
+`dynamicTools: []` no debe interpretarse como deshabilitación de herramientas nativas.
+Un adaptador a esta interfaz sería trabajo separado, no un control ya implementado.

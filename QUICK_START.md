@@ -4,6 +4,8 @@ AI Software Factory v2.3.0-rc.1 — Supervised Delegation Preview
 
 Candidata local no publicada. Inline funciona como antes; **ayudante deshabilitado**,
 sin piloto vivo validado. Ver [notas y límites](docs/releases/v2.3.0-rc.1.md).
+El flujo experimental de ahorro de contexto también es offline y opt-in; ver
+[CE-v1](docs/guides/CONTEXT_ECONOMY_TEXT_HELPER.md).
 
 Esta guía busca llevarte de cero a un proyecto funcionando con AI Software Factory en pocos minutos.
 

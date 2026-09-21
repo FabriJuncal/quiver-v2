@@ -2,6 +2,10 @@
 
 Estado del runtime y propuesta inactiva: [Integración del ayudante](ASSISTANT_INTEGRATION.md).
 
+Alcance de primera release aprobado: U01 revisión de Specs/Slices y U02 sugerencias
+de pruebas, sin implementación/ejecución. Las referencias generales a investigación
+o patches en este contrato no habilitan esas capacidades postergadas en esta release.
+
 Inline es default. Esta guía no lanza agentes ni autoriza gasto, publicación o
 escritura paralela. Implementar/verificar la Factory offline tampoco habilita workers.
 Se requiere autorización específica de ejecución delegada para cada alcance/política.
@@ -24,6 +28,9 @@ continuación después de cerrar el cliente. No se instala configuración person
   **no garantizar solo lectura** en la copia. La prohibición de escribir sigue como
   instrucción; el coordinador compara inventarios y rechaza entregas con incidentes.
   Una copia no es un sandbox ni limita por sí sola el acceso al original o a HOME.
+- `text-helper-v1` / run schema v3: consulta textual API opcional, un solo intento,
+  sin thread, tools ni worker. Su implementación actual es únicamente offline y
+  permanece deshabilitada. Ver [CE-v1](CONTEXT_ECONOMY_TEXT_HELPER.md).
 
 En ambas políticas siguen siendo obligatorios los controles efectivos de protección
 del original/baseline/configuración, acciones externas mutantes y recursión, además
@@ -149,10 +156,13 @@ SPEC incluye `Dependency refs: []` como array JSON de paths SPEC relativos al pr
 Cada dependencia tiene evidencia de aceptación; si solo cubre parte, requiere criterios
 concretos y partial_approval_ref. No basta que un intento parcial esté accepted.
 
-Un encargo por slice, hasta dos intentos en esta versión del piloto. Es el límite
+Un encargo por slice, hasta dos intentos en las políticas v1/v2. Es el límite
 conservador del MVP: varios encargos independientes requieren dividir/aprobar slices,
 no cambiar IDs para reiniciar presupuesto. Un límite distinto exige modificar el
 contrato aprobado; no alterar max_attempts para eludir el checker.
+
+La política `text-helper-v1` usa exactamente un intento y `api_runtime.response_id`.
+Un intento remoto incierto conserva el cupo ocupado; nunca se representa como thread.
 
 Rutas relativas canónicas, sin `..`, absolutas ni symlinks. Refs de evidencia son
 objetos path/sha256. Logs/snapshots son artefactos persistidos, no comandos que el

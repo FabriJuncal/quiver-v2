@@ -10,6 +10,9 @@ AI Software Factory v2.3.0-rc.1 — Supervised Delegation Preview
 - `config/assistant-proposal/` — TOML inactivo, no instalado
 - `scripts/lib/check_assistant_proposal.py` — exit 2 no equivale a aptitud viva
 - `tests/test_release_candidate.py` — RC, upgrade y propuesta
+- `docs/guides/CONTEXT_ECONOMY_TEXT_HELPER.md` — selector, reutilización, RUN v3 y walkthroughs offline
+- `scripts/lib/context_economy.py` — primitivas offline; ningún SDK o transporte real incorporado
+- `tests/test_context_economy.py` — regresión CE-v1 con transporte sintético
 
 ## Runtime Guardrails conservados
 
@@ -106,7 +109,7 @@ AI Software Factory v2.3.0-rc.1 — Supervised Delegation Preview
 ## Mantenimiento
 
 - `docs/guides/GUIDED_DELEGATION.md` — contrato operativo opt-in
-- `templates/slice/RUN.schema.json` — schema de intentos, no scheduler
+- `templates/slice/RUN.schema.json` — schema v1/v2 worker y v3 API, no scheduler
 - `scripts/lib/check_execution.py` — validación read-only de registros
 - `tests/test_delegation_contract.py` — fixtures y regresiones offline
 - `examples/guided-delegation/README.md` — ejemplo sintético y recorridos guiados

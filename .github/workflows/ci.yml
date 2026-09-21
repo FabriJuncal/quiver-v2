@@ -30,5 +30,7 @@ jobs:
           status=0
           python3 -I -B scripts/lib/check_assistant_proposal.py || status=$?
           test "$status" -eq 2
+      - name: Context economy and text helper stay offline
+        run: python3 -I -B tests/test_context_economy.py
       - name: Isolated lifecycle, doctor, dry-runs, runtime and delegation regressions
         run: python3 -B -m unittest discover -s tests -v

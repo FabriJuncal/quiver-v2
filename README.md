@@ -34,6 +34,15 @@ Inline sigue siendo default. La [integración mínima del ayudante](docs/guides/
 incluye configuración inactiva y chequeo fail-closed; no incluye dispatcher operativo.
 Instalar/configurar perfiles no habilita workers ni modifica config.toml.
 
+La implementación offline [CE-v1](docs/guides/CONTEXT_ECONOMY_TEXT_HELPER.md) añade
+selección mínima de contexto, reutilización de evidencia y contrato para un ayudante
+textual opcional de un intento. Sigue deshabilitado: no instala SDK, usa credenciales
+ni realiza llamadas.
+
+Alcance inicial aprobado del ayudante: **revisar Specs/Slices y sugerir pruebas**;
+sin implementar, ejecutar comandos ni aplicar cambios. Las demás capacidades quedan
+postergadas; el piloto sigue condicionado a verificar los controles efectivos.
+
 Funciona con:
 
 - proyectos nuevos;

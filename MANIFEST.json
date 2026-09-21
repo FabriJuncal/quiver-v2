@@ -50,6 +50,8 @@
     "review_loop_guard",
     "offline_supervised_delegation_contracts",
     "workspace_audit",
-    "inactive_assistant_proposal"
+    "inactive_assistant_proposal",
+    "context_economy",
+    "optional_text_helper_offline_contract"
   ]
 }

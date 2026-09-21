@@ -1,13 +1,14 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "ASF delegation runs v1/v2 (offline records, never dispatch authorization)",
+  "title": "ASF delegation runs v1/v2/v3 (offline records, never dispatch authorization)",
   "type": "object",
   "properties": {
     "schema_version": {
       "type": "integer",
       "enum": [
         1,
-        2
+        2,
+        3
       ]
     },
     "requirement_ref": {
@@ -116,8 +117,11 @@
       "minItems": 0
     },
     "max_attempts": {
-      "const": 2,
-      "type": "integer"
+      "type": "integer",
+      "enum": [
+        1,
+        2
+      ]
     },
     "no_recursion": {
       "const": true,
@@ -129,6 +133,9 @@
     },
     "runtime": {
       "$ref": "#/$defs/runtime"
+    },
+    "api_runtime": {
+      "$ref": "#/$defs/apiRuntime"
     },
     "requested_profile": {
       "enum": [
@@ -213,7 +220,6 @@
     "max_attempts",
     "no_recursion",
     "review_at",
-    "runtime",
     "requested_profile",
     "resolved_config",
     "observed_config",
@@ -393,6 +399,66 @@
         "observed_at",
         "stop_confirmed",
         "stop_evidence_ref"
+      ],
+      "additionalProperties": false
+    },
+    "apiRuntime": {
+      "type": "object",
+      "properties": {
+        "client": {
+          "const": "openai-responses",
+          "type": "string"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "capability_ref": {
+          "$ref": "#/$defs/artifact"
+        },
+        "endpoint": {
+          "const": "https://api.openai.com/v1/responses",
+          "type": "string"
+        },
+        "response_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "observation": {
+          "enum": [
+            "known",
+            "unknown"
+          ]
+        },
+        "observed_at": {
+          "type": "string",
+          "minLength": 1
+        },
+        "terminal_observed": {
+          "type": "boolean"
+        },
+        "terminal_evidence_ref": {
+          "$ref": "#/$defs/nullableArtifact"
+        },
+        "request_fingerprint": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "client",
+        "version",
+        "capability_ref",
+        "endpoint",
+        "response_id",
+        "observation",
+        "observed_at",
+        "terminal_observed",
+        "terminal_evidence_ref",
+        "request_fingerprint"
       ],
       "additionalProperties": false
     },
@@ -624,8 +690,14 @@
       "properties": {
         "schema_version": {
           "const": 1
+        },
+        "max_attempts": {
+          "const": 2
         }
       },
+      "required": [
+        "runtime"
+      ],
       "not": {
         "required": [
           "supervision"
@@ -636,11 +708,33 @@
       "properties": {
         "schema_version": {
           "const": 2
+        },
+        "max_attempts": {
+          "const": 2
         }
       },
       "required": [
+        "runtime",
         "supervision"
       ]
+    },
+    {
+      "properties": {
+        "schema_version": {
+          "const": 3
+        },
+        "max_attempts": {
+          "const": 1
+        }
+      },
+      "required": [
+        "api_runtime"
+      ],
+      "not": {
+        "required": [
+          "supervision"
+        ]
+      }
     }
   ]
 }

@@ -225,15 +225,23 @@ class ExecutionCheck:
         if file.parent.name != 'runs':
             raise Invalid('run fuera de runs/')
         state = fields(req)
-        policy = 'supervised-sequential-v1' if run['schema_version'] == 1 else 'supervised-audited-v1'
+        policies = {1: 'supervised-sequential-v1', 2: 'supervised-audited-v1',
+                    3: 'text-helper-v1'}
+        policy = policies[run['schema_version']]
         if state.get('delegation policy') != policy or state.get('delegation authorization') != 'approved':
             raise Invalid('opt-in/autorización de delegación ausentes; mantener inline')
+        if run['schema_version'] == 3:
+            if 'runtime' in run or 'supervision' in run:
+                raise Invalid('RUN v3 API no puede fingir runtime de thread/supervisión de copia')
+        elif 'api_runtime' in run:
+            raise Invalid('RUN v1/v2 no admite runtime API')
         live = run['status'] not in TERMINAL
         if live and (spec.get('status') != 'active' or state.get('status') == 'completed'):
             raise Invalid('intento vigente requiere slice activa y requirement no completado')
         if live and state.get('plan version') != run['plan_version']:
             raise Invalid('versión de plan no vigente')
-        for ref in [run['authorization_ref'], run['runtime']['capability_ref'],
+        runtime = run['api_runtime'] if run['schema_version'] == 3 else run['runtime']
+        for ref in [run['authorization_ref'], runtime['capability_ref'],
                     *run['criteria_refs']]:
             self.artifact(ref)
         for ref in [run['brief_ref'], *run['base_refs'], *run['context_refs'], *run['instruction_refs']]:
@@ -270,7 +278,6 @@ class ExecutionCheck:
                 raise Invalid('transición sin evidencia')
             if event['evidence_ref']:
                 self.artifact(event['evidence_ref'])
-        runtime = run['runtime']
         observed = instant(runtime['observed_at'])
         if observed < instant(history[-1]['at']):
             raise Invalid('observación anterior al último estado')
@@ -279,16 +286,31 @@ class ExecutionCheck:
         if runtime['observation'] == 'unknown':
             self.warnings.append('NO VERIFICADO: ejecución desconocida; reconciliar antes de despachar/reasignar.')
         launched = any(e['status'] == 'running' for e in history)
-        if (launched or run['status'] in {'running', 'submitted', 'accepted'}) and not runtime['thread_id']:
-            raise Invalid('ejecución sin ID del runtime')
-        if runtime['stop_confirmed']:
-            if runtime['observation'] != 'known' or runtime['stop_evidence_ref'] is None:
-                raise Invalid('detención declarada sin observación/evidencia')
-            self.artifact(runtime['stop_evidence_ref'])
-        if run['status'] in {'submitted', 'accepted', 'cancelled'} and (launched or runtime['thread_id'] or run['status'] != 'cancelled') and not runtime['stop_confirmed']:
-            raise Invalid('entrega/cancelación sin detención confirmada')
-        if run['status'] == 'cancelled' and runtime['observation'] == 'unknown':
-            raise Invalid('cancelación con despacho desconocido')
+        if run['schema_version'] == 3:
+            needs_id = (run['status'] in {'submitted', 'accepted'}
+                        or ((launched or run['status'] == 'running')
+                            and runtime['observation'] != 'unknown'))
+            if needs_id and not runtime['response_id']:
+                raise Invalid('request API iniciado sin response_id correlacionable')
+            if runtime['terminal_observed']:
+                if runtime['observation'] != 'known' or runtime['terminal_evidence_ref'] is None:
+                    raise Invalid('terminal API declarado sin observación/evidencia')
+                self.artifact(runtime['terminal_evidence_ref'])
+            if run['status'] in {'submitted', 'accepted'} and not runtime['terminal_observed']:
+                raise Invalid('entrega API sin estado terminal observado')
+            if run['status'] == 'cancelled' and runtime['observation'] == 'unknown':
+                raise Invalid('cancelación API con resultado remoto desconocido')
+        else:
+            if (launched or run['status'] in {'running', 'submitted', 'accepted'}) and not runtime['thread_id']:
+                raise Invalid('ejecución sin ID del runtime')
+            if runtime['stop_confirmed']:
+                if runtime['observation'] != 'known' or runtime['stop_evidence_ref'] is None:
+                    raise Invalid('detención declarada sin observación/evidencia')
+                self.artifact(runtime['stop_evidence_ref'])
+            if run['status'] in {'submitted', 'accepted', 'cancelled'} and (launched or runtime['thread_id'] or run['status'] != 'cancelled') and not runtime['stop_confirmed']:
+                raise Invalid('entrega/cancelación sin detención confirmada')
+            if run['status'] == 'cancelled' and runtime['observation'] == 'unknown':
+                raise Invalid('cancelación con despacho desconocido')
         if run['observed_config'] is not None:
             if run['model_evidence_ref'] is None:
                 raise Invalid('modelo observado sin evidencia')
@@ -435,25 +457,36 @@ class ExecutionCheck:
             if run['attempt_id'] in ids:
                 self.errors.append('attempt_id duplicado')
             ids.add(run['attempt_id'])
-            thread = run['runtime']['thread_id']
-            if thread and thread in threads:
-                self.errors.append('thread_id reutilizado entre intentos')
-            if thread:
-                threads.add(thread)
+            runtime = run['api_runtime'] if run['schema_version'] == 3 else run['runtime']
+            runtime_id = runtime['response_id'] if run['schema_version'] == 3 else runtime['thread_id']
+            if runtime_id and runtime_id in threads:
+                self.errors.append(('response_id' if run['schema_version'] == 3 else 'thread_id') +
+                                   ' reutilizado entre intentos')
+            if runtime_id:
+                threads.add(runtime_id)
             groups.setdefault((run['requirement_ref'], run['slice_id']), []).append((file, run))
-            if run['status'] not in TERMINAL or not run['runtime']['stop_confirmed'] and thread or run['runtime']['observation'] == 'unknown':
+            terminal = (runtime['terminal_observed'] if run['schema_version'] == 3
+                        else runtime['stop_confirmed'])
+            if run['status'] not in TERMINAL or (not terminal and runtime_id) or runtime['observation'] == 'unknown':
                 occupied.append(run)
         if len(occupied) > 1:
             self.errors.append('más de un encargo no reconciliado; no despachar')
         for items in groups.values():
             items.sort(key=lambda x: x[1]['attempt_number'])
             runs = [r for _, r in items]
-            if [r['attempt_number'] for r in runs] != list(range(1, len(runs)+1)) or len(runs) > 2:
+            budget = runs[0]['max_attempts']
+            if [r['attempt_number'] for r in runs] != list(range(1, len(runs)+1)) or len(runs) > budget:
                 self.errors.append('presupuesto/secuencia de intentos inválido; no resetear IDs')
             if len({r['assignment_id'] for r in runs}) != 1 or len({r['plan_version'] for r in runs}) != 1 or len({r['schema_version'] for r in runs}) != 1:
                 self.errors.append('encargo/plan cambió para resetear presupuesto; requiere reconciliación explícita')
             for previous, current in zip(runs, runs[1:]):
-                if previous['status'] not in {'failed', 'cancelled'} or previous['runtime']['observation'] != 'known' or (previous['runtime']['thread_id'] and not previous['runtime']['stop_confirmed']):
+                previous_runtime = (previous['api_runtime'] if previous['schema_version'] == 3
+                                    else previous['runtime'])
+                previous_id = (previous_runtime['response_id'] if previous['schema_version'] == 3
+                               else previous_runtime['thread_id'])
+                previous_terminal = (previous_runtime['terminal_observed'] if previous['schema_version'] == 3
+                                     else previous_runtime['stop_confirmed'])
+                if previous['status'] not in {'failed', 'cancelled'} or previous_runtime['observation'] != 'known' or (previous_id and not previous_terminal):
                     self.errors.append('reintento sin cierre/detención del anterior')
                 if previous['coordinator_id'] != current['coordinator_id'] and current['handoff_ref'] is None:
                     self.errors.append('nuevo coordinador sin handoff reconciliado')
@@ -470,7 +503,7 @@ class ExecutionCheck:
         for warning in sorted(set(self.warnings)):
             print('WARN: ' + warning)
         print(f'Delegation records: {len(self.records)}; ' + ('INVALID' if self.errors else 'STATIC PASS'))
-        print('Runtime, permisos, tests reales y modelo efectivo: NO VERIFICADOS. '
+        print('Runtime/API remota, permisos, tests reales y modelo efectivo: NO VERIFICADOS. '
               'No es autorización de dispatch. Reconciliar evidencia antes de ejecutar.')
         return int(bool(self.errors))
 

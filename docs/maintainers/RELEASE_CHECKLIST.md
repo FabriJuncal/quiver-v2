@@ -30,6 +30,7 @@ como multiagente operativo. La preview offline necesita aprobación explícita d
 - [ ] No existen secrets.
 - [ ] `for script in scripts/*.sh scripts/lib/*.sh; do bash -n "$script"; done`.
 - [ ] `python3 -B -m unittest discover -s tests -v` en macOS y Linux.
+- [ ] CE-v1: selector/reutilización/RUN v3/transporte falso pasan; ningún SDK, red o credencial usados.
 - [ ] `./scripts/install.sh --dry-run`.
 - [ ] instalación probada en HOME temporal.
 - [ ] instalación idempotente.

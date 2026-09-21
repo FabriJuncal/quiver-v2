@@ -139,3 +139,30 @@ def audited_fixture_files(status='prepared', number=1):
     run['supervision'] = sup
     files[name] = json.dumps(run, indent=2) + '\n'
     return files
+
+
+def api_fixture_files(status='prepared'):
+    """V3 synthetic API records; no request, SDK, credentials or model execution."""
+    files = fixture_files(status, 1)
+    name = RUN
+    run = json.loads(files[name])
+    files[REQ + '/STATE.md'] = files[REQ + '/STATE.md'].replace(
+        'supervised-sequential-v1', 'text-helper-v1')
+    run['schema_version'] = 3
+    run['max_attempts'] = 1
+    runtime = run.pop('runtime')
+    run['api_runtime'] = {
+        'client': 'openai-responses',
+        'version': 'synthetic-offline',
+        'capability_ref': runtime['capability_ref'],
+        'endpoint': 'https://api.openai.com/v1/responses',
+        'response_id': 'resp_fixture_1' if status != 'prepared' else None,
+        'observation': runtime['observation'],
+        'observed_at': runtime['observed_at'],
+        'terminal_observed': status in {'submitted', 'accepted', 'failed', 'cancelled'},
+        'terminal_evidence_ref': (runtime['capability_ref']
+                                  if status in {'submitted', 'accepted', 'failed', 'cancelled'} else None),
+        'request_fingerprint': digest('SYNTHETIC request; never sent.'),
+    }
+    files[name] = json.dumps(run, indent=2) + '\n'
+    return files
