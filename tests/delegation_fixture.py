@@ -151,6 +151,7 @@ def api_fixture_files(status='prepared'):
     run['schema_version'] = 3
     run['max_attempts'] = 1
     runtime = run.pop('runtime')
+    guard_ref = SLICE + '/runs/attempt-1.dispatch-guard'
     run['api_runtime'] = {
         'client': 'openai-responses',
         'version': 'synthetic-offline',
@@ -163,6 +164,15 @@ def api_fixture_files(status='prepared'):
         'terminal_evidence_ref': (runtime['capability_ref']
                                   if status in {'submitted', 'accepted', 'failed', 'cancelled'} else None),
         'request_fingerprint': digest('SYNTHETIC request; never sent.'),
+        'dispatch_guard_ref': guard_ref,
     }
+    if status != 'prepared':
+        files[guard_ref] = json.dumps({'guard_version': 1, 'run_ref': name,
+            'attempt_id': 'attempt-1',
+            'request_fingerprint': run['api_runtime']['request_fingerprint'],
+            'state': 'finished' if status != 'running' else 'dispatching',
+            'outcome': ('submitted' if status in {'submitted', 'accepted'} else
+                        'unknown' if status == 'running' else 'rejected'),
+            'response_id': run['api_runtime']['response_id']}, indent=2) + '\n'
     files[name] = json.dumps(run, indent=2) + '\n'
     return files

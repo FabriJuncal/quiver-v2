@@ -446,6 +446,10 @@
         "request_fingerprint": {
           "type": "string",
           "pattern": "^[a-f0-9]{64}$"
+        },
+        "dispatch_guard_ref": {
+          "type": "string",
+          "minLength": 1
         }
       },
       "required": [
@@ -458,7 +462,8 @@
         "observed_at",
         "terminal_observed",
         "terminal_evidence_ref",
-        "request_fingerprint"
+        "request_fingerprint",
+        "dispatch_guard_ref"
       ],
       "additionalProperties": false
     },

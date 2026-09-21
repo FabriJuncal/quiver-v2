@@ -17,7 +17,10 @@ modelos y no habilita agentes. Inline sigue siendo el modo predeterminado.
 5. construye un request textual estructurado sin tools ni background;
 6. mantiene el dispatcher deshabilitado salvo que todos los gates estén aprobados.
 
-No resume ni recorta silenciosamente. La estimación `utf8-bytes/4-ceiling` sirve
+Dependencias e instrucciones deben declararse completas y la configuración resuelta
+debe ser conocida antes de crear una identidad reutilizable. No resume ni recorta
+silenciosamente: la lectura se detiene al superar el presupuesto, sin cargar primero
+el archivo completo. La estimación `utf8-bytes/4-ceiling` sirve
 solo para presupuestar contexto; no afirma tokens facturados.
 
 ## Flujo seguro
@@ -28,13 +31,19 @@ inline/local (default)
   → buscar evidencia aceptada equivalente
   → si alcanza: continuar inline o reutilizar con validación del coordinador
   → si no alcanza y el ayudante sigue deshabilitado: continuar inline
-  → solo con activación separada: persistir RUN v3 y efectuar un único despacho
+  → solo con activación separada: persistir RUN v3 preparado
+  → crear su dispatch guard duradero y efectuar un único despacho
 ```
 
-RUN v3 usa `api_runtime.response_id`; nunca reutiliza `thread_id`. Tiene un solo intento
-máximo. Timeout o caída deja resultado `unknown`, ocupa el cupo y prohíbe repetir hasta
-reconciliar. Una respuesta `submitted` todavía debe ser validada por el coordinador;
-no ejecuta comandos ni cierra una Slice por sí sola.
+RUN v3 usa `api_runtime.response_id`; nunca reutiliza `thread_id`. Tiene un solo intento.
+`api_runtime.dispatch_guard_ref` liga el RUN preparado a un guard local exclusivo. El
+claim `unknown` se persiste antes de invocar el transporte; una segunda invocación,
+reinicio, timeout o caída no puede volver a consumirlo. Una respuesta `submitted`
+todavía debe ser validada por el coordinador; no ejecuta comandos ni cierra una Slice.
+
+El límite final vuelve a validar paths canónicos, duplicados, bytes, hashes, contenido
+sensible sintético, digest y presupuesto del contexto serializado. El booleano de
+revisión no reemplaza estas comprobaciones.
 
 ## Walkthroughs offline
 
@@ -60,7 +69,8 @@ duración, memoria y costo. Ausente es `null`, no cero.
 
 Una medición de memoria válida debe guardar bytes de peak RSS, herramienta/SO y lista
 de procesos incluidos. No sumar picos individuales como simultáneos. Un costo requiere
-modelo/tarifa/fecha o una base equivalente, y debe distinguir estimación de factura.
+una base estructurada con tipo (estimación/factura), modelo, fecha y fuente; rechaza
+NaN/infinito y debe distinguir estimación de factura.
 La prueba con transporte falso demuestra el contrato y una llamada evitada; no prueba
 ahorro real de API, RAM de un cliente real ni ahorro total de desarrollo.
 

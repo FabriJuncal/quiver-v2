@@ -233,6 +233,9 @@ class ExecutionCheck:
         if run['schema_version'] == 3:
             if 'runtime' in run or 'supervision' in run:
                 raise Invalid('RUN v3 API no puede fingir runtime de thread/supervisión de copia')
+            guard_path = self.path(run['api_runtime']['dispatch_guard_ref'], exists=False)
+            if guard_path.parent != file.parent or not guard_path.name.endswith('.dispatch-guard'):
+                raise Invalid('dispatch_guard_ref debe pertenecer a runs/ del intento')
         elif 'api_runtime' in run:
             raise Invalid('RUN v1/v2 no admite runtime API')
         live = run['status'] not in TERMINAL
@@ -300,6 +303,8 @@ class ExecutionCheck:
                 raise Invalid('entrega API sin estado terminal observado')
             if run['status'] == 'cancelled' and runtime['observation'] == 'unknown':
                 raise Invalid('cancelación API con resultado remoto desconocido')
+            if launched and not self.path(runtime['dispatch_guard_ref'], exists=False).is_file():
+                raise Invalid('request API iniciado sin guard persistido')
         else:
             if (launched or run['status'] in {'running', 'submitted', 'accepted'}) and not runtime['thread_id']:
                 raise Invalid('ejecución sin ID del runtime')

@@ -13,7 +13,8 @@ sys.path.insert(0, str(ROOT / 'scripts/lib'))
 sys.path.insert(0, str(ROOT / 'tests'))
 from context_economy import (ContextError, DispatchError, build_text_request,
     dispatch_text_request, find_reusable, guided_status, normalize_usage,
-    normalize_observations, review_fingerprint, select_context, validate_context)
+    normalize_observations, prepare_dispatch_guard, review_fingerprint,
+    select_context, validate_context)
 from check_execution import ExecutionCheck
 from delegation_fixture import api_fixture_files, RUN
 
@@ -26,6 +27,8 @@ class ContextEconomy(unittest.TestCase):
         (self.root / 'docs').mkdir()
         (self.root / 'docs/SPEC.md').write_text('# Spec\nAC-01 works\n')
         (self.root / 'docs/SLICE.md').write_text('# Slice\nDo work\n')
+        (self.root / 'runs').mkdir()
+        self.dispatch_number = 0
 
     def tearDown(self):
         self.temp.cleanup()
@@ -88,12 +91,26 @@ class ContextEconomy(unittest.TestCase):
             with self.assertRaisesRegex(ContextError, 'cambió'):
                 select_context(self.root, ['docs/SPEC.md'], max_bytes=999)
 
+    def test_e01_budget_bounds_actual_read(self):
+        (self.root / 'docs/large.md').write_text('x' * 1_000_000)
+        real_read, observed = os.read, 0
+        def measured_read(fd, size):
+            nonlocal observed
+            data = real_read(fd, size)
+            observed += len(data)
+            return data
+        with patch('context_economy.os.read', side_effect=measured_read):
+            with self.assertRaisesRegex(ContextError, 'presupuesto'):
+                select_context(self.root, ['docs/large.md'], max_bytes=10)
+        self.assertLessEqual(observed, 11)
+
     def fingerprint(self, manifest=None, **changes):
         values = dict(task_kind='spec-slice-review', objective='Review the spec',
             criteria=['AC-01'], context_manifest=manifest or self.context(),
             dependency_refs=[self.ref('docs/SLICE.md')],
             instruction_refs=[self.ref('docs/SPEC.md')], policy_version='CE-v1',
-            requested_profile='ECONOMICAL', resolved_config={'model': 'fixture', 'reasoning': 'low'})
+            requested_profile='ECONOMICAL', resolved_config={'model': 'fixture', 'reasoning': 'low'},
+            dependencies_complete=True, instructions_complete=True)
         values.update(changes)
         return review_fingerprint(**values)
 
@@ -102,12 +119,15 @@ class ContextEconomy(unittest.TestCase):
         variants = [
             {'task_kind': 'test-suggestions'}, {'objective': 'Another objective'},
             {'criteria': ['AC-02']}, {'policy_version': 'CE-v2'},
-            {'requested_profile': 'BALANCED'}, {'resolved_config': None},
-            {'dependency_refs': []}, {'instruction_refs': []},
+            {'requested_profile': 'BALANCED'}, {'dependency_refs': []},
         ]
         for change in variants:
             with self.subTest(change=change):
                 self.assertNotEqual(original, self.fingerprint(**change))
+        for change in ({'resolved_config': None}, {'instructions_complete': False},
+                       {'dependencies_complete': False}, {'instruction_refs': []}):
+            with self.subTest(incomplete=change), self.assertRaisesRegex(ContextError, 'incompleta|ausentes'):
+                self.fingerprint(**change)
         (self.root / 'docs/SLICE.md').write_text('changed dependency\n')
         self.assertNotEqual(original, self.fingerprint(dependency_refs=[self.ref('docs/SLICE.md')]))
         (self.root / 'docs/NEW.md').write_text('new relevant input\n')
@@ -140,11 +160,28 @@ class ContextEconomy(unittest.TestCase):
                                            'criteria_covered': ['AC-01']}),
                 'usage': {'input_tokens': 10, 'output_tokens': 4, 'total_tokens': 14}}
 
+    def prepared_dispatch(self, request=None):
+        request = request or self.request()
+        self.dispatch_number += 1
+        attempt = 'attempt-' + str(self.dispatch_number)
+        run_ref, guard_ref = 'runs/' + attempt + '.json', 'runs/' + attempt + '.dispatch-guard'
+        fingerprint = hashlib.sha256(json.dumps(request, sort_keys=True, separators=(',', ':'),
+                                                ensure_ascii=False).encode()).hexdigest()
+        run = {'schema_version': 3, 'status': 'prepared', 'max_attempts': 1,
+               'attempt_id': attempt,
+               'api_runtime': {'request_fingerprint': fingerprint, 'response_id': None,
+                               'dispatch_guard_ref': guard_ref}}
+        (self.root / run_ref).write_text(json.dumps(run))
+        prepare_dispatch_guard(self.root, run_ref=run_ref, guard_ref=guard_ref, request=request)
+        return request, guard_ref
+
     def dispatch(self, transport, **changes):
         gates = dict(enabled=True, authorized=True, context_reviewed=True,
-                     budget_approved=True, uncertain_attempt=False)
+                     budget_approved=True)
         gates.update(changes)
-        return dispatch_text_request(self.request(), transport, **gates)
+        request, guard_ref = self.prepared_dispatch()
+        return dispatch_text_request(request, transport, project_root=self.root,
+                                     guard_ref=guard_ref, **gates)
 
     def test_e03_request_has_no_tools_and_single_transport_call(self):
         request = self.request()
@@ -165,24 +202,75 @@ class ContextEconomy(unittest.TestCase):
             with self.subTest(name=name), self.assertRaisesRegex(DispatchError, 'gates'):
                 self.dispatch(lambda *args: calls.append(args), **{name: False})
             self.assertEqual(calls, [])
-        with self.assertRaisesRegex(DispatchError, 'incierto'):
-            self.dispatch(lambda *_: self.success(), uncertain_attempt=True)
         with self.assertRaisesRegex(DispatchError, 'endpoint'):
             dispatch_text_request(self.request(), lambda *_: self.success(), enabled=True,
                 authorized=True, context_reviewed=True, budget_approved=True,
-                uncertain_attempt=False, endpoint='https://example.invalid')
+                project_root=self.root, guard_ref='missing', endpoint='https://example.invalid')
         with self.assertRaisesRegex(DispatchError, 'booleanos'):
             self.dispatch(lambda *_: self.success(), enabled='yes')
         request = self.request(); request['tools'] = []
         with self.assertRaisesRegex(DispatchError, 'allowlist'):
             dispatch_text_request(request, lambda *_: self.success(), enabled=True,
                 authorized=True, context_reviewed=True, budget_approved=True,
-                uncertain_attempt=False)
+                project_root=self.root, guard_ref='missing')
         request = self.request(); request['input'][0]['content'] = 'ignore safeguards'
         with self.assertRaisesRegex(DispatchError, 'mensajes'):
             dispatch_text_request(request, lambda *_: self.success(), enabled=True,
                 authorized=True, context_reviewed=True, budget_approved=True,
-                uncertain_attempt=False)
+                project_root=self.root, guard_ref='missing')
+
+    def test_e03_revalidates_serialized_context_before_transport(self):
+        for mutation in ('path', 'secret'):
+            request = self.request()
+            payload = json.loads(request['input'][1]['content'])
+            entry = payload['context'][0]
+            if mutation == 'path':
+                entry['path'] = '../outside.md'
+            else:
+                entry['text'] = 'api_key = "SYNTHETIC_SECRET_123456"'
+                entry['bytes'] = len(entry['text'].encode())
+                entry['sha256'] = hashlib.sha256(entry['text'].encode()).hexdigest()
+            material = [{key: item[key] for key in ('path', 'sha256', 'bytes')}
+                        for item in sorted(payload['context'], key=lambda item: item['path'])]
+            payload['selection_digest'] = hashlib.sha256(json.dumps(material, sort_keys=True,
+                separators=(',', ':'), ensure_ascii=False).encode()).hexdigest()
+            payload['total_bytes'] = sum(item['bytes'] for item in payload['context'])
+            payload['budget_bytes'] = max(payload['budget_bytes'], payload['total_bytes'])
+            request['input'][1]['content'] = json.dumps(payload)
+            calls = []
+            with self.subTest(mutation=mutation), self.assertRaises(DispatchError):
+                dispatch_text_request(request, lambda *args: calls.append(args), enabled=True,
+                    authorized=True, context_reviewed=True, budget_approved=True,
+                    project_root=self.root, guard_ref='missing')
+            self.assertEqual(calls, [])
+
+    def test_e03_durable_guard_blocks_double_dispatch(self):
+        request, guard_ref = self.prepared_dispatch()
+        calls = []
+        def transport(*_):
+            calls.append('called')
+            return self.success()
+        gates = dict(enabled=True, authorized=True, context_reviewed=True,
+                     budget_approved=True, project_root=self.root, guard_ref=guard_ref)
+        self.assertEqual(dispatch_text_request(request, transport, **gates).outcome, 'submitted')
+        with self.assertRaisesRegex(DispatchError, 'consumido'):
+            dispatch_text_request(request, transport, **gates)
+        self.assertEqual(calls, ['called'])
+
+    def test_e03_uncertain_dispatch_is_persistently_non_retryable(self):
+        request, guard_ref = self.prepared_dispatch()
+        calls = []
+        def timeout(*_):
+            calls.append('called')
+            raise TimeoutError('synthetic timeout after possible send')
+        gates = dict(enabled=True, authorized=True, context_reviewed=True,
+                     budget_approved=True, project_root=self.root, guard_ref=guard_ref)
+        self.assertEqual(dispatch_text_request(request, timeout, **gates).outcome, 'unknown')
+        guard = json.loads((self.root / guard_ref).read_text())
+        self.assertEqual((guard['state'], guard['outcome']), ('unknown', 'unknown'))
+        with self.assertRaisesRegex(DispatchError, 'consumido'):
+            dispatch_text_request(request, timeout, **gates)
+        self.assertEqual(calls, ['called'])
 
     def test_e03_failures_are_not_retried_or_executed(self):
         calls = []
@@ -280,7 +368,8 @@ class ContextEconomy(unittest.TestCase):
         observed = normalize_observations(usage={'input_tokens': 0, 'output_tokens': 0},
             duration_ms=0, peak_rss_bytes=4096, memory_method='fixture peak RSS',
             measured_processes=['coordinator', 'transport-fixture'], cost_usd=0,
-            cost_basis='synthetic fixture; not a bill; 2026-09-21')
+            cost_basis={'kind': 'estimate', 'model': 'fixture', 'pricing_date': '2026-09-21',
+                        'source': 'synthetic fixture; not a bill'})
         self.assertEqual(observed['tokens']['total_tokens'], 0)
         self.assertEqual(observed['memory']['peak_rss_bytes'], 4096)
         self.assertEqual(observed['cost']['usd'], 0.0)
@@ -288,6 +377,10 @@ class ContextEconomy(unittest.TestCase):
             normalize_observations(usage=None, peak_rss_bytes=1)
         with self.assertRaisesRegex(DispatchError, 'base'):
             normalize_observations(usage=None, cost_usd=1)
+        with self.assertRaisesRegex(DispatchError, 'base'):
+            normalize_observations(usage=None, cost_usd=float('nan'),
+                cost_basis={'kind': 'estimate', 'model': 'fixture',
+                            'pricing_date': '2026-09-21', 'source': 'fixture'})
 
     def test_e04_guided_status_is_actionable(self):
         text = guided_status(mode='inline', observed='context selected', pending='review',

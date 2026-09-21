@@ -162,7 +162,9 @@ no cambiar IDs para reiniciar presupuesto. Un límite distinto exige modificar e
 contrato aprobado; no alterar max_attempts para eludir el checker.
 
 La política `text-helper-v1` usa exactamente un intento y `api_runtime.response_id`.
-Un intento remoto incierto conserva el cupo ocupado; nunca se representa como thread.
+`api_runtime.dispatch_guard_ref` apunta al guard exclusivo del intento: su claim
+unknown se persiste antes del transporte. Un intento remoto incierto conserva el cupo
+ocupado, incluso tras reinicio; nunca se representa como thread ni se reintenta.
 
 Rutas relativas canónicas, sin `..`, absolutas ni symlinks. Refs de evidencia son
 objetos path/sha256. Logs/snapshots son artefactos persistidos, no comandos que el

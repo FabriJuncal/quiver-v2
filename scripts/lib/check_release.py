@@ -46,7 +46,8 @@ for name in ['workflow/10_RESUME.md', 'templates/AGENTS.md',
              'skills/core/model-router/SKILL.md']:
     assert 'Finalization Gate' in (root / name).read_text(), name
 context_guide = (root / 'docs/guides/CONTEXT_ECONOMY_TEXT_HELPER.md').read_text()
-for marker in ['inline/local (default)', 'RUN v3', 'un solo intento', 'no reintentar']:
+for marker in ['inline/local (default)', 'RUN v3', 'un solo intento', 'no reintentar',
+               'dispatch_guard_ref']:
     assert marker in context_guide, f'Missing CE-v1 guardrail: {marker}'
 run_schema = json.loads((root / 'templates/slice/RUN.schema.json').read_text())
 assert set(run_schema['properties']['schema_version']['enum']) == {1, 2, 3}
