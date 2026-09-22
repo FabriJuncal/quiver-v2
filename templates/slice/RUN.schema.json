@@ -1,0 +1,745 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ASF delegation runs v1/v2/v3 (offline records, never dispatch authorization)",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "enum": [
+        1,
+        2,
+        3
+      ]
+    },
+    "requirement_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "slice_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+    },
+    "assignment_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+    },
+    "attempt_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+    },
+    "attempt_number": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 2
+    },
+    "plan_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authorization_ref": {
+      "$ref": "#/$defs/artifact"
+    },
+    "coordinator_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+    },
+    "handoff_ref": {
+      "$ref": "#/$defs/nullableArtifact"
+    },
+    "brief_ref": {
+      "$ref": "#/$defs/artifact"
+    },
+    "base_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/artifact"
+      },
+      "minItems": 1
+    },
+    "context_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/artifact"
+      },
+      "minItems": 1
+    },
+    "instruction_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/artifact"
+      },
+      "minItems": 1
+    },
+    "factory_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "objective": {
+      "type": "string",
+      "minLength": 1
+    },
+    "criteria_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/artifact"
+      },
+      "minItems": 1
+    },
+    "read_scope": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1
+    },
+    "proposal_scope": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0
+    },
+    "project_write_scope": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "maxItems": 0
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/dependency"
+      },
+      "minItems": 0
+    },
+    "max_attempts": {
+      "type": "integer",
+      "enum": [
+        1,
+        2
+      ]
+    },
+    "no_recursion": {
+      "const": true,
+      "type": "boolean"
+    },
+    "review_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "runtime": {
+      "$ref": "#/$defs/runtime"
+    },
+    "api_runtime": {
+      "$ref": "#/$defs/apiRuntime"
+    },
+    "requested_profile": {
+      "enum": [
+        "ECONOMICAL",
+        "BALANCED",
+        "ADVANCED",
+        "EXCEPTIONAL"
+      ]
+    },
+    "resolved_config": {
+      "$ref": "#/$defs/config"
+    },
+    "observed_config": {
+      "$ref": "#/$defs/config"
+    },
+    "model_evidence_ref": {
+      "$ref": "#/$defs/nullableArtifact"
+    },
+    "status": {
+      "enum": [
+        "prepared",
+        "running",
+        "submitted",
+        "accepted",
+        "failed",
+        "cancelled"
+      ]
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/event"
+      },
+      "minItems": 1
+    },
+    "delivery_ref": {
+      "$ref": "#/$defs/nullableArtifact"
+    },
+    "validation_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/artifact"
+      },
+      "minItems": 0
+    },
+    "integration_ref": {
+      "$ref": "#/$defs/nullableArtifact"
+    },
+    "acceptance_ref": {
+      "$ref": "#/$defs/nullableArtifact"
+    },
+    "supervision": {
+      "$ref": "#/$defs/supervision"
+    }
+  },
+  "required": [
+    "schema_version",
+    "requirement_ref",
+    "slice_id",
+    "assignment_id",
+    "attempt_id",
+    "attempt_number",
+    "plan_version",
+    "authorization_ref",
+    "coordinator_id",
+    "handoff_ref",
+    "brief_ref",
+    "base_refs",
+    "context_refs",
+    "instruction_refs",
+    "factory_version",
+    "objective",
+    "criteria_refs",
+    "read_scope",
+    "proposal_scope",
+    "project_write_scope",
+    "dependencies",
+    "max_attempts",
+    "no_recursion",
+    "review_at",
+    "requested_profile",
+    "resolved_config",
+    "observed_config",
+    "model_evidence_ref",
+    "status",
+    "reason",
+    "history",
+    "delivery_ref",
+    "validation_refs",
+    "integration_ref",
+    "acceptance_ref"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "artifact": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "additionalProperties": false
+    },
+    "nullableArtifact": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "additionalProperties": false
+    },
+    "config": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "model": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reasoning": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "model",
+        "reasoning"
+      ],
+      "additionalProperties": false
+    },
+    "dependency": {
+      "type": "object",
+      "properties": {
+        "slice_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "criteria": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "evidence_ref": {
+          "$ref": "#/$defs/nullableArtifact"
+        },
+        "partial_approval_ref": {
+          "$ref": "#/$defs/nullableArtifact"
+        }
+      },
+      "required": [
+        "slice_ref",
+        "criteria",
+        "evidence_ref",
+        "partial_approval_ref"
+      ],
+      "additionalProperties": false
+    },
+    "event": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "prepared",
+            "running",
+            "submitted",
+            "accepted",
+            "failed",
+            "cancelled"
+          ]
+        },
+        "at": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_ref": {
+          "$ref": "#/$defs/nullableArtifact"
+        }
+      },
+      "required": [
+        "status",
+        "at",
+        "evidence_ref"
+      ],
+      "additionalProperties": false
+    },
+    "runtime": {
+      "type": "object",
+      "properties": {
+        "client": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "capability_ref": {
+          "$ref": "#/$defs/artifact"
+        },
+        "thread_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "observation": {
+          "enum": [
+            "known",
+            "unknown"
+          ]
+        },
+        "observed_at": {
+          "type": "string",
+          "minLength": 1
+        },
+        "stop_confirmed": {
+          "type": "boolean"
+        },
+        "stop_evidence_ref": {
+          "$ref": "#/$defs/nullableArtifact"
+        }
+      },
+      "required": [
+        "client",
+        "version",
+        "capability_ref",
+        "thread_id",
+        "observation",
+        "observed_at",
+        "stop_confirmed",
+        "stop_evidence_ref"
+      ],
+      "additionalProperties": false
+    },
+    "apiRuntime": {
+      "type": "object",
+      "properties": {
+        "client": {
+          "const": "openai-responses",
+          "type": "string"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "capability_ref": {
+          "$ref": "#/$defs/artifact"
+        },
+        "endpoint": {
+          "const": "https://api.openai.com/v1/responses",
+          "type": "string"
+        },
+        "response_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "observation": {
+          "enum": [
+            "known",
+            "unknown"
+          ]
+        },
+        "observed_at": {
+          "type": "string",
+          "minLength": 1
+        },
+        "terminal_observed": {
+          "type": "boolean"
+        },
+        "terminal_evidence_ref": {
+          "$ref": "#/$defs/nullableArtifact"
+        },
+        "request_fingerprint": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "dispatch_guard_ref": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "client",
+        "version",
+        "capability_ref",
+        "endpoint",
+        "response_id",
+        "observation",
+        "observed_at",
+        "terminal_observed",
+        "terminal_evidence_ref",
+        "request_fingerprint",
+        "dispatch_guard_ref"
+      ],
+      "additionalProperties": false
+    },
+    "command": {
+      "type": "object",
+      "properties": {
+        "command": {
+          "type": "string",
+          "minLength": 1
+        },
+        "result": {
+          "enum": [
+            "passed",
+            "failed",
+            "not-run"
+          ]
+        },
+        "evidence_ref": {
+          "$ref": "#/$defs/nullableArtifact"
+        }
+      },
+      "required": [
+        "command",
+        "result",
+        "evidence_ref"
+      ],
+      "additionalProperties": false
+    },
+    "delivery": {
+      "type": "object",
+      "properties": {
+        "attempt_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+        },
+        "base_digest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "kind": {
+          "enum": [
+            "analysis",
+            "patch"
+          ]
+        },
+        "proposed_files": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "worker_write_paths": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "maxItems": 0
+        },
+        "criteria_covered": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "commands": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/command"
+          },
+          "minItems": 0
+        },
+        "findings": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "pending": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "attempt_id",
+        "base_digest",
+        "kind",
+        "proposed_files",
+        "worker_write_paths",
+        "criteria_covered",
+        "commands",
+        "findings",
+        "pending",
+        "summary"
+      ],
+      "additionalProperties": false
+    },
+    "control": {
+      "type": "object",
+      "properties": {
+        "requested": {
+          "const": true,
+          "type": "boolean"
+        },
+        "mechanism": {
+          "enum": [
+            "instruction",
+            "runtime",
+            "unknown"
+          ]
+        },
+        "observed": {
+          "enum": [
+            "satisfied",
+            "violated",
+            "unknown"
+          ]
+        },
+        "evidence_ref": {
+          "$ref": "#/$defs/nullableArtifact"
+        }
+      },
+      "required": [
+        "requested",
+        "mechanism",
+        "observed",
+        "evidence_ref"
+      ],
+      "additionalProperties": false
+    },
+    "supervision": {
+      "type": "object",
+      "properties": {
+        "policy": {
+          "const": "supervised-audited-v1",
+          "type": "string"
+        },
+        "risk_acceptance_ref": {
+          "$ref": "#/$defs/artifact"
+        },
+        "context_review_ref": {
+          "$ref": "#/$defs/artifact"
+        },
+        "controls": {
+          "type": "object",
+          "properties": {
+            "no_copy_writes": {
+              "$ref": "#/$defs/control"
+            },
+            "original_protection": {
+              "$ref": "#/$defs/control"
+            },
+            "external_mutations": {
+              "$ref": "#/$defs/control"
+            },
+            "no_recursion": {
+              "$ref": "#/$defs/control"
+            },
+            "observation_and_stop": {
+              "$ref": "#/$defs/control"
+            }
+          },
+          "required": [
+            "no_copy_writes",
+            "original_protection",
+            "external_mutations",
+            "no_recursion",
+            "observation_and_stop"
+          ],
+          "additionalProperties": false
+        },
+        "copy_before_ref": {
+          "$ref": "#/$defs/artifact"
+        },
+        "copy_after_ref": {
+          "$ref": "#/$defs/nullableArtifact"
+        },
+        "copy_audit_ref": {
+          "$ref": "#/$defs/nullableArtifact"
+        },
+        "original_before_ref": {
+          "$ref": "#/$defs/artifact"
+        },
+        "original_after_ref": {
+          "$ref": "#/$defs/nullableArtifact"
+        },
+        "original_audit_ref": {
+          "$ref": "#/$defs/nullableArtifact"
+        },
+        "incident_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/artifact"
+          }
+        }
+      },
+      "required": [
+        "policy",
+        "risk_acceptance_ref",
+        "context_review_ref",
+        "controls",
+        "copy_before_ref",
+        "copy_after_ref",
+        "copy_audit_ref",
+        "original_before_ref",
+        "original_after_ref",
+        "original_audit_ref",
+        "incident_refs"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "oneOf": [
+    {
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "max_attempts": {
+          "const": 2
+        }
+      },
+      "required": [
+        "runtime"
+      ],
+      "not": {
+        "required": [
+          "supervision"
+        ]
+      }
+    },
+    {
+      "properties": {
+        "schema_version": {
+          "const": 2
+        },
+        "max_attempts": {
+          "const": 2
+        }
+      },
+      "required": [
+        "runtime",
+        "supervision"
+      ]
+    },
+    {
+      "properties": {
+        "schema_version": {
+          "const": 3
+        },
+        "max_attempts": {
+          "const": 1
+        }
+      },
+      "required": [
+        "api_runtime"
+      ],
+      "not": {
+        "required": [
+          "supervision"
+        ]
+      }
+    }
+  ]
+}

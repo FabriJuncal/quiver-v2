@@ -21,6 +21,18 @@ MAPPINGS = {
     'exceptional': ('gpt-6-astra', 'high'),
 }
 
+# Distribution versions support stable releases and numeric release candidates.
+# A stable version sorts AFTER every RC of the same base; rc.10 > rc.2.
+VERSION = r'(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-rc\.(0|[1-9]\d*))?'
+
+
+def version_key(value):
+    match = re.fullmatch(VERSION, value)
+    if not match:
+        raise ValueError('Unsupported Factory version: ' + value)
+    major, minor, patch, rc = match.groups()
+    return (int(major), int(minor), int(patch), rc is None, int(rc or 0))
+
 
 class Doctor:
     def __init__(self):
@@ -107,10 +119,10 @@ class Doctor:
         versions = {}
         for label, path in (('Project', metadata), ('AGENTS', agents)):
             value = self.fields(path).get('factory version', '') if path.exists() else ''
-            match = re.match(r'(\d+\.\d+\.\d+)(?:\s|$)', value)
-            versions[label] = match.group(1) if match else 'unknown'
+            token = value.split()[0] if value.split() else ''
+            versions[label] = token if re.fullmatch(VERSION, token) else 'unknown'
         print(f'Installed factory: {version}\nProject factory layer: {versions["Project"]}\nAGENTS version: {versions["AGENTS"]}')
-        old = [v for v in versions.values() if v != 'unknown' and tuple(map(int, v.split('.'))) < tuple(map(int, version.split('.')))]
+        old = [v for v in versions.values() if v != 'unknown' and version_key(v) < version_key(version)]
         if old:
             self.warn(f'PROJECT FACTORY LAYER OUTDATED\nInstalled: {version}\nProject: {versions["Project"]}\nAGENTS: {versions["AGENTS"]}')
         elif 'unknown' in versions.values():
@@ -119,8 +131,8 @@ class Doctor:
             self.warn('Versiones diferentes: no hacer downgrade. Verificá la instalación canónica requerida por el proyecto.')
         if old or 'unknown' in versions.values():
             print('QUÉ HACER\nEjecutá en Codex:\n'
-                  'Actualizá únicamente la capa AI Software Factory de este proyecto a v2.2.2 siguiendo '
-                  'docs/guides/UPGRADE_2_2_1_TO_2_2_2.md de la instalación canónica. '
+                  f'Actualizá únicamente la capa AI Software Factory de este proyecto a v{version} siguiendo '
+                  'docs/guides/UPGRADE_2_2_2_TO_2_3_0.md de la instalación canónica. '
                   'Preservá código, decisiones, criterios, arquitectura y slices cerradas. '
                   'Validá con doctor.sh --project . y continuá el trabajo ya autorizado.\n'
                   'ACCIÓN DEL USUARIO: requerida')
@@ -261,13 +273,22 @@ def main():
     args = parser.parse_args()
     doctor = Doctor()
     version = doctor.fields(args.root / 'FACTORY_VERSION.md').get('version', '')
-    if not re.fullmatch(r'\d+\.\d+\.\d+', version):
+    if not re.fullmatch(VERSION, version):
         doctor.error('Factory version inválida.')
         return 1
     project = args.project.resolve() if args.project else None
     doctor.instructions(args.codex_home, project)
     if project:
         doctor.project(project, version)
+        # doctor invokes Python -I; load only the packaged sibling, never project cwd.
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        from check_execution import ExecutionCheck, Invalid
+        try:
+            execution = ExecutionCheck(project).scan()
+            if execution.report():
+                doctor.error('Delegación: reconciliá registros; no despachar ni aceptar hasta resolver errores.')
+        except (Invalid, OSError) as error:
+            doctor.error(f'Delegación NO VERIFICADA: {error}')
     print('Runtime guardrails: validación estática; continuidad real del agente requiere ejecución en sesión.')
     return int(bool(doctor.errors))
 

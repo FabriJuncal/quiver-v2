@@ -223,6 +223,13 @@ if [[ -n "$PROJECT" ]]; then
 fi
 
 if [[ -n "$parser" ]]; then
+  helper_status=0
+  "$parser" -I -B "$SCRIPT_DIR/lib/check_assistant_proposal.py" || helper_status=$?
+  if [[ "$helper_status" -eq 2 ]]; then
+    warning "Ayudante DISABLED: propuesta válida; runtime/piloto NO VERIFICADOS. Seguir inline; ver ASSISTANT_INTEGRATION.md."
+  else
+    bad "Propuesta de ayudante inválida o resultado inesperado; no habilitar delegación."
+  fi
   runtime_args=(--root "$ROOT" --codex-home "$(codex_dir)")
   [[ -z "$PROJECT" ]] || runtime_args+=(--project "$PROJECT")
   runtime_report="$("$parser" -I -B "$SCRIPT_DIR/lib/runtime_doctor.py" "${runtime_args[@]}" 2>&1)" || bad "Runtime guardrails: corregir errores indicados debajo."

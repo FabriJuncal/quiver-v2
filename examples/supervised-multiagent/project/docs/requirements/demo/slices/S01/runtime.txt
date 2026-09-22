@@ -1,0 +1,1 @@
+SYNTHETIC: fixture event, no real process/model/permission checked.

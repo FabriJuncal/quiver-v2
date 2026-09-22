@@ -5,6 +5,15 @@ description: Use in AI Software Factory projects to implement one approved slice
 
 # Slice Executor
 
+First identify role. The steps below apply to the coordinator/inline executor.
+A delegated worker must instead obey its bounded read-only/proposal brief: return
+findings/patch proposal and actual evidence; do not apply edits, update STATE, run
+mutating tests, continue slices or spawn workers. Reading this skill grants no delegation.
+For explicit opt-in use [Guided Delegation](../../../docs/guides/GUIDED_DELEGATION.md).
+Read-only intent in the audited policy is not enforcement. The coordinator checks
+copy/original manifests and rejects incidents without restoring user work; a clean
+comparison never proves permissions or absence of transient/external actions.
+
 Before coding:
 
 1. read project state;

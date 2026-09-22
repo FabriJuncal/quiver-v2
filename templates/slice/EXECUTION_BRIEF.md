@@ -47,3 +47,10 @@ Neither value overrides other pending boundaries or grants implementation author
 ## Definition of done
 
 -
+
+## Delegación (opcional)
+
+Omitir esta sección en inline. Solo con opt-in y autorización de ejecución delegada,
+seguir docs/guides/GUIDED_DELEGATION.md de Factory: encargo/contexto acotados, un
+worker proponente y aceptación central. `Current attempt:` apunta al JSON vigente
+relativo al proyecto; el JSON enlaza este brief y su digest. No repetir el catálogo.

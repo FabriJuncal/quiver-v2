@@ -34,6 +34,15 @@ docs/requirements/<ticket>/STATE.md
 
 ## 4. Contexto mínimo
 
+Si existe opt-in de delegación o registros `runs/`, reconciliar primero encargo vigente,
+intentos y observación real según [Guided Delegation](../docs/guides/GUIDED_DELEGATION.md).
+Prepared sin ID puede ser un despacho interrumpido: no relanzar ni tomar ownership
+sin evidencia. Unknown no es finalizado. Una entrega duplicada no se aplica dos veces.
+Para política auditada reconciliar manifests/incidentes y base original; no reutilizar
+copia contaminada, restaurar archivos humanos ni convertir un informe limpio en aislamiento.
+Requirements históricos no seleccionados y discrepantes no habilitan trabajo externo;
+verificar evidencia y vigencia antes de corregir su índice/estado.
+
 Cargar únicamente artefactos necesarios para la próxima acción.
 
 Contrastar STATE con decisiones/aprobaciones, Git diff y evidencia reciente de la slice. Si hay una interrupción, no repetir pasos destructivos ni asumir que una acción en progreso terminó. Diferenciar aprobación del reviewer, aprobación humana de la versión del plan y autorización de ejecución. Si falta prueba de autorización, pedir exactamente la aprobación faltante.

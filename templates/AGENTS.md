@@ -2,7 +2,7 @@
 
 Este proyecto utiliza AI Software Factory.
 
-Factory version: 2.2.2
+Factory version: 2.3.0-rc.1
 
 Las instrucciones específicas de este repositorio tienen prioridad sobre recomendaciones genéricas de Factory.
 

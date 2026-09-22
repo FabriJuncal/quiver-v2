@@ -35,7 +35,7 @@ Instalación canónica:
 
 \`$ROOT\`
 
-Factory version: 2.2.2
+Factory version: 2.3.0-rc.1
 
 - La Factory se adapta al proyecto: integrar antes que migrar; contexto/skills bajo demanda.
 - Guided Mode: ejecutar trabajo autorizado hasta un Decision Boundary real.

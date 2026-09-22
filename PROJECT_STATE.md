@@ -1,22 +1,23 @@
 # PROJECT_STATE
 
-- **Project:** AI Software Factory v2.2.2 — Runtime Guardrails
-- **Status:** awaiting-next-request
-- **Current phase:** v2.2.2 published
-- **Active requirement:** none
-- **Last completed requirement:** docs/requirements/runtime-guardrails/STATE.md
+- **Project:** AI Software Factory v2.3.0-rc.1 — Supervised Delegation Preview
+- **Status:** awaiting-approval
+- **Current phase:** candidata offline validada; piloto NOT RUN por controles pendientes
+- **Active requirement:** docs/requirements/release-2-3-0-rc-1/STATE.md
+- **Last completed requirement:** docs/requirements/sandbox-isolation-probe/STATE.md
 - **Current slice:** none
-- **Completed:** v2.2.2 implementada, 44 pruebas macOS OK y check-release PASS; evidencia en docs/requirements/runtime-guardrails/EVIDENCE.md. Evidencia 2.2.1 preservada en su requirement histórico.
-- **Pending:** ninguna dentro del alcance de publicación autorizado. La instalación y prueba operativa están documentadas en release/upgrade.
-- **Next action:** esperar una nueva petición del usuario o evidencia operativa de nuevo-proyecto.
-- **Why this is next:** v2.2.2, tag, release, assets y CI fueron verificados; no hay trabajo autorizado pendiente.
+- **Completed:** S01–S04 offline y 111 tests previos preservados. Prueba nueva codex sandbox 0.155.1: 22/22 casos, configuración temporal, sin agentes/modelos adicionales. Protección de archivos ficticios observada; evidencia en docs/requirements/sandbox-isolation-probe/REPORT.md. Config habitual preservada, sin release nueva.
+- **Pending:** decisión de alcance preview offline o integración runtime antes de publicar funcionalidad viva.
+- **Next action:** revisar/aprobar alcance final según STATE del requirement; mantener piloto deshabilitado por RC-F02.
+- **Why this is next:** 117 tests OK desde ZIP y upgrade real 2.2.2 probado; configuración efectiva del hijo no verificable con esta interfaz.
 - **User action required:** true
-- **Decision required:** none; conservar visibilidad privada, sin force-push.
-- **Expected output:** nuevo requirement concreto o resultado operativo a evaluar.
-- **After this:** capturar alcance proporcional; no modificar/recrear v2.2.2 sin nueva autorización.
+- **Decision required:** preview offline explícita o continuación de integración runtime; no autorización de publicación vigente.
+- **Expected output:** aprobación concreta de siguiente alcance; no cierre falso de capacidad multiagente.
+- **After this:** ejecutar solo opción aprobada; push/tag/publicación requieren autorización nueva.
 - **Blocked by:** none
-- **Runtime limitation:** none
-- **Resume instruction:** v2.2.2 está publicada. Leer runtime-guardrails/EVIDENCE.md y los enlaces de release/CI antes de reproducir una publicación. No reemplazar tag/assets; esperar nuevo alcance.
+- **Runtime limitation:** unavailable-runtime-capability
+- **Runtime limitation detail:** piloto: esta interfaz no permite seleccionar rol/permisos ni verificar ausencia de recursión/herramientas mutantes del ayudante. Preparación offline continúa.
+- **Resume instruction:** leer docs/requirements/release-2-3-0-rc-1/STATE.md, EVIDENCE.md y review. Candidata offline lista para revisión en .release-candidates/2.3.0-rc.1/; piloto NOT RUN, cero intentos. No activar por los PASS estáticos ni publicar sin aprobación nueva.
 
 ## Publicación v2.2.2
 

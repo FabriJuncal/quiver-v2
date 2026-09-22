@@ -1,2 +1,5 @@
 # Historical update bundles must never be applied to the current release.
 docs/archive export-ignore
+# Development evidence and private local trials are not installation resources.
+/docs/requirements export-ignore
+/PROJECT_STATE.md export-ignore

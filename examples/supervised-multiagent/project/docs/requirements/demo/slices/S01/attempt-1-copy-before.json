@@ -1,0 +1,62 @@
+{
+  "manifest_version": 1,
+  "scope_id": "attempt-1:copy",
+  "entries": [
+    {
+      "path": ".",
+      "kind": "directory",
+      "mode": 493,
+      "size": null,
+      "sha256": null
+    },
+    {
+      "path": "AGENTS.md",
+      "kind": "file",
+      "mode": 420,
+      "size": 43,
+      "sha256": "f67f6ba6da52e9a6b61d6fce132559de6543fe5cf1e5341fa43257e56363582c"
+    },
+    {
+      "path": "docs",
+      "kind": "directory",
+      "mode": 493,
+      "size": null,
+      "sha256": null
+    },
+    {
+      "path": "docs/requirements",
+      "kind": "directory",
+      "mode": 493,
+      "size": null,
+      "sha256": null
+    },
+    {
+      "path": "docs/requirements/demo",
+      "kind": "directory",
+      "mode": 493,
+      "size": null,
+      "sha256": null
+    },
+    {
+      "path": "docs/requirements/demo/CRITERIA.md",
+      "kind": "file",
+      "mode": 420,
+      "size": 42,
+      "sha256": "f99afff92b84f0686336ce83dbcd890f3655db77c57b2561553529a852ace107"
+    },
+    {
+      "path": "src",
+      "kind": "directory",
+      "mode": 493,
+      "size": null,
+      "sha256": null
+    },
+    {
+      "path": "src/example.txt",
+      "kind": "file",
+      "mode": 420,
+      "size": 43,
+      "sha256": "62f4b5ece858a8e4da55a9d0b7166c48cf834f9c965d0c18baee60047b9d499b"
+    }
+  ]
+}

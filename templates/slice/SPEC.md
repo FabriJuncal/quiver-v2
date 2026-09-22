@@ -22,6 +22,10 @@ es el índice operativo; mantener consistencia según invariants del contrato ca
 
 -
 
+Para delegación opt-in únicamente: agregar `Dependency refs: []` con paths JSON a
+SPEC de dependencias, relativos al proyecto. El checker valida referencias/ciclos;
+el coordinador comprueba la aceptación real. No agregar campos a slices inline/cerradas.
+
 ## Validation
 
 -

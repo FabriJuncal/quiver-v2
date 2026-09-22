@@ -153,11 +153,12 @@ class RuntimeGuardrails(unittest.TestCase):
         self.fixture()
         for name in ('PROJECT_PROFILE.md', 'AGENTS.md'):
             path = self.project / name
-            path.write_text(path.read_text().replace('2.2.2', '2.2.1'))
+            current = json.loads((ROOT / 'MANIFEST.json').read_text())['version']
+            path.write_text(path.read_text().replace(current, '2.2.1'))
         before = snapshot(self.base)
         result = self.run_script('doctor', '--project', str(self.project))
         self.assertIn('PROJECT FACTORY LAYER OUTDATED', result.stdout)
-        self.assertIn('UPGRADE_2_2_1_TO_2_2_2.md', result.stdout)
+        self.assertIn('UPGRADE_2_2_2_TO_2_3_0.md', result.stdout)
         self.assertEqual(before, snapshot(self.base))
 
     def test_global_size_near_limit_warning(self):
@@ -216,7 +217,8 @@ class RuntimeGuardrails(unittest.TestCase):
     def test_new_project_has_guardrails_and_version(self):
         self.run_script('init-project')
         agents = (self.project / 'AGENTS.md').read_text()
-        for marker in ('Finalization Gate', 'Guided Mode', 'Factory version: 2.2.2', 'Conversation Recap'):
+        current = json.loads((ROOT / 'MANIFEST.json').read_text())['version']
+        for marker in ('Finalization Gate', 'Guided Mode', 'Factory version: ' + current, 'Conversation Recap'):
             self.assertIn(marker, agents)
         self.assertIn('Runtime limitation', (self.project / 'PROJECT_STATE.md').read_text())
 
