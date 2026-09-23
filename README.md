@@ -57,6 +57,11 @@ Funciona con:
 - productos con IA;
 - stacks diferentes.
 
+Para repositorios donde las ramas son variantes de clientes/plataformas, el modo
+[branch-aware discovery](docs/guides/BRANCH_AWARE_DISCOVERY.md) inventaría refs y OID
+sin checkout y construye contexto verificable por tarea. Es optativo y no cambia la
+adopción convencional.
+
 La Factory aporta **método, estado persistente, planificación proporcional, revisión y skills reutilizables**. El proyecto conserva su stack, arquitectura, negocio y convenciones.
 
 ## Principios

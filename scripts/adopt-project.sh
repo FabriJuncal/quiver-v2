@@ -7,15 +7,45 @@ source "$SCRIPT_DIR/lib/common.sh"
 ROOT="$(factory_root)"
 PROJECT="$(pwd -P)"
 DRY_RUN=false
+VARIANT_OUTPUT=""
 
-if [[ $# -eq 1 && "$1" == "--dry-run" ]]; then
-  DRY_RUN=true
-elif [[ $# -gt 0 ]]; then
-  echo "Uso: $0 [--dry-run]"
-  exit 2
-fi
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --dry-run)
+      $DRY_RUN && { echo "Uso: $0 [--dry-run] [--variant-discovery-output PATH]"; exit 2; }
+      DRY_RUN=true
+      shift
+      ;;
+    --variant-discovery-output)
+      [[ -z "$VARIANT_OUTPUT" && $# -ge 2 && -n "${2:-}" ]] \
+        || { echo "Uso: $0 [--dry-run] [--variant-discovery-output PATH]"; exit 2; }
+      VARIANT_OUTPUT="$2"
+      shift 2
+      ;;
+    *)
+      echo "Uso: $0 [--dry-run] [--variant-discovery-output PATH]"
+      exit 2
+      ;;
+  esac
+done
 
 project_preflight
+
+if git -C "$PROJECT" rev-parse --git-dir >/dev/null 2>&1; then
+  variant_ref_count="$(git -C "$PROJECT" for-each-ref --format='%(refname)' refs/heads refs/remotes | wc -l | tr -d ' ')"
+  if [[ "$variant_ref_count" -gt 1 && -z "$VARIANT_OUTPUT" ]]; then
+    echo "INFO: Git contiene $variant_ref_count refs locales/remotas. Discovery ampliado disponible con --variant-discovery-output PATH_EXTERNO."
+  fi
+fi
+
+if [[ -n "$VARIANT_OUTPUT" ]]; then
+  if $DRY_RUN; then
+    echo "WOULD INSPECT VARIANTS: $PROJECT -> $VARIANT_OUTPUT (el output debe estar fuera del repositorio)"
+  else
+    "$ROOT/scripts/discover-variants.sh" inspect --repo "$PROJECT" --output "$VARIANT_OUTPUT"
+  fi
+fi
+
 project_directories
 
 if [[ -f "$PROJECT/AGENTS.md" ]]; then

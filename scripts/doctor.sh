@@ -8,15 +8,28 @@ ROOT="$(factory_root)"
 AGENTS_FILE="$(codex_dir)/AGENTS.md"
 SKILLS_DIR="$(agents_skills_dir)"
 PROJECT=""
+VARIANT_MANIFEST=""
 
-if [[ $# -eq 2 && "$1" == "--project" ]]; then
-  PROJECT="${2:-}"
-  if [[ -z "$PROJECT" ]]; then
-    echo "Uso: $0 [--project PATH]"
-    exit 2
-  fi
-elif [[ $# -gt 0 ]]; then
-  echo "Uso: $0 [--project PATH]"
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --project)
+      [[ -z "$PROJECT" && $# -ge 2 && -n "${2:-}" ]] || { echo "Uso: $0 [--project PATH] [--variant-manifest PATH]"; exit 2; }
+      PROJECT="$2"
+      shift 2
+      ;;
+    --variant-manifest)
+      [[ -z "$VARIANT_MANIFEST" && $# -ge 2 && -n "${2:-}" ]] || { echo "Uso: $0 [--project PATH] [--variant-manifest PATH]"; exit 2; }
+      VARIANT_MANIFEST="$2"
+      shift 2
+      ;;
+    *)
+      echo "Uso: $0 [--project PATH] [--variant-manifest PATH]"
+      exit 2
+      ;;
+  esac
+done
+if [[ -n "$VARIANT_MANIFEST" && -z "$PROJECT" ]]; then
+  echo "Uso: $0 --project PATH --variant-manifest PATH"
   exit 2
 fi
 
@@ -232,6 +245,7 @@ if [[ -n "$parser" ]]; then
   fi
   runtime_args=(--root "$ROOT" --codex-home "$(codex_dir)")
   [[ -z "$PROJECT" ]] || runtime_args+=(--project "$PROJECT")
+  [[ -z "$VARIANT_MANIFEST" ]] || runtime_args+=(--variant-manifest "$VARIANT_MANIFEST")
   runtime_report="$("$parser" -I -B "$SCRIPT_DIR/lib/runtime_doctor.py" "${runtime_args[@]}" 2>&1)" || bad "Runtime guardrails: corregir errores indicados debajo."
   printf '%s\n' "$runtime_report"
   if [[ "$runtime_report" == *'WARN:'* ]]; then warning "Diagnóstico estático con advertencias (ver acciones arriba)."; fi

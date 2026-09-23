@@ -15,6 +15,11 @@ Contiene:
 - capacidades existentes;
 - restricciones.
 
+En un repositorio con variantes, el proyecto/familia no se confunde con HEAD. El
+perfil puede referenciar un mapa externo revisado y un target por defecto, pero cada
+tarea debe conservar ref completa y OID. Un documento del worktree es overlay local;
+solo describe otros snapshots si existe evidencia explícita.
+
 ## CAPABILITY_MAP.md
 
 Responde:

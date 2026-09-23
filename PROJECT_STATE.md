@@ -1,23 +1,31 @@
 # PROJECT_STATE
 
 - **Project:** AI Software Factory v2.3.0-rc.2 — Supervised Delegation Preview
-- **Status:** completed
-- **Current phase:** v2.3.0-rc.2 publicada y verificada
-- **Active requirement:** none
-- **Last completed requirement:** docs/requirements/release-2-3-0-rc-2/STATE.md
+- **Status:** awaiting-review
+- **Current phase:** PR #3 de branch-aware discovery abierto y pendiente de review
+- **Active requirement:** docs/requirements/branch-aware-discovery/STATE.md
+- **Last completed requirement:** docs/requirements/branch-aware-discovery/STATE.md
 - **Current slice:** none
-- **Completed:** PR #2 integrado; tag `v2.3.0-rc.2` en `930f67b7...`; prerelease pública; CI Ubuntu/macOS PASS; ZIP remoto con 139 tests OK y SHA-256 verificado.
-- **Pending:** none para rc.2; RC-F02 sigue bloqueando activación viva.
-- **Next action:** recopilar feedback de la preview; abrir un requirement separado antes de cualquier activación de delegación viva.
-- **Why this is next:** la publicación rc.2 está cerrada y verificada; la capacidad viva quedó explícitamente fuera de alcance.
-- **User action required:** false
-- **Decision required:** none
-- **Expected output:** feedback trazable sin cambiar las garantías de la preview publicada.
-- **After this:** si se decide resolver RC-F02, planificarlo como trabajo N3 con evidencia de controles efectivos.
+- **Completed:** rc.2 publicada; branch-aware discovery F0–F6 implementado y validado; commit `96fa624`; PR privado #3 abierto contra `main`.
+- **Pending:** review del PR #3 y resolución de hallazgos si aparecen; merge y publicación no están autorizados. RC-F02 continúa fuera del alcance de este trabajo.
+- **Next action:** revisar https://github.com/FabriJuncal/quiver-v2/pull/3 y decidir si requiere cambios o queda aprobado.
+- **Why this is next:** la rama y el PR autorizados ya existen; avanzar a merge requiere review y autorización humana separada.
+- **User action required:** true
+- **Decision required:** aprobar el PR, solicitar cambios o dejarlo abierto.
+- **Expected output:** review trazable del PR #3 y, si corresponde, autorización explícita de merge.
+- **After this:** resolver findings; mergear solo con autorización explícita y tratar cualquier publicación como una acción posterior separada.
 - **Blocked by:** none
-- **Runtime limitation:** unavailable-runtime-capability solo para piloto; ninguna para preview offline.
-- **Runtime limitation detail:** RC-F02 impide activar/anunciar delegación operativa; no bloquea la prerelease offline.
-- **Resume instruction:** leer docs/requirements/release-2-3-0-rc-2/{STATE,EVIDENCE,06_CLOSURE}.md. No quedan acciones de publicación pendientes.
+- **Runtime limitation:** none
+- **Runtime limitation detail:** comportamiento productivo/backend de clientes y configuración efectiva de modelos no fueron parte de la validación; no bloquean el MVP cerrado.
+- **Resume instruction:** leer docs/requirements/branch-aware-discovery/STATE.md, docs/PRs/BRANCH_AWARE_DISCOVERY.md y el PR #3. Preservar evidencia privada y codex-skills-optimization. No mergear ni publicar sin autorización explícita.
+
+## Discovery por variantes — 2026-09-23
+
+Investigación y plan documentados en docs/requirements/branch-aware-discovery/.
+Piloto privado analizado: 35 ramas locales y 60 remotas; 95 refs de rama y 82
+tips distintos. Solo lectura; sin implementación ni cambios en la aplicación.
+Estado de instalaciones activas y comportamiento del backend desconocidos.
+La entrega incluye evidencia, alternativas, criterios y modelos por fase.
 
 ## Publicación v2.3.0-rc.2
 

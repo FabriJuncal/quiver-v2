@@ -82,7 +82,10 @@ AI Software Factory v2.3.0-rc.2 — Supervised Delegation Preview
 - `scripts/uninstall.sh`
 - `scripts/init-project.sh`
 - `scripts/adopt-project.sh`
+- `scripts/discover-variants.sh` / `scripts/lib/branch_discovery.py` — inventario,
+  comparación y contexto por OID para repositorios con variantes
 - `tests/test_scripts.py` — regresiones de filesystem y lifecycle
+- `tests/test_branch_discovery.py` — fixtures Git anónimos y controles de vigencia
 
 ## Skills
 

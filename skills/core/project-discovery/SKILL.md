@@ -33,6 +33,15 @@ Classify capabilities:
 
 Prefer integration over migration.
 
+## Repositorios con variantes por rama
+
+Si varias refs representan instalaciones, plataformas o generaciones relevantes,
+no limitar discovery a HEAD ni inferir cliente/actividad desde el nombre. Usar el
+modo optativo documentado en `docs/guides/BRANCH_AWARE_DISCOVERY.md`: inventariar
+refs y OID sin checkout, declarar cobertura y confirmar el target antes de concluir.
+Una rama es una ref; cliente, plataforma, canal y actividad son dimensiones separadas.
+Los documentos del worktree son overlay y no describen automáticamente otros tips.
+
 ## New project
 
 Clarify:
