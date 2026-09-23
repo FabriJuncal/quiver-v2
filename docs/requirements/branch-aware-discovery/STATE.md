@@ -1,10 +1,10 @@
 # STATE — Branch-aware discovery
 
-- **Status:** awaiting-review
-- **Current phase:** PR #3 abierto y pendiente de review.
+- **Status:** completed
+- **Current phase:** closure posterior al merge verificado.
 - **Current slice:** none
-- **Completed:** F0–F6; lector Git offline, integración optativa, 153 tests, check-release, self review, piloto privado preservado, commit `96fa624` y PR #3 abierto.
-- **Pending:** review del PR #3 y resolución de hallazgos; merge y publicación quedan excluidos de la autorización vigente.
+- **Completed:** F0–F6; lector Git offline, integración optativa, 153 tests, check-release, piloto privado preservado y PR #3 integrado en `dd59081` con checks Ubuntu/macOS PASS.
+- **Pending:** none dentro del requirement; no hay release nueva autorizada.
 - **Risk level:** N2; integridad del contexto entre variantes y compatibilidad del discovery existente.
 - **Acceptance criteria:** inventario completo del alcance Git, lectura sin checkout, procedencia por OID, contexto acotado por tarea, validación stale, fallos explícitos, integración optativa y piloto de solo lectura.
 - **Plan version:** 1.
@@ -14,21 +14,24 @@
 - **Execution authorization:** MVP F0–F6 autorizado explícitamente el 2026-09-23. Preparación de commit y PR autorizada el 2026-09-23; sin merge ni publicación.
 - **Selected option:** Git plumbing, matriz de variantes y contexto por tarea; capacidad optativa y sin servicios nuevos.
 - **Test profile:** T2 reforzado; 153 tests PASS, check-release/dry-run/diff PASS; sin builds de aplicaciones cliente.
-- **Next action:** revisar https://github.com/FabriJuncal/quiver-v2/pull/3 y decidir si requiere cambios o queda aprobado.
-- **Why this is next:** commit, push y apertura del PR autorizados ya están completados; el merge requiere una decisión humana nueva.
+- **Next action:** a nivel proyecto, recopilar feedback o abrir un requirement separado si se desea versionar y publicar la capacidad.
+- **Why this is next:** implementación, validación, review e integración están completas; una release requiere alcance y autorización propios.
 - **User action required:** true
-- **Decision required:** aprobar el PR, solicitar cambios o dejarlo abierto.
-- **Expected output:** review trazable y, si corresponde, autorización explícita de merge.
-- **After this:** resolver findings; mergear solo con autorización explícita y mantener la publicación como acción separada.
+- **Decision required:** decidir si y cuándo iniciar un flujo de release.
+- **Expected output:** feedback de uso o una autorización futura y concreta de release.
+- **After this:** no publicar automáticamente; mantener este requirement cerrado.
 - **Blocked by:** none
 - **Runtime limitation:** none
-- **Resume instruction:** revisar este STATE, `docs/PRs/BRANCH_AWARE_DISCOVERY.md` y el PR #3. Preservar artefactos privados y trabajo ajeno; no mergear ni publicar sin autorización explícita.
+- **Resume instruction:** requirement cerrado e integrado por PR #3. Preservar artefactos privados y trabajo ajeno; abrir otro requirement antes de versionar o publicar.
 
 ## Entrega
 
 - **Branch:** `improve/branch-aware-discovery`.
 - **Feature commit:** `96fa624` (`Add branch-aware discovery`).
 - **Pull request:** https://github.com/FabriJuncal/quiver-v2/pull/3
+- **Merge commit:** `dd59081f359a6caa95ed1e762179b8fadfc13f89`.
+- **Merged at:** 2026-09-23T17:18:19Z.
+- **Remote verification:** PR `MERGED`; Validate y Factory Release Validation PASS en Ubuntu/macOS.
 
 ## Límites y privacidad
 

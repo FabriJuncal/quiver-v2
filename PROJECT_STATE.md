@@ -1,23 +1,23 @@
 # PROJECT_STATE
 
 - **Project:** AI Software Factory v2.3.0-rc.2 — Supervised Delegation Preview
-- **Status:** awaiting-review
-- **Current phase:** PR #3 de branch-aware discovery abierto y pendiente de review
-- **Active requirement:** docs/requirements/branch-aware-discovery/STATE.md
+- **Status:** completed
+- **Current phase:** branch-aware discovery integrado en `main` y verificado
+- **Active requirement:** none
 - **Last completed requirement:** docs/requirements/branch-aware-discovery/STATE.md
 - **Current slice:** none
-- **Completed:** rc.2 publicada; branch-aware discovery F0–F6 implementado y validado; commit `96fa624`; PR privado #3 abierto contra `main`.
-- **Pending:** review del PR #3 y resolución de hallazgos si aparecen; merge y publicación no están autorizados. RC-F02 continúa fuera del alcance de este trabajo.
-- **Next action:** revisar https://github.com/FabriJuncal/quiver-v2/pull/3 y decidir si requiere cambios o queda aprobado.
-- **Why this is next:** la rama y el PR autorizados ya existen; avanzar a merge requiere review y autorización humana separada.
+- **Completed:** rc.2 publicada; branch-aware discovery F0–F6 implementado y validado; PR #3 integrado en `dd59081`; checks Ubuntu/macOS PASS.
+- **Pending:** none dentro de branch-aware discovery. No hay release nueva autorizada; RC-F02 continúa fuera del alcance de este trabajo.
+- **Next action:** si se desea distribuir branch-aware discovery en una versión, abrir un requirement separado de release y definir su alcance.
+- **Why this is next:** la capacidad ya está integrada en `main`; versionado y publicación son decisiones separadas sin autorización vigente.
 - **User action required:** true
-- **Decision required:** aprobar el PR, solicitar cambios o dejarlo abierto.
-- **Expected output:** review trazable del PR #3 y, si corresponde, autorización explícita de merge.
-- **After this:** resolver findings; mergear solo con autorización explícita y tratar cualquier publicación como una acción posterior separada.
+- **Decision required:** decidir si y cuándo preparar una nueva versión publicable.
+- **Expected output:** feedback de uso o una autorización futura y concreta de release.
+- **After this:** no ejecutar publicación automáticamente; iniciar el flujo de release solo bajo autorización.
 - **Blocked by:** none
 - **Runtime limitation:** none
 - **Runtime limitation detail:** comportamiento productivo/backend de clientes y configuración efectiva de modelos no fueron parte de la validación; no bloquean el MVP cerrado.
-- **Resume instruction:** leer docs/requirements/branch-aware-discovery/STATE.md, docs/PRs/BRANCH_AWARE_DISCOVERY.md y el PR #3. Preservar evidencia privada y codex-skills-optimization. No mergear ni publicar sin autorización explícita.
+- **Resume instruction:** branch-aware discovery está integrado en `main` por PR #3. Leer docs/requirements/branch-aware-discovery/STATE.md y preservar evidencia privada y codex-skills-optimization. No publicar sin autorización explícita.
 
 ## Discovery por variantes — 2026-09-23
 
