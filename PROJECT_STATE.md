@@ -1,23 +1,23 @@
 # PROJECT_STATE
 
 - **Project:** AI Software Factory v2.3.0-rc.2 — Supervised Delegation Preview
-- **Status:** in-progress
-- **Current phase:** preparación local de candidata rc.2 autorizada
+- **Status:** awaiting-approval
+- **Current phase:** candidata rc.2 validada; push/PR/CI pendientes
 - **Active requirement:** docs/requirements/release-2-3-0-rc-2/STATE.md
 - **Last completed requirement:** docs/requirements/model-routing-precision/STATE.md
-- **Current slice:** RC2-S01
-- **Completed:** S01–S04 offline y 111 tests previos preservados. Prueba nueva codex sandbox 0.155.1: 22/22 casos, configuración temporal, sin agentes/modelos adicionales. Protección de archivos ficticios observada; evidencia en docs/requirements/sandbox-isolation-probe/REPORT.md. Config habitual preservada, sin release nueva.
-- **Pending:** construir y validar rc.2; publicación requiere autorización final separada.
-- **Next action:** completar metadata rc.2, crear commit limpio y validar ZIP exportado.
-- **Why this is next:** usuario autorizó continuar con la preparación recomendada; rc.1 no puede reutilizarse.
-- **User action required:** false
-- **Decision required:** none durante preparación local.
-- **Expected output:** commit y artefactos rc.2 revisables con evidencia fresca.
-- **After this:** presentar hashes, tests y límites; pedir autorización concreta para push/tag/release.
+- **Current slice:** none
+- **Completed:** candidata local rc.2 en `6048e545...`; ZIP final con 139 tests OK; check-release, hashes, exclusiones y bundle verificados. El trabajo offline previo y la prueba sandbox permanecen documentados en sus requirements.
+- **Pending:** CI remota y publicación externa; RC-F02 sigue bloqueando activación viva.
+- **Next action:** obtener autorización para push de `release/2.3.0-rc.2` y PR/CI.
+- **Why this is next:** commit/ZIP final validados; CI requiere escritura remota y no existe rama/tag rc.2 en origin.
+- **User action required:** true
+- **Decision required:** autorizar push + PR para CI; no implica anunciar multiagente operativo.
+- **Expected output:** rama/PR remotos con CI macOS/Linux; tag/release esperan PASS y target final.
+- **After this:** si CI pasa, completar publicación autorizada según PUBLISH_PLAN; si falla, corregir y regenerar.
 - **Blocked by:** none
-- **Runtime limitation:** none para preparación; unavailable-runtime-capability sigue aplicando al piloto vivo.
-- **Runtime limitation detail:** RC-F02 no bloquea preview offline, pero impide activar/anunciar delegación operativa.
-- **Resume instruction:** leer docs/requirements/release-2-3-0-rc-2/STATE.md y 03_PLAN.md. Continuar preparación local; no push/tag/publicación sin autorización final.
+- **Runtime limitation:** unavailable-runtime-capability solo para piloto; ninguna para preview offline.
+- **Runtime limitation detail:** RC-F02 impide activar/anunciar delegación operativa; CI remota pendiente por boundary de escritura, no por fallo runtime.
+- **Resume instruction:** leer docs/requirements/release-2-3-0-rc-2/{STATE,EVIDENCE,05_IMPLEMENTATION_REVIEW,PUBLISH_PLAN}.md. Para avanzar: `Autorizar push y PR de rc.2`.
 
 ## Mejora local de routing — 2026-09-23
 

@@ -1,9 +1,10 @@
 # Release candidate 2.3.0-rc.2
 
-- **Status:** in-progress
-- **Current phase:** metadata y preparación de candidata
-- **Current slice:** RC2-S01
-- **Pending slices:** RC2-S01
+- **Status:** awaiting-approval
+- **Current phase:** candidata local validada; publicación externa pendiente
+- **Current slice:** none
+- **Pending slices:** none
+- **Completed:** preparación rc.2; commit `6048e545...`; ZIP final 139 tests OK; check-release/hashes/exclusiones/bundle PASS.
 - **Risk level:** N2; preview offline. Activación de delegación sigue fuera de alcance/N3.
 - **Acceptance criteria:** approved; 01_ACCEPTANCE_CRITERIA.md
 - **Selected option:** rc.2 offline preview; 02_DECISION.md
@@ -12,16 +13,16 @@
 - **Plan review:** approved; self review en 04_PLAN_REVIEW.md
 - **Human plan approval:** approved — «continua» tras recomendación explícita de preparar rc.2.
 - **Execution authorization:** approved para preparación local; no push/tag/GitHub Release.
-- **Next action:** completar metadata rc.2, validar y crear commit limpio de candidata.
-- **Why this is next:** rc.1 ya está taggeada; routing-v1 está cerrado y debe entrar en un identificador nuevo.
-- **User action required:** false
-- **Decision required:** none durante preparación; publicación será boundary final.
-- **Expected output:** commit, ZIP, SHA-256, ARTIFACTS.json y evidencia verificable.
-- **After this:** revisión final y solicitud concreta de autorización para publicar rc.2.
+- **Next action:** obtener autorización para push de rama + PR/CI según PUBLISH_PLAN.md.
+- **Why this is next:** candidata y artefactos están completos; CI remota requiere una escritura externa autorizada.
+- **User action required:** true
+- **Decision required:** autorizar push de rama y creación de PR para ejecutar CI; tag/release solo después de PASS y target reconciliado.
+- **Expected output:** rama/PR remotos y CI macOS/Linux observable, sin tag ni release prematuros.
+- **After this:** si CI pasa, presentar target final y ejecutar publicación solo bajo la autorización aplicable; si falla, diagnosticar/corregir/regenerar.
 - **Blocked by:** none
 - **Runtime limitation:** none para preparación; RC-F02 impide activar/anunciar delegación viva.
 - **Runtime limitation detail:** controles efectivos del hijo continúan no verificados; piloto NOT RUN.
-- **Resume instruction:** leer este STATE y 03_PLAN.md; completar desde Next action. No crear tag, push ni release sin autorización final.
+- **Resume instruction:** leer EVIDENCE.md, 05_IMPLEMENTATION_REVIEW.md y PUBLISH_PLAN.md. Respuesta exacta para avanzar: `Autorizar push y PR de rc.2`. No crear tag/release antes del CI PASS y target reconciliado.
 
 ## AI Strategy
 
