@@ -14,6 +14,8 @@ Acceptance Criterion
 
 También validar la **AI Strategy** únicamente en términos de proporcionalidad:
 
+- ¿existe decisión de routing-v1 o referencia vigente, con motivo, verificación y contexto?;
+
 - ¿se propone ADVANCED sin necesidad real?;
 - ¿se propone ECONOMICAL para una tarea de riesgo/ambigüedad material?;
 - ¿el review crítico tiene suficiente independencia/capacidad?;
@@ -21,6 +23,10 @@ También validar la **AI Strategy** únicamente en términos de proporcionalidad
 - ¿la estrategia parece optimizar costo total por tarea y no solo precio por llamada?
 
 No convertir preferencias de modelo en hallazgos bloqueantes salvo que el perfil propuesto sea materialmente insuficiente para el riesgo.
+
+Si falta evidencia de routing, completar la evaluación antes de aprobar, sin exigir
+registro duplicado ni gate de usuario por el trámite. Aplicar excepciones N0/consultas
+del catálogo. Una referencia obsoleta no satisface la obligación.
 
 Hallazgos:
 

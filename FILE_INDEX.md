@@ -1,10 +1,10 @@
 # File Index
 
-AI Software Factory v2.3.0-rc.1 — Supervised Delegation Preview
+AI Software Factory v2.3.0-rc.2 — Supervised Delegation Preview
 
 ## Supervised Delegation Preview
 
-- `docs/releases/v2.3.0-rc.1.md` — candidata local, ayudante deshabilitado
+- `docs/releases/v2.3.0-rc.2.md` — candidata local, routing reforzado y ayudante deshabilitado
 - `docs/guides/ASSISTANT_INTEGRATION.md` — integración inactiva y controles pendientes
 - `docs/guides/UPGRADE_2_2_2_TO_2_3_0.md` — upgrade conservador
 - `config/assistant-proposal/` — TOML inactivo, no instalado

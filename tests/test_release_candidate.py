@@ -35,10 +35,10 @@ class ReleaseCandidate(unittest.TestCase):
     def test_doctor_current_rc_and_newer_stable_no_downgrade(self):
         self.run_script('install')
         self.run_script('init-project')
-        for version in ('2.3.0-rc.1', '2.3.0'):
+        for version in ('2.3.0-rc.2', '2.3.0'):
             for name in ('AGENTS.md', 'PROJECT_PROFILE.md'):
                 path = self.project / name
-                path.write_text(path.read_text().replace('2.3.0-rc.1', version))
+                path.write_text(path.read_text().replace('2.3.0-rc.2', version))
             before = lifecycle.snapshot(self.base)
             output = self.run_script('doctor', '--project', str(self.project)).stdout
             self.assertNotIn('LAYER OUTDATED', output)
@@ -51,7 +51,7 @@ class ReleaseCandidate(unittest.TestCase):
         self.run_script('install')
         self.run_script('init-project', '--git-init')
         for path in (self.agents, self.project / 'AGENTS.md', self.project / 'PROJECT_PROFILE.md'):
-            path.write_text(path.read_text().replace('2.3.0-rc.1', '2.2.2'))
+            path.write_text(path.read_text().replace('2.3.0-rc.2', '2.2.2'))
         self.put(self.home / '.codex/config.toml', 'model = "user-choice"\n[agents]\nenabled = false\n')
         self.put(self.home / '.codex/asf-balanced.config.toml', 'model = "custom-profile"\n')
         self.put(self.project / 'src/app.txt', 'existing application\n')
@@ -62,7 +62,7 @@ class ReleaseCandidate(unittest.TestCase):
         self.run_script('install')
         self.run_script('install')
         self.run_script('configure-model-profiles')
-        self.assertIn('Factory version: 2.3.0-rc.1', self.agents.read_text())
+        self.assertIn('Factory version: 2.3.0-rc.2', self.agents.read_text())
         self.assertEqual(before_project, lifecycle.snapshot(self.project))
         self.assertEqual(before_config, (self.home / '.codex/config.toml').read_bytes())
         self.assertEqual('model = "custom-profile"\n', (self.home / '.codex/asf-balanced.config.toml').read_text())

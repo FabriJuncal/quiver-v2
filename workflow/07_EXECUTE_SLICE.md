@@ -12,7 +12,7 @@ Ante incidente preservar evidencia, no restaurar el original ni aceptar entrega.
 3. leer `EXECUTION_BRIEF.md`;
 4. cargar contexto mínimo;
 5. activar skills por routing;
-6. comprobar aprobación humana del plan y autorización de ejecución; evaluar AI Execution Profile;
+6. comprobar aprobación humana del plan y autorización de ejecución; aplicar model-router / routing-v1 al AI Execution Profile (decisión o referencia vigente, verificabilidad/contexto); reparar omisiones antes del trabajo dependiente;
 7. ejecutar Guided Model Gate solo si corresponde;
 8. implementar;
 9. ejecutar testing aprobado;

@@ -1,6 +1,16 @@
 # Changelog
 
-## 2.3.0-rc.1 — Supervised Delegation Preview (local, unpublished)
+## 2.3.0-rc.2 — Supervised Delegation Preview (candidate)
+
+- Model routing `routing-v1`: verificabilidad y costo de comprobar errores como señales de selección.
+- Ruta rápida para heredar una decisión vigente sin reclasificar cada slice ni repetir gates.
+- Diagnóstico de entorno, contexto y requisitos antes de escalar capacidad o reasoning.
+- Reintentos requieren evidencia, hipótesis o enfoque nuevos y una comprobación discriminante.
+- Decisión o referencia de routing auditable en planning, ejecución y review, con excepciones proporcionales N0/consultas.
+- Catálogo central como fuente del mapping; menos duplicación entre skill, contrato y templates.
+- Preview multiagente continúa inactiva: piloto NOT RUN y controles runtime de RC-F02 pendientes.
+
+## 2.3.0-rc.1 — Supervised Delegation Preview (tagged)
 
 - Contratos de delegación secuencial opt-in v1 y supervisada v2; contexto mínimo,
   ownership del coordinador, intentos acotados y aceptación basada en evidencia.

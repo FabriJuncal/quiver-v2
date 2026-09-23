@@ -1,23 +1,31 @@
 # PROJECT_STATE
 
-- **Project:** AI Software Factory v2.3.0-rc.1 — Supervised Delegation Preview
+- **Project:** AI Software Factory v2.3.0-rc.2 — Supervised Delegation Preview
 - **Status:** awaiting-approval
-- **Current phase:** candidata offline validada; piloto NOT RUN por controles pendientes
-- **Active requirement:** docs/requirements/release-2-3-0-rc-1/STATE.md
-- **Last completed requirement:** docs/requirements/sandbox-isolation-probe/STATE.md
+- **Current phase:** PR #2 abierto y CI remota aprobada; merge/publicación pendientes
+- **Active requirement:** docs/requirements/release-2-3-0-rc-2/STATE.md
+- **Last completed requirement:** docs/requirements/model-routing-precision/STATE.md
 - **Current slice:** none
-- **Completed:** S01–S04 offline y 111 tests previos preservados. Prueba nueva codex sandbox 0.155.1: 22/22 casos, configuración temporal, sin agentes/modelos adicionales. Protección de archivos ficticios observada; evidencia en docs/requirements/sandbox-isolation-probe/REPORT.md. Config habitual preservada, sin release nueva.
-- **Pending:** decisión de alcance preview offline o integración runtime antes de publicar funcionalidad viva.
-- **Next action:** revisar/aprobar alcance final según STATE del requirement; mantener piloto deshabilitado por RC-F02.
-- **Why this is next:** 117 tests OK desde ZIP y upgrade real 2.2.2 probado; configuración efectiva del hijo no verificable con esta interfaz.
+- **Completed:** candidata `b193a396...`; PR #2 abierto; ocho jobs remotos PASS en Ubuntu/macOS; ZIP regenerado con 139 tests OK; check-release, hashes, exclusiones y bundle verificados.
+- **Pending:** merge, regeneración desde merge commit, tag y GitHub prerelease; RC-F02 sigue bloqueando activación viva.
+- **Next action:** obtener autorización para mergear PR #2 y publicar la prerelease rc.2 según PUBLISH_PLAN.md.
+- **Why this is next:** la candidata y CI están aprobadas; merge/tag/release son escrituras externas aún no autorizadas.
 - **User action required:** true
-- **Decision required:** preview offline explícita o continuación de integración runtime; no autorización de publicación vigente.
-- **Expected output:** aprobación concreta de siguiente alcance; no cierre falso de capacidad multiagente.
-- **After this:** ejecutar solo opción aprobada; push/tag/publicación requieren autorización nueva.
+- **Decision required:** autorizar merge y publicación de rc.2 como prerelease offline; no implica anunciar multiagente operativo.
+- **Expected output:** PR integrado a main, tag anotado `v2.3.0-rc.2` y prerelease con ZIP/SHA verificados.
+- **After this:** verificar assets/hashes remotos, cerrar el requirement y registrar la URL pública.
 - **Blocked by:** none
-- **Runtime limitation:** unavailable-runtime-capability
-- **Runtime limitation detail:** piloto: esta interfaz no permite seleccionar rol/permisos ni verificar ausencia de recursión/herramientas mutantes del ayudante. Preparación offline continúa.
-- **Resume instruction:** leer docs/requirements/release-2-3-0-rc-1/STATE.md, EVIDENCE.md y review. Candidata offline lista para revisión en .release-candidates/2.3.0-rc.1/; piloto NOT RUN, cero intentos. No activar por los PASS estáticos ni publicar sin aprobación nueva.
+- **Runtime limitation:** unavailable-runtime-capability solo para piloto; ninguna para preview offline.
+- **Runtime limitation detail:** RC-F02 impide activar/anunciar delegación operativa; no bloquea la prerelease offline.
+- **Resume instruction:** leer docs/requirements/release-2-3-0-rc-2/{STATE,EVIDENCE,05_IMPLEMENTATION_REVIEW,PUBLISH_PLAN}.md. Para avanzar: `Autorizar merge y publicación de rc.2`.
+
+## Mejora local de routing — 2026-09-23
+
+Verificabilidad, ruta rápida, diagnóstico antes de escalar y obligación auditable en
+planning/ejecución/review. 25 tests runtime + 22 lifecycle OK; check-release OK.
+Rama: improve/model-routing-precision. Evidencia: docs/requirements/model-routing-precision/EVIDENCE.md.
+Sin cambios globales, modelos nuevos ni mediciones de ahorro. La evidencia previa de
+la candidata se conserva para su ZIP original; no certifica una candidata con este diff.
 
 ## Publicación v2.2.2
 

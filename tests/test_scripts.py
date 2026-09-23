@@ -72,7 +72,7 @@ class Scripts(unittest.TestCase):
 
     def test_manifest_matches_shipped_resources(self):
         manifest = json.loads((ROOT / 'MANIFEST.json').read_text())
-        self.assertEqual(manifest['version'], '2.3.0-rc.1')
+        self.assertEqual(manifest['version'], '2.3.0-rc.2')
         self.assertIn('**Version:** ' + manifest['version'], (ROOT / 'FACTORY_VERSION.md').read_text())
         self.assertEqual(sorted(manifest['scripts']), sorted(p.name for p in (ROOT / 'scripts').glob('*.sh')))
         self.assertEqual(sorted(manifest['core_skills']),

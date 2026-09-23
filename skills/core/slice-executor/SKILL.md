@@ -19,7 +19,7 @@ Before coding:
 1. read project state;
 2. read requirement state;
 3. read slice EXECUTION_BRIEF;
-4. read AI Execution Profile;
+4. apply model-router / routing-v1 to AI Execution Profile: current decision or inherited reference, verification and context; repair omissions before dependent work;
 5. load minimum context;
 6. confirm approved testing.
 

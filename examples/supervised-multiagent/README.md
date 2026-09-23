@@ -2,7 +2,7 @@
 
 **SINTÉTICO. No hubo ayudante, permiso real, llamada a modelo ni ahorro medido.**
 Este ejemplo demuestra formato y validadores v2. No activa configuración ni habilita
-dispatch. La distribución sigue 2.2.2; función local experimental, no publicada.
+dispatch. La distribución 2.3.0-rc.2 la incluye como preview offline experimental.
 
 Desde la raíz de Factory, con Python >=3.11 (sustituir python3.14 si corresponde):
 

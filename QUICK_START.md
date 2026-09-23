@@ -1,9 +1,9 @@
 # Quick Start
 
-AI Software Factory v2.3.0-rc.1 — Supervised Delegation Preview
+AI Software Factory v2.3.0-rc.2 — Supervised Delegation Preview
 
-Candidata local no publicada. Inline funciona como antes; **ayudante deshabilitado**,
-sin piloto vivo validado. Ver [notas y límites](docs/releases/v2.3.0-rc.1.md).
+Prerelease/preview offline. Inline funciona como antes; **ayudante deshabilitado**,
+sin piloto vivo validado. Ver [notas y límites](docs/releases/v2.3.0-rc.2.md).
 El flujo experimental de ahorro de contexto también es offline y opt-in; ver
 [CE-v1](docs/guides/CONTEXT_ECONOMY_TEXT_HELPER.md).
 
@@ -41,8 +41,8 @@ cd quiver-v2
 ```
 
 El clon remoto ofrece la versión publicada, no necesariamente esta candidata.
-Para evaluar v2.3.0-rc.1 usá el paquete local entregado; no existe un tag creado por
-esta preparación. Comprobá FACTORY_VERSION.md y conservá su ruta en esta terminal:
+Para evaluar v2.3.0-rc.2 usá el paquete o tag publicado por el mantenedor. Comprobá
+FACTORY_VERSION.md y conservá su ruta en esta terminal:
 
 ```bash
 ASF_ROOT="$(pwd -P)"

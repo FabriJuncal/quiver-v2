@@ -332,9 +332,79 @@ En una sesión nueva no inferir el modelo activo del proyecto ni reconstruirlo d
 
 ---
 
+# Selección proporcional y registro de routing
+
+Política de decisión `routing-v1`. Aplicarla antes de planificar o implementar una fase;
+es obligatoria, pero no implica cambiar de modelo ni abrir un gate. Resolver desde este
+catálogo las recomendaciones nuevas; reutilizar una resolución vigente cuando alcance.
+
+## Verificabilidad
+
+Además de riesgo N0–N3, considerar cómo se detectaría un error y cuánto costaría hacerlo.
+Una transformación con comparación exacta o pruebas discriminantes admite una estrategia
+económica si el riesgo lo permite. Decisiones con errores difíciles de detectar o de
+consecuencias tardías requieren mayor análisis/review. Tener tests no reduce por sí solo
+el riesgo ni garantiza que cubran el comportamiento. No clasificar por cantidad de archivos.
+
+## Ruta rápida
+
+Heredar AI Strategy cuando tarea, riesgo, contexto relevante y verificación siguen
+cubiertos. Una slice nueva no obliga a reclasificar, releer el catálogo ni repetir el
+registro. Reevaluar ante cambio material de alcance, riesgo, evidencia, catálogo,
+disponibilidad o presupuesto. Reutilizar hallazgos solo si siguen vigentes sus contratos,
+dependencias e instrucciones; recuperar el delta relevante, no todo el historial.
+
+No abrir una llamada de modelo para clasificar lo ya conocido. Usar herramientas
+determinísticas para búsquedas, formatos o comparaciones cuando sean suficientes.
+Una configuración efectiva desconocida no impide trabajo normal: sigue aplicando
+Session Preflight solo por necesidad material. Heredar estrategia nunca hereda una
+confirmación de runtime de otra sesión.
+
+## Evidencia mínima obligatoria
+
+En AI Strategy del STATE o en el brief existente, registrar una decisión breve:
+fase/perfil/reasoning recomendado, motivo observable, verificación prevista y su límite,
+contexto suficiente o faltante, Switch Benefit y base `policy` o `measured`.
+Una referencia a una decisión vigente satisface la obligación; no duplicar por turno/slice.
+En N0 de un solo turno, usar la evidencia existente del proyecto sin crear un requirement
+solo para routing. Para consultas sin artefacto, no crear archivos: aplicar la política y
+explicar la elección únicamente si cambia una acción material.
+
+`policy` es el default. Usar `measured` solo con referencia a mediciones comparables;
+no inventar porcentajes de confianza, ahorros, tokens ni costos. No almacenar cadenas
+internas de razonamiento ni presentar este registro como identidad efectiva de sesión.
+La decisión es auditable, no una prueba técnica de que el modelo obedeció.
+
+Si falta registro o la herencia está obsoleta, evaluar/reparar antes de la siguiente
+acción dependiente sin pedir aprobación por el trámite. Si se descubre después de actuar,
+declarar la omisión y revisar el impacto; no inventar una evaluación previa. Solo una
+necesidad material no resuelta produce un Model Gate; los demás boundaries siguen vigentes.
+
+## Diagnóstico antes de escalar
+
+| Evidencia | Acción inicial |
+|---|---|
+| Permiso denegado, red, herramienta o dependencia caída | Resolver el entorno dentro de lo autorizado o registrar limitación; no atribuirlo al modelo. |
+| Logs/contratos ausentes, resultados truncados o contexto contradictorio | Recuperar evidencia focalizada y verificar vigencia; no compensar con más reasoning. |
+| Requisito incompatible o decisión de producto pendiente | Solicitar la decisión concreta para la parte afectada; continuar trabajo independiente autorizado. |
+| Contraejemplo o violación de contrato con entrada suficiente | Evaluar hipótesis/prueba nueva y capacidad; escalar si la evidencia lo justifica. |
+
+Un intento de solución es hipótesis o cambio coherente + comprobación capaz de refutarlo.
+Un reintento necesita evidencia nueva o enfoque distinto y una validación concreta;
+reformular el mismo análisis no cuenta como progreso. Conservar hipótesis descartadas
+en el estado/brief cuando sean necesarias para reanudar. No reiniciar esa historia por
+cambio de sesión/modelo ni imponer aquí un límite universal de intentos. El límite de
+review formal sigue en workflow 08; no se sustituye por esta regla de debugging.
+
+Antes de recomendar un cambio por velocidad/costo, identificar el cuello de botella:
+lectura, generación, herramientas, validación, retrabajo o intervención humana. Agrupar
+lecturas independientes y evitar repetir verificaciones sin cambios/fallos/dudas nuevos,
+respetando siempre el perfil aprobado. No reducir controles para alcanzar un presupuesto.
+
 # Escalamiento
 
-Escalar inmediatamente ante:
+Reevaluar capacidad inmediatamente ante estas señales, aplicando el diagnóstico anterior
+y el umbral de gate (no atribuir automáticamente toda incertidumbre a falta de capacidad):
 
 - autorización/seguridad crítica;
 - aislamiento de datos;
@@ -348,6 +418,11 @@ Escalar inmediatamente ante:
 Para incertidumbre moderada sin riesgo alto, preferir primero:
 
 **mismo modelo + reasoning mayor**.
+
+Solo si la entrada es suficiente y la evidencia apunta a profundidad de análisis.
+Al cambiar de modelo, recalcular reasoning para la tarea; no heredar automáticamente
+High/XHigh. No recorrer niveles ni consumir fallos artificiales antes de una capacidad
+justificada por riesgo. Mantener catálogo/disponibilidad y presupuesto autorizados.
 
 ---
 

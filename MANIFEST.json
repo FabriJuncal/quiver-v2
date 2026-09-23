@@ -1,6 +1,6 @@
 {
   "name": "ai-software-factory",
-  "version": "2.3.0-rc.1",
+  "version": "2.3.0-rc.2",
   "codename": "Supervised Delegation Preview",
   "core_skills": [
     "closure-evidence",

@@ -12,6 +12,18 @@ Revisar:
 
 Verificar el diff real y resultados recientes; CLOSURE_BRIEF es una referencia, no prueba suficiente por sí mismo. Comparar criterios con código y validaciones ejecutadas.
 
+## Evidencia de routing
+
+Comprobar decisión o herencia vigente según `routing-v1` del catálogo: perfil/motivo,
+verificabilidad y límites, contexto, Switch Benefit y base policy/measured. Contrastar
+contra trabajo y evidencia reales; una frase «usé el router» no basta. No exigir
+duplicación ni registro nuevo para las excepciones compactas del catálogo.
+Si se omitió, declarar la omisión, evaluar su impacto y completar la revisión antes
+del cierre, sin inventar cumplimiento previo ni pedir aprobación por documentarlo.
+Necesidades materiales pendientes siguen los gates existentes; el registro no prueba
+modelo efectivo, obediencia interna ni ahorro. No exigir otro modelo para revisar un
+cambio rutinario solo por esta comprobación.
+
 ## Política de review
 
 ### N0
