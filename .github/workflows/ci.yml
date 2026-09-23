@@ -1,4 +1,4 @@
-name: Factory v2.3.0-rc.1 Supervised Delegation Preview
+name: Factory Release Validation
 on:
   push:
   pull_request:
