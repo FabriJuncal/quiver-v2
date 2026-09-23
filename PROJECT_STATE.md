@@ -1,31 +1,39 @@
 # PROJECT_STATE
 
 - **Project:** AI Software Factory v2.3.0-rc.2 — Supervised Delegation Preview
-- **Status:** awaiting-approval
-- **Current phase:** PR #2 abierto y CI remota aprobada; merge/publicación pendientes
-- **Active requirement:** docs/requirements/release-2-3-0-rc-2/STATE.md
-- **Last completed requirement:** docs/requirements/model-routing-precision/STATE.md
+- **Status:** completed
+- **Current phase:** v2.3.0-rc.2 publicada y verificada
+- **Active requirement:** none
+- **Last completed requirement:** docs/requirements/release-2-3-0-rc-2/STATE.md
 - **Current slice:** none
-- **Completed:** candidata `b193a396...`; PR #2 abierto; ocho jobs remotos PASS en Ubuntu/macOS; ZIP regenerado con 139 tests OK; check-release, hashes, exclusiones y bundle verificados.
-- **Pending:** merge, regeneración desde merge commit, tag y GitHub prerelease; RC-F02 sigue bloqueando activación viva.
-- **Next action:** obtener autorización para mergear PR #2 y publicar la prerelease rc.2 según PUBLISH_PLAN.md.
-- **Why this is next:** la candidata y CI están aprobadas; merge/tag/release son escrituras externas aún no autorizadas.
-- **User action required:** true
-- **Decision required:** autorizar merge y publicación de rc.2 como prerelease offline; no implica anunciar multiagente operativo.
-- **Expected output:** PR integrado a main, tag anotado `v2.3.0-rc.2` y prerelease con ZIP/SHA verificados.
-- **After this:** verificar assets/hashes remotos, cerrar el requirement y registrar la URL pública.
+- **Completed:** PR #2 integrado; tag `v2.3.0-rc.2` en `930f67b7...`; prerelease pública; CI Ubuntu/macOS PASS; ZIP remoto con 139 tests OK y SHA-256 verificado.
+- **Pending:** none para rc.2; RC-F02 sigue bloqueando activación viva.
+- **Next action:** recopilar feedback de la preview; abrir un requirement separado antes de cualquier activación de delegación viva.
+- **Why this is next:** la publicación rc.2 está cerrada y verificada; la capacidad viva quedó explícitamente fuera de alcance.
+- **User action required:** false
+- **Decision required:** none
+- **Expected output:** feedback trazable sin cambiar las garantías de la preview publicada.
+- **After this:** si se decide resolver RC-F02, planificarlo como trabajo N3 con evidencia de controles efectivos.
 - **Blocked by:** none
 - **Runtime limitation:** unavailable-runtime-capability solo para piloto; ninguna para preview offline.
 - **Runtime limitation detail:** RC-F02 impide activar/anunciar delegación operativa; no bloquea la prerelease offline.
-- **Resume instruction:** leer docs/requirements/release-2-3-0-rc-2/{STATE,EVIDENCE,05_IMPLEMENTATION_REVIEW,PUBLISH_PLAN}.md. Para avanzar: `Autorizar merge y publicación de rc.2`.
+- **Resume instruction:** leer docs/requirements/release-2-3-0-rc-2/{STATE,EVIDENCE,06_CLOSURE}.md. No quedan acciones de publicación pendientes.
 
-## Mejora local de routing — 2026-09-23
+## Publicación v2.3.0-rc.2
+
+- **Commit/tag:** `930f67b7c05761edaa59b702320d31535a64c639` / `v2.3.0-rc.2` anotado.
+- **Release:** https://github.com/FabriJuncal/quiver-v2/releases/tag/v2.3.0-rc.2
+- **Assets:** `ai-software-factory-v2.3.0-rc.2.zip` y `.sha256`; ZIP digest `cd30e9f4c84ebe34046358c40828091ecb88a06919416a4df29caa025d756f13`.
+- **CI:** Validate y Factory Release Validation completados en Ubuntu/macOS para el merge commit.
+- **Límite:** preview offline; delegación viva deshabilitada, piloto NOT RUN y RC-F02 abierto.
+
+## Mejora de routing integrada — 2026-09-23
 
 Verificabilidad, ruta rápida, diagnóstico antes de escalar y obligación auditable en
 planning/ejecución/review. 25 tests runtime + 22 lifecycle OK; check-release OK.
-Rama: improve/model-routing-precision. Evidencia: docs/requirements/model-routing-precision/EVIDENCE.md.
-Sin cambios globales, modelos nuevos ni mediciones de ahorro. La evidencia previa de
-la candidata se conserva para su ZIP original; no certifica una candidata con este diff.
+Origen: improve/model-routing-precision. Evidencia: docs/requirements/model-routing-precision/EVIDENCE.md.
+Integrada y publicada en v2.3.0-rc.2. Sin cambios globales, modelos nuevos ni mediciones
+de ahorro; esas mediciones continúan fuera del alcance cerrado.
 
 ## Publicación v2.2.2
 

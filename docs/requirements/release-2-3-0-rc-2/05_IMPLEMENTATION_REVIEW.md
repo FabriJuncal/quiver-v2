@@ -1,7 +1,7 @@
 # Implementation review — v2.3.0-rc.2
 
 - Fecha: 2026-09-23.
-- Alcance: diff `v2.3.0-rc.1..b193a39620c4c951ff5fbea2e68c5be49280f19b`,
+- Alcance: diff `v2.3.0-rc.1..930f67b7c05761edaa59b702320d31535a64c639`,
   metadata rc.2, routing-v1, tests, ZIP/bundle/hashes y exclusiones.
 - Modalidad: self review N2; misma sesión, sin afirmar independencia.
 - Veredicto: **APROBADO CON NOTAS para publicación como preview offline**.
@@ -29,6 +29,5 @@
 - RC-F02 — límite heredado, abierto: impide anunciar/activar multiagente operativo,
   pero no bloquea la preview offline con ayudante deshabilitado.
 
-No quedan hallazgos obligatorios de preparación. El candidato probado es `b193a396...`.
-Después del merge se debe regenerar y probar el artefacto desde el merge commit antes
-de convertir ese commit en el target definitivo del tag.
+No quedan hallazgos obligatorios. Después del merge se regeneró y probó el artefacto
+desde `930f67b7...`; ese commit es el target definitivo del tag y pasó CI en `main`.

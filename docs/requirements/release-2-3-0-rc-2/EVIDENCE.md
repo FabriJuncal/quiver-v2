@@ -4,14 +4,15 @@ Fecha: 2026-09-23. Plataforma local: macOS, Python 3.14. Preparación inline;
 sin agentes, inferencia, credenciales de API, instalación global real ni cambios de
 configuración personal. Delegación deshabilitada y piloto NOT RUN.
 
-## Identidad candidata
+## Identidad publicada
 
-- Commit probado/exportado: `b193a39620c4c951ff5fbea2e68c5be49280f19b`.
-- Tree: `d071a322527b414572164ad895714897da2a21af`.
-- Rama local: `release/2.3.0-rc.2`.
-- Rama remota: `origin/release/2.3.0-rc.2` en el mismo commit candidato.
-- PR: [#2](https://github.com/FabriJuncal/quiver-v2/pull/2), abierto contra `main` y mergeable.
-- Tag remoto `v2.3.0-rc.2`: ausente al verificar con `git ls-remote`.
+- Commit merge probado, exportado y taggeado: `930f67b7c05761edaa59b702320d31535a64c639`.
+- Tree: `97a46973eee7fd6231e1eddd445c7f31b60d27cd`.
+- Candidato previo al merge: `b193a39620c4c951ff5fbea2e68c5be49280f19b`.
+- Rama de preparación: `release/2.3.0-rc.2`.
+- PR: [#2](https://github.com/FabriJuncal/quiver-v2/pull/2), MERGED.
+- Tag remoto anotado: `v2.3.0-rc.2`; objeto tag `14a271dbe9a07840e9f1ee790c5d5d0c21bfd35e`, dereference al merge commit.
+- Release: [AI Software Factory v2.3.0-rc.2](https://github.com/FabriJuncal/quiver-v2/releases/tag/v2.3.0-rc.2), prerelease pública.
 - `v2.3.0-rc.1` permanece intacta y no se reutiliza.
 
 ## Verificación de fuente
@@ -47,13 +48,13 @@ Directorio local ignorado por Git: `.release-candidates/2.3.0-rc.2/`.
 
 | Archivo | Bytes | SHA-256 |
 |---|---:|---|
-| `ai-software-factory-v2.3.0-rc.2.zip` | 262652 | `16f7e2ec329b31e3d9ff02ea7c3c7ee653fb4470be4cfe32127a747f469b7f28` |
-| `ai-software-factory-v2.3.0-rc.2.bundle` | 399955 | `6198193ee4ec2749df8d983c102df39ed96fc2b094a82bc372b806355856e16c` |
+| `ai-software-factory-v2.3.0-rc.2.zip` | 262652 | `cd30e9f4c84ebe34046358c40828091ecb88a06919416a4df29caa025d756f13` |
+| `ai-software-factory-v2.3.0-rc.2.bundle` | 404795 | `b5ecc03a9d2bc1eb108356f86c83ed5cd33bd500f4c1341367d90bc480a99117` |
 
 `ARTIFACTS.json` enlaza versión, commit, tree, tamaños, hashes y estado
-`publication_authorized=false`, `delegation=disabled`, `pilot=NOT RUN`.
+`publication_authorized=true`, `delegation=disabled`, `pilot=NOT RUN`.
 Los dos `.sha256` pasaron `shasum -a 256 -c`; el bundle pasó `git bundle verify`
-y contiene historia completa con la rama candidata.
+y contiene historia completa con la referencia `main` publicada.
 
 ## Verificación del ZIP final
 
@@ -63,16 +64,16 @@ ZIP generado con `git archive` desde el commit exacto y prefijo
 | Comprobación | Resultado |
 |---|---|
 | `bash scripts/check-release.sh` dentro del ZIP | PASS. |
-| `python3.14 -B -m unittest discover -s tests -v` dentro del ZIP | **139 tests OK, 25.975 s**. |
+| `python3.14 -B -m unittest discover -s tests -v` dentro del ZIP final | **139 tests OK, 24.706 s**. |
+| `scripts/install.sh --dry-run` dentro del ZIP final | PASS. |
+| `scripts/configure-model-profiles.sh --dry-run` dentro del ZIP final | PASS. |
 | Entradas obligatorias | Manifest/version, catálogo, skill router y notas rc.2 presentes. |
 | Permisos | `install.sh`, `asf.sh` y `doctor.sh` conservan ejecutable. |
 | Exclusiones | Sin PROJECT_STATE raíz, `docs/requirements` raíz, docs/archive, .git ni .release-candidates; los requirements bajo proyectos de ejemplo se conservan intencionalmente. |
 | Hash/manifest | ZIP, bundle y ARTIFACTS.json coherentes con commit final. |
 
-Después de registrar esta evidencia se vuelve a comparar el archive del HEAD documental
-con el candidato. Sus diferencias posteriores deben limitarse a `PROJECT_STATE.md` y al
-requirement raíz, ambos excluidos del archive; cualquier diferencia exportable invalida
-el artefacto y obliga a regenerar.
+El ZIP final fue regenerado después del merge desde el commit exacto del tag. El checksum
+público usa solo el nombre del archivo, por lo que funciona en el directorio de descarga.
 
 ## CI remota
 
@@ -85,12 +86,26 @@ Commit `b193a396...`, ocho jobs exitosos entre eventos push y pull_request:
 
 Cada workflow pasó en `ubuntu-latest` y `macos-latest`.
 
+El merge commit `930f67b7...` también pasó ambos workflows en `main`:
+
+- Validate: [run 35867124857](https://github.com/FabriJuncal/quiver-v2/actions/runs/35867124857).
+- Factory Release Validation: [run 35867124791](https://github.com/FabriJuncal/quiver-v2/actions/runs/35867124791).
+
+## Verificación remota de publicación
+
+- GitHub reportó la release como `isDraft=false`, `isPrerelease=true`.
+- Assets públicos: ZIP de 262652 bytes y checksum de 102 bytes, ambos `uploaded`.
+- GitHub informó digest del ZIP `sha256:cd30e9f4...`.
+- Se descargaron ZIP y checksum desde la release; `shasum -a 256 -c` pasó.
+- `cmp` confirmó igualdad byte a byte entre ZIP remoto y artefacto local.
+- `git ls-remote` confirmó tag anotado y dereference a `930f67b7...`.
+
 ## Cobertura y límites
 
-- RC2-AC1–AC7 satisfechos para preparación local.
+- RC2-AC1–AC7 satisfechos para preparación, integración y publicación.
 - RC2-AC8 satisfecho con self review N2 y límites declarados.
-- CI remota macOS/Linux: PASS para push y PR en el commit candidato.
+- CI remota macOS/Linux: PASS para candidato, PR y merge commit en `main`.
 - Review independiente: NOT RUN; self review real, no se afirma independencia.
-- GitHub API y permisos de PR verificados. Tag y GitHub Release todavía no creados.
+- GitHub API, tag, prerelease, assets y descarga remota verificados.
 - No se midió ahorro de routing ni obediencia interna de modelos.
 - RC-F02 sigue abierto: no activar ni anunciar delegación viva.
