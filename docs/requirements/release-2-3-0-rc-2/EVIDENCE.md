@@ -6,11 +6,12 @@ configuración personal. Delegación deshabilitada y piloto NOT RUN.
 
 ## Identidad candidata
 
-- Commit probado/exportado: `6048e545253de63827145e7cd5faa2c50342f530`.
-- Tree: `4d45c3326f90a44cf3c9976b3d35819b61c38a2a`.
+- Commit probado/exportado: `b193a39620c4c951ff5fbea2e68c5be49280f19b`.
+- Tree: `d071a322527b414572164ad895714897da2a21af`.
 - Rama local: `release/2.3.0-rc.2`.
+- Rama remota: `origin/release/2.3.0-rc.2` en el mismo commit candidato.
+- PR: [#2](https://github.com/FabriJuncal/quiver-v2/pull/2), abierto contra `main` y mergeable.
 - Tag remoto `v2.3.0-rc.2`: ausente al verificar con `git ls-remote`.
-- Rama remota `release/2.3.0-rc.2`: ausente al verificar con `git ls-remote`.
 - `v2.3.0-rc.1` permanece intacta y no se reutiliza.
 
 ## Verificación de fuente
@@ -26,7 +27,9 @@ configuración personal. Delegación deshabilitada y piloto NOT RUN.
 
 Durante review se eliminó estado transitorio «local/no publicada» de archivos exportados
 y se reemplazó por prerelease/preview offline. También se corrigió un ejemplo que aún
-decía que la distribución era 2.2.2. Después del amend:
+decía que la distribución era 2.2.2. Al observar CI se detectó además que el nombre
+visible del workflow seguía fijado a rc.1; se cambió por `Factory Release Validation`
+para evitar metadata obsoleta en candidatas futuras. Después de esas correcciones:
 
 | Comprobación | Resultado |
 |---|---|
@@ -44,8 +47,8 @@ Directorio local ignorado por Git: `.release-candidates/2.3.0-rc.2/`.
 
 | Archivo | Bytes | SHA-256 |
 |---|---:|---|
-| `ai-software-factory-v2.3.0-rc.2.zip` | 262665 | `9e7da94a9782343d6700d2b43e97b88d72b1cdc34c419be5a3c3e30828d95e2d` |
-| `ai-software-factory-v2.3.0-rc.2.bundle` | 393303 | `079e00d5c9bc99ede72cb9ad43eaae5b5d300c0b22c099603d01771a3399c264` |
+| `ai-software-factory-v2.3.0-rc.2.zip` | 262652 | `16f7e2ec329b31e3d9ff02ea7c3c7ee653fb4470be4cfe32127a747f469b7f28` |
+| `ai-software-factory-v2.3.0-rc.2.bundle` | 399955 | `6198193ee4ec2749df8d983c102df39ed96fc2b094a82bc372b806355856e16c` |
 
 `ARTIFACTS.json` enlaza versión, commit, tree, tamaños, hashes y estado
 `publication_authorized=false`, `delegation=disabled`, `pilot=NOT RUN`.
@@ -60,25 +63,34 @@ ZIP generado con `git archive` desde el commit exacto y prefijo
 | Comprobación | Resultado |
 |---|---|
 | `bash scripts/check-release.sh` dentro del ZIP | PASS. |
-| `python3.14 -B -m unittest discover -s tests -v` dentro del ZIP | **139 tests OK, 33.359 s**. |
+| `python3.14 -B -m unittest discover -s tests -v` dentro del ZIP | **139 tests OK, 25.975 s**. |
 | Entradas obligatorias | Manifest/version, catálogo, skill router y notas rc.2 presentes. |
 | Permisos | `install.sh`, `asf.sh` y `doctor.sh` conservan ejecutable. |
 | Exclusiones | Sin PROJECT_STATE raíz, `docs/requirements` raíz, docs/archive, .git ni .release-candidates; los requirements bajo proyectos de ejemplo se conservan intencionalmente. |
 | Hash/manifest | ZIP, bundle y ARTIFACTS.json coherentes con commit final. |
 
-Después de registrar esta evidencia, se generó un segundo `git archive` desde el HEAD
-documental y se compararon ambos árboles extraídos con `diff -qr`: sin diferencias.
-`6048e545..HEAD` contiene únicamente `PROJECT_STATE.md` y archivos del requirement raíz,
-todos excluidos del archive; por eso el artefacto probado sigue representando exactamente
-la distribución publicable.
+Después de registrar esta evidencia se vuelve a comparar el archive del HEAD documental
+con el candidato. Sus diferencias posteriores deben limitarse a `PROJECT_STATE.md` y al
+requirement raíz, ambos excluidos del archive; cualquier diferencia exportable invalida
+el artefacto y obliga a regenerar.
+
+## CI remota
+
+Commit `b193a396...`, ocho jobs exitosos entre eventos push y pull_request:
+
+- Validate push: [run 35865739220](https://github.com/FabriJuncal/quiver-v2/actions/runs/35865739220).
+- Factory Release Validation push: [run 35865739242](https://github.com/FabriJuncal/quiver-v2/actions/runs/35865739242).
+- Validate PR: [run 35865746105](https://github.com/FabriJuncal/quiver-v2/actions/runs/35865746105).
+- Factory Release Validation PR: [run 35865746120](https://github.com/FabriJuncal/quiver-v2/actions/runs/35865746120).
+
+Cada workflow pasó en `ubuntu-latest` y `macos-latest`.
 
 ## Cobertura y límites
 
 - RC2-AC1–AC7 satisfechos para preparación local.
 - RC2-AC8 satisfecho con self review N2 y límites declarados.
-- CI remota macOS/Linux: NOT RUN; requiere push autorizado.
+- CI remota macOS/Linux: PASS para push y PR en el commit candidato.
 - Review independiente: NOT RUN; self review real, no se afirma independencia.
-- GitHub API/release: no verificada con credenciales actuales; Git remoto por SSH sí
-  permitió consultas read-only de refs.
+- GitHub API y permisos de PR verificados. Tag y GitHub Release todavía no creados.
 - No se midió ahorro de routing ni obediencia interna de modelos.
 - RC-F02 sigue abierto: no activar ni anunciar delegación viva.

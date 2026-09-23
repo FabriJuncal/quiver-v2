@@ -2,22 +2,22 @@
 
 - **Project:** AI Software Factory v2.3.0-rc.2 — Supervised Delegation Preview
 - **Status:** awaiting-approval
-- **Current phase:** candidata rc.2 validada; push/PR/CI pendientes
+- **Current phase:** PR #2 abierto y CI remota aprobada; merge/publicación pendientes
 - **Active requirement:** docs/requirements/release-2-3-0-rc-2/STATE.md
 - **Last completed requirement:** docs/requirements/model-routing-precision/STATE.md
 - **Current slice:** none
-- **Completed:** candidata local rc.2 en `6048e545...`; ZIP final con 139 tests OK; check-release, hashes, exclusiones y bundle verificados. El trabajo offline previo y la prueba sandbox permanecen documentados en sus requirements.
-- **Pending:** CI remota y publicación externa; RC-F02 sigue bloqueando activación viva.
-- **Next action:** obtener autorización para push de `release/2.3.0-rc.2` y PR/CI.
-- **Why this is next:** commit/ZIP final validados; CI requiere escritura remota y no existe rama/tag rc.2 en origin.
+- **Completed:** candidata `b193a396...`; PR #2 abierto; ocho jobs remotos PASS en Ubuntu/macOS; ZIP regenerado con 139 tests OK; check-release, hashes, exclusiones y bundle verificados.
+- **Pending:** merge, regeneración desde merge commit, tag y GitHub prerelease; RC-F02 sigue bloqueando activación viva.
+- **Next action:** obtener autorización para mergear PR #2 y publicar la prerelease rc.2 según PUBLISH_PLAN.md.
+- **Why this is next:** la candidata y CI están aprobadas; merge/tag/release son escrituras externas aún no autorizadas.
 - **User action required:** true
-- **Decision required:** autorizar push + PR para CI; no implica anunciar multiagente operativo.
-- **Expected output:** rama/PR remotos con CI macOS/Linux; tag/release esperan PASS y target final.
-- **After this:** si CI pasa, completar publicación autorizada según PUBLISH_PLAN; si falla, corregir y regenerar.
+- **Decision required:** autorizar merge y publicación de rc.2 como prerelease offline; no implica anunciar multiagente operativo.
+- **Expected output:** PR integrado a main, tag anotado `v2.3.0-rc.2` y prerelease con ZIP/SHA verificados.
+- **After this:** verificar assets/hashes remotos, cerrar el requirement y registrar la URL pública.
 - **Blocked by:** none
 - **Runtime limitation:** unavailable-runtime-capability solo para piloto; ninguna para preview offline.
-- **Runtime limitation detail:** RC-F02 impide activar/anunciar delegación operativa; CI remota pendiente por boundary de escritura, no por fallo runtime.
-- **Resume instruction:** leer docs/requirements/release-2-3-0-rc-2/{STATE,EVIDENCE,05_IMPLEMENTATION_REVIEW,PUBLISH_PLAN}.md. Para avanzar: `Autorizar push y PR de rc.2`.
+- **Runtime limitation detail:** RC-F02 impide activar/anunciar delegación operativa; no bloquea la prerelease offline.
+- **Resume instruction:** leer docs/requirements/release-2-3-0-rc-2/{STATE,EVIDENCE,05_IMPLEMENTATION_REVIEW,PUBLISH_PLAN}.md. Para avanzar: `Autorizar merge y publicación de rc.2`.
 
 ## Mejora local de routing — 2026-09-23
 
