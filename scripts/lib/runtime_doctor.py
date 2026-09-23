@@ -270,6 +270,7 @@ def main():
     parser.add_argument('--root', type=Path, required=True)
     parser.add_argument('--codex-home', type=Path, required=True)
     parser.add_argument('--project', type=Path)
+    parser.add_argument('--variant-manifest', type=Path)
     args = parser.parse_args()
     doctor = Doctor()
     version = doctor.fields(args.root / 'FACTORY_VERSION.md').get('version', '')
@@ -277,6 +278,8 @@ def main():
         doctor.error('Factory version inválida.')
         return 1
     project = args.project.resolve() if args.project else None
+    if args.variant_manifest and not project:
+        doctor.error('--variant-manifest requiere --project.')
     doctor.instructions(args.codex_home, project)
     if project:
         doctor.project(project, version)
@@ -289,6 +292,13 @@ def main():
                 doctor.error('Delegación: reconciliá registros; no despachar ni aceptar hasta resolver errores.')
         except (Invalid, OSError) as error:
             doctor.error(f'Delegación NO VERIFICADA: {error}')
+        if args.variant_manifest:
+            try:
+                from branch_discovery import DiscoveryError, validate_context_file
+                manifest = validate_context_file(project, args.variant_manifest)
+                print(f"Variant context PASS: {manifest['target_ref']}@{manifest['target_oid']}")
+            except (DiscoveryError, OSError, ValueError) as error:
+                doctor.error(f'Variant context inválido u obsoleto: {error}')
     print('Runtime guardrails: validación estática; continuidad real del agente requiere ejecución en sesión.')
     return int(bool(doctor.errors))
 

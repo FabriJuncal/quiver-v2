@@ -1,23 +1,31 @@
 # PROJECT_STATE
 
 - **Project:** AI Software Factory v2.3.0-rc.2 — Supervised Delegation Preview
-- **Status:** completed
-- **Current phase:** v2.3.0-rc.2 publicada y verificada
-- **Active requirement:** none
-- **Last completed requirement:** docs/requirements/release-2-3-0-rc-2/STATE.md
+- **Status:** in-progress
+- **Current phase:** preparación de commit y PR de branch-aware discovery
+- **Active requirement:** docs/requirements/branch-aware-discovery/STATE.md
+- **Last completed requirement:** docs/requirements/branch-aware-discovery/STATE.md
 - **Current slice:** none
-- **Completed:** PR #2 integrado; tag `v2.3.0-rc.2` en `930f67b7...`; prerelease pública; CI Ubuntu/macOS PASS; ZIP remoto con 139 tests OK y SHA-256 verificado.
-- **Pending:** none para rc.2; RC-F02 sigue bloqueando activación viva.
-- **Next action:** recopilar feedback de la preview; abrir un requirement separado antes de cualquier activación de delegación viva.
-- **Why this is next:** la publicación rc.2 está cerrada y verificada; la capacidad viva quedó explícitamente fuera de alcance.
+- **Completed:** rc.2 publicada; branch-aware discovery F0–F6 implementado, 153 tests PASS, check-release PASS y piloto privado de solo lectura completado.
+- **Pending:** crear rama y commit enfocados, publicar la rama remota y abrir el PR; no mergear ni publicar una versión. RC-F02 continúa fuera del alcance de este trabajo.
+- **Next action:** preparar y verificar el commit de branch-aware discovery, luego abrir el PR contra `main`.
+- **Why this is next:** el usuario autorizó explícitamente la preparación de commit y PR el 2026-09-23; el MVP ya tiene implementación, review y evidencia.
 - **User action required:** false
 - **Decision required:** none
-- **Expected output:** feedback trazable sin cambiar las garantías de la preview publicada.
-- **After this:** si se decide resolver RC-F02, planificarlo como trabajo N3 con evidencia de controles efectivos.
+- **Expected output:** rama remota y PR revisable con evidencia, sin merge ni publicación.
+- **After this:** registrar URL y SHA; esperar review y autorización separada antes de cualquier merge/publicación.
 - **Blocked by:** none
-- **Runtime limitation:** unavailable-runtime-capability solo para piloto; ninguna para preview offline.
-- **Runtime limitation detail:** RC-F02 impide activar/anunciar delegación operativa; no bloquea la prerelease offline.
-- **Resume instruction:** leer docs/requirements/release-2-3-0-rc-2/{STATE,EVIDENCE,06_CLOSURE}.md. No quedan acciones de publicación pendientes.
+- **Runtime limitation:** none
+- **Runtime limitation detail:** comportamiento productivo/backend de clientes y configuración efectiva de modelos no fueron parte de la validación; no bloquean el MVP cerrado.
+- **Resume instruction:** leer docs/requirements/branch-aware-discovery/STATE.md, docs/PRs/BRANCH_AWARE_DISCOVERY.md y docs/guides/BRANCH_AWARE_DISCOVERY.md. Preservar evidencia privada y codex-skills-optimization. Continuar la preparación de commit/PR autorizada; no mergear ni publicar.
+
+## Discovery por variantes — 2026-09-23
+
+Investigación y plan documentados en docs/requirements/branch-aware-discovery/.
+Piloto privado analizado: 35 ramas locales y 60 remotas; 95 refs de rama y 82
+tips distintos. Solo lectura; sin implementación ni cambios en la aplicación.
+Estado de instalaciones activas y comportamiento del backend desconocidos.
+La entrega incluye evidencia, alternativas, criterios y modelos por fase.
 
 ## Publicación v2.3.0-rc.2
 

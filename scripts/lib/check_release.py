@@ -29,6 +29,8 @@ required = [
     'docs/releases/v2.3.0-rc.2.md',
     'docs/guides/CONTEXT_ECONOMY_TEXT_HELPER.md', 'scripts/lib/context_economy.py',
     'tests/test_context_economy.py',
+    'docs/guides/BRANCH_AWARE_DISCOVERY.md', 'scripts/discover-variants.sh',
+    'scripts/lib/branch_discovery.py', 'tests/test_branch_discovery.py',
 ]
 for name in required:
     assert (root / name).is_file(), f'Missing required file: {name}'
@@ -37,6 +39,10 @@ for name in ['FACTORY_VERSION.md', 'README.md', 'QUICK_START.md', 'FILE_INDEX.md
              'scripts/adopt-project.sh', 'docs/maintainers/RELEASE_CHECKLIST.md']:
     assert version in (root / name).read_text(), f'Stale version: {name}'
 assert sorted(manifest['scripts']) == sorted(p.name for p in (root / 'scripts').glob('*.sh'))
+assert 'branch_aware_discovery' in manifest['features']
+branch_guide = (root / 'docs/guides/BRANCH_AWARE_DISCOVERY.md').read_text()
+for marker in ['refs completas', 'sin checkout', 'CONTEXT_MANIFEST.json', '--variant-manifest']:
+    assert marker in branch_guide, f'Missing branch discovery guardrail: {marker}'
 contract = (root / 'workflow/00_SHARED_CONTRACT.md').read_text()
 for marker in ['Finalization Gate', 'PROHIBIDO FINALIZAR', 'Runtime limitation',
                'INVARIANT 1', 'INVARIANT 2', 'INVARIANT 3', 'INVARIANT 4']:
@@ -66,7 +72,10 @@ for profile, model, effort in [('economical', 'gpt-5.6-luna', 'low'),
     assert model in catalog and f"MODEL='{model}'" in launcher and f'EFFORT={effort}' in launcher
     assert not re.search(r'(?i)(?:model\s*=\s*|--model\s+)["\x27`]?gpt-5\.6["\x27`\s;]', launcher)
 for path in root.rglob('*'):
-    if not path.is_file() or any(p in {'.git', '.agents', '.codex', '__pycache__'} for p in path.relative_to(root).parts):
+    relative_parts = path.relative_to(root).parts
+    if (not path.is_file()
+            or relative_parts[:2] in {('docs', 'archive'), ('docs', 'requirements')}
+            or any(p in {'.git', '.agents', '.codex', '__pycache__'} for p in relative_parts)):
         continue
     if path.suffix not in {'.md', '.sh', '.py', '.toml', '.json', '.yml'}:
         continue

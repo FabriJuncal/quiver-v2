@@ -103,8 +103,10 @@ class Scripts(unittest.TestCase):
             self.assertFalse(any(name.endswith('.zip') for name in names))
             self.assertIn('scripts/install.sh', names)
             self.assertIn('scripts/asf', names)
+            self.assertIn('scripts/discover-variants.sh', names)
             self.assertIn('.github/workflows/ci.yml', names)
             self.assertTrue((archive.getinfo('scripts/asf').external_attr >> 16) & 0o111)
+            self.assertTrue((archive.getinfo('scripts/discover-variants.sh').external_attr >> 16) & 0o111)
             self.assertTrue((archive.getinfo('scripts/install.sh').external_attr >> 16) & 0o111,
                             'The release must preserve install.sh executable permissions')
             archive.extractall(unpacked)
@@ -290,6 +292,37 @@ class Scripts(unittest.TestCase):
         self.assertTrue((self.project / 'docs/AI_SOFTWARE_FACTORY_AGENTS_SNIPPET.md').exists())
         self.run_script('adopt-project')
         self.assertEqual(after, snapshot(self.project))
+
+    def test_adopt_variant_discovery_is_explicit_and_external(self):
+        subprocess.run(['git', 'init', '-q'], cwd=self.project, env=self.env, check=True)
+        subprocess.run(['git', 'config', 'user.name', 'Factory Test'], cwd=self.project, env=self.env, check=True)
+        subprocess.run(['git', 'config', 'user.email', 'factory@example.invalid'], cwd=self.project, env=self.env, check=True)
+        self.put(self.project / 'src/app.js', 'export const n = 42;\n')
+        subprocess.run(['git', 'add', '.'], cwd=self.project, env=self.env, check=True)
+        subprocess.run(['git', 'commit', '-qm', 'base'], cwd=self.project, env=self.env, check=True)
+        subprocess.run(['git', 'branch', 'client-a'], cwd=self.project, env=self.env, check=True)
+        output = self.base / 'external inventory'
+        result = self.run_script('adopt-project', '--variant-discovery-output', str(output))
+        self.assertIn('Inventory:', result.stdout)
+        self.assertTrue((output / 'BRANCH_INVENTORY.json').is_file())
+        self.assertEqual((self.project / 'src/app.js').read_text(), 'export const n = 42;\n')
+        self.assertFalse((self.project / 'BRANCH_INVENTORY.json').exists())
+
+    def test_adopt_variant_dry_run_writes_nothing(self):
+        subprocess.run(['git', 'init', '-q'], cwd=self.project, env=self.env, check=True)
+        before = snapshot(self.base)
+        output = self.base / 'external inventory'
+        result = self.run_script('adopt-project', '--dry-run', '--variant-discovery-output', str(output))
+        self.assertIn('WOULD INSPECT VARIANTS', result.stdout)
+        self.assertEqual(before, snapshot(self.base))
+
+    def test_adopt_rejects_internal_variant_output_before_project_writes(self):
+        subprocess.run(['git', 'init', '-q'], cwd=self.project, env=self.env, check=True)
+        before = snapshot(self.base)
+        result = self.run_script('adopt-project', '--variant-discovery-output',
+                                 str(self.project / 'analysis'), ok=False)
+        self.assertIn('fuera', result.stderr)
+        self.assertEqual(before, snapshot(self.base))
 
     def test_scaffold_symlink_rejected_before_writes(self):
         foreign = self.base / 'foreign docs'

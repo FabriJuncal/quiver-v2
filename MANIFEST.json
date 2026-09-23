@@ -19,6 +19,7 @@
     "asf.sh",
     "check-release.sh",
     "configure-model-profiles.sh",
+    "discover-variants.sh",
     "doctor.sh",
     "init-project.sh",
     "install.sh",
@@ -52,6 +53,7 @@
     "workspace_audit",
     "inactive_assistant_proposal",
     "context_economy",
-    "optional_text_helper_offline_contract"
+    "optional_text_helper_offline_contract",
+    "branch_aware_discovery"
   ]
 }

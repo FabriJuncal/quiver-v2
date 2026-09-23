@@ -28,6 +28,11 @@ and instructions remain current; do not reuse another session's runtime confirma
 
 Prefer existing project patterns over generic redesign.
 
+Cuando el proyecto use branch-aware discovery, resolver primero repo, ref completa y
+OID objetivo. Cargar únicamente entradas del manifest vigente con procedencia
+repo/ref/OID/ruta/blob. Ejecutar `discover-variants.sh check` o doctor antes de usar
+un contexto persistido; un documento del overlay no se atribuye a otra rama.
+
 If a code graph is available, use it only when it reduces exploration.
 
 For explicitly opted-in delegation, build the brief's context manifest under

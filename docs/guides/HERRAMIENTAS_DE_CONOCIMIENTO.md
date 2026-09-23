@@ -48,3 +48,8 @@ none | graphify | codebase-memory
 ```
 
 No activar Graphify + Codebase Memory por defecto.
+
+Para repositorios con variantes por rama, empezar con el lector Git determinista de
+[Branch-aware discovery](BRANCH_AWARE_DISCOVERY.md). Solo evaluar un índice estructural
+si consultas medidas siguen sin resolverse. El índice debe aislar snapshots por OID y
+no reemplaza confirmación de cliente, deployment o comportamiento runtime.

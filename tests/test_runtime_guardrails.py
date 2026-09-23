@@ -124,6 +124,32 @@ class RuntimeGuardrails(unittest.TestCase):
         self.assertIn('active slice: S05', result.stdout)
         self.assertEqual(before, snapshot(self.base))
 
+    def test_doctor_validates_optional_variant_manifest_and_staleness(self):
+        self.fixture()
+        subprocess.run(['git', 'config', 'user.name', 'Factory Test'], cwd=self.project, env=self.env, check=True)
+        subprocess.run(['git', 'config', 'user.email', 'factory@example.invalid'], cwd=self.project, env=self.env, check=True)
+        subprocess.run(['git', 'add', '.'], cwd=self.project, env=self.env, check=True)
+        subprocess.run(['git', 'commit', '-qm', 'fixture'], cwd=self.project, env=self.env, check=True)
+        branch = subprocess.check_output(['git', 'symbolic-ref', 'HEAD'], cwd=self.project, env=self.env, text=True).strip()
+        task = self.base / 'variant-task.json'
+        task.write_text(json.dumps({
+            'objective': 'doctor fixture', 'paths': ['PROJECT_STATE.md'],
+            'required_paths': ['PROJECT_STATE.md'], 'max_bytes': 65536,
+        }))
+        output = self.base / 'variant-context'
+        self.run_script('discover-variants', 'context', '--repo', str(self.project),
+                        '--target', branch, '--task', str(task), '--output', str(output))
+        manifest = output / 'CONTEXT_MANIFEST.json'
+        before = snapshot(self.base)
+        result = self.run_script('doctor', '--project', str(self.project),
+                                 '--variant-manifest', str(manifest))
+        self.assertIn('Variant context PASS:', result.stdout)
+        self.assertEqual(before, snapshot(self.base))
+        self.put(self.project / 'new-overlay.txt', 'changed\n')
+        stale = self.run_script('doctor', '--project', str(self.project),
+                                '--variant-manifest', str(manifest), ok=False)
+        self.assertIn('Variant context inválido u obsoleto', stale.stdout)
+
     def test_completed_requirement_with_active_slice_fails(self):
         state = self.fixture()
         state.write_text(state.read_text().replace('in-progress', 'completed'))

@@ -48,6 +48,9 @@
 
 - Factory version: 2.3.0-rc.2
 - Knowledge tooling: none | graphify | codebase-memory
+- Repository scope: current-worktree | branch-variants (optional)
+- Variant map: none | external reviewed artifact path
+- Default target ref: none | full `refs/heads/...` or `refs/remotes/...`
 - Notes:
 
 ## AI Policy
