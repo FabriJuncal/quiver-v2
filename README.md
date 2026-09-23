@@ -1,10 +1,10 @@
 # AI Software Factory
 
-AI Software Factory v2.3.0-rc.1 — Supervised Delegation Preview
+AI Software Factory v2.3.0-rc.2 — Supervised Delegation Preview
 
-Candidata local, **no publicada ni lista para activar ayudantes**. Incluye contratos
-y pruebas offline; piloto vivo NOT RUN por controles runtime pendientes.
-Ver [estado y notas de la candidata](docs/releases/v2.3.0-rc.1.md).
+Prerelease/preview offline, **no lista para activar ayudantes**. Incluye contratos y
+pruebas offline; piloto vivo NOT RUN por controles runtime pendientes.
+Ver [estado y notas de la candidata](docs/releases/v2.3.0-rc.2.md).
 
 Inicio determinista desde la carpeta de Factory:
 
@@ -201,7 +201,7 @@ Empezá por:
 
 Esta versión corresponde a:
 
-**AI Software Factory v2.3.0-rc.1 — Supervised Delegation Preview**
+**AI Software Factory v2.3.0-rc.2 — Supervised Delegation Preview**
 
 Ver [`FACTORY_VERSION.md`](FACTORY_VERSION.md).
 

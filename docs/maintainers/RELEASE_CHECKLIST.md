@@ -1,6 +1,6 @@
 # Release Checklist
 
-Target: AI Software Factory v2.3.0-rc.1 — Supervised Delegation Preview. No confundir validación local con publicación.
+Target: AI Software Factory v2.3.0-rc.2 — Supervised Delegation Preview. No confundir validación local con publicación.
 
 Esta checklist es para autorización final, no una declaración de checks ejecutados.
 Resultados reales viven en el requirement de release. Piloto NOT RUN: no publicar
@@ -15,7 +15,8 @@ como multiagente operativo. La preview offline necesita aprobación explícita d
 - [ ] `bash scripts/check-release.sh`: versiones, archivos, mappings, instrucciones y rutas.
 - [ ] Launcher: cuatro dry-runs, argv literal, espacios, Codex ausente y modelo rechazado simulado.
 - [ ] Doctor: activo sin next action falla; activo/false/con next action pasa; no escrituras.
-- [ ] Metadata init/adopt 2.3.0-rc.1; capa 2.2.1 detectada, sin upgrade silencioso.
+- [ ] Metadata init/adopt 2.3.0-rc.2; capa 2.2.1 detectada, sin upgrade silencioso.
+- [ ] routing-v1 aplicado: verificabilidad, ruta rápida, diagnóstico previo y evidencia revisable.
 - [ ] Tamaños AGENTS/override/cap configurable y conflictos de configuración verificados.
 - [ ] Finalization Gate/invariants y Review Loop Guard canónicos referenciados.
 - [ ] Upgrade conserva criterios, decisiones, código y slices cerradas.

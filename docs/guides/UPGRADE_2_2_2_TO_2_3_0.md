@@ -1,7 +1,7 @@
-# Upgrade a 2.3.0-rc.1 — opt-in, sin activar delegación
+# Upgrade a 2.3.0-rc.2 — opt-in, sin activar delegación
 
-La candidata es local y no publicada. No reemplazar la instalación estable para
-producción antes de revisar sus límites. Primero puede probarse en HOME temporal.
+Esta versión es una prerelease/preview offline. No reemplazar la instalación estable
+para producción antes de revisar sus límites. Primero puede probarse en HOME temporal.
 Si venís de 2.2.1, aplicar también los campos de
 [Runtime Guardrails](UPGRADE_2_2_1_TO_2_2_2.md), sin volver a publicar versiones previas.
 
@@ -40,7 +40,7 @@ materialmente de la configuración, no una interrupción en cada tarea.
 Actualizar Factory no actualiza silenciosamente la capa del proyecto. En Codex,
 desde el proyecto, copiar este prompt:
 
-> Actualizá únicamente la capa AI Software Factory de este proyecto a 2.3.0-rc.1
+> Actualizá únicamente la capa AI Software Factory de este proyecto a 2.3.0-rc.2
 > siguiendo docs/guides/UPGRADE_2_2_2_TO_2_3_0.md de la instalación canónica.
 > Leé AGENTS, PROJECT_PROFILE, PROJECT_STATE y STATE activos antes de editar.
 > Preservá código, arquitectura, criterios, decisiones aprobadas y slices cerradas.

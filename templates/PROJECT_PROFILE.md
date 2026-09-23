@@ -46,7 +46,7 @@
 
 ## AI / Factory
 
-- Factory version: 2.3.0-rc.1
+- Factory version: 2.3.0-rc.2
 - Knowledge tooling: none | graphify | codebase-memory
 - Notes:
 

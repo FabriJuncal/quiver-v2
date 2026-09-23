@@ -8,7 +8,7 @@ from pathlib import Path
 root = Path(sys.argv[1])
 manifest = json.loads((root / 'MANIFEST.json').read_text())
 version = manifest['version']
-assert version == '2.3.0-rc.1' and manifest['codename'] == 'Supervised Delegation Preview'
+assert version == '2.3.0-rc.2' and manifest['codename'] == 'Supervised Delegation Preview'
 required = [
     'FACTORY_VERSION.md', 'README.md', 'QUICK_START.md', 'FILE_INDEX.md',
     'scripts/asf', 'scripts/asf.sh', 'scripts/doctor.sh', 'scripts/lib/runtime_doctor.py',
@@ -26,7 +26,7 @@ required = [
     'config/assistant-proposal/coordinator.toml', 'config/assistant-proposal/asf_helper.toml',
     'scripts/lib/check_assistant_proposal.py', 'tests/test_release_candidate.py',
     'docs/guides/ASSISTANT_INTEGRATION.md', 'docs/guides/UPGRADE_2_2_2_TO_2_3_0.md',
-    'docs/releases/v2.3.0-rc.1.md',
+    'docs/releases/v2.3.0-rc.2.md',
     'docs/guides/CONTEXT_ECONOMY_TEXT_HELPER.md', 'scripts/lib/context_economy.py',
     'tests/test_context_economy.py',
 ]
@@ -45,6 +45,10 @@ for name in ['workflow/10_RESUME.md', 'templates/AGENTS.md',
              'skills/core/requirement-state/SKILL.md', 'skills/core/slice-executor/SKILL.md',
              'skills/core/model-router/SKILL.md']:
     assert 'Finalization Gate' in (root / name).read_text(), name
+for name in ['workflow/00_SHARED_CONTRACT.md', 'workflow/04_PLAN.md',
+             'workflow/07_EXECUTE_SLICE.md', 'workflow/08_IMPLEMENTATION_REVIEW.md',
+             'templates/AGENTS.md', 'skills/core/model-router/SKILL.md']:
+    assert 'routing-v1' in (root / name).read_text(), f'Missing routing-v1: {name}'
 context_guide = (root / 'docs/guides/CONTEXT_ECONOMY_TEXT_HELPER.md').read_text()
 for marker in ['inline/local (default)', 'RUN v3', 'un solo intento', 'no reintentar',
                'dispatch_guard_ref']:

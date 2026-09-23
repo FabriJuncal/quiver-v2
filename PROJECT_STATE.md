@@ -1,23 +1,23 @@
 # PROJECT_STATE
 
-- **Project:** AI Software Factory v2.3.0-rc.1 — Supervised Delegation Preview
-- **Status:** awaiting-approval
-- **Current phase:** routing mejorado en fuente local; decisión de candidata offline pendiente
-- **Active requirement:** docs/requirements/release-2-3-0-rc-1/STATE.md
+- **Project:** AI Software Factory v2.3.0-rc.2 — Supervised Delegation Preview
+- **Status:** in-progress
+- **Current phase:** preparación local de candidata rc.2 autorizada
+- **Active requirement:** docs/requirements/release-2-3-0-rc-2/STATE.md
 - **Last completed requirement:** docs/requirements/model-routing-precision/STATE.md
-- **Current slice:** none
+- **Current slice:** RC2-S01
 - **Completed:** S01–S04 offline y 111 tests previos preservados. Prueba nueva codex sandbox 0.155.1: 22/22 casos, configuración temporal, sin agentes/modelos adicionales. Protección de archivos ficticios observada; evidencia en docs/requirements/sandbox-isolation-probe/REPORT.md. Config habitual preservada, sin release nueva.
-- **Pending:** decisión de alcance preview offline o integración runtime antes de publicar funcionalidad viva.
-- **Next action:** revisar/aprobar alcance de release según su STATE; mantener piloto deshabilitado por RC-F02.
-- **Why this is next:** routing concluido con 47 tests dirigidos OK; la decisión de release no fue autorizada por este trabajo.
-- **User action required:** true
-- **Decision required:** preview offline explícita o continuación de integración runtime; no autorización de publicación vigente.
-- **Expected output:** decisión concreta de alcance; no cierre falso de capacidad multiagente.
-- **After this:** ejecutar solo opción aprobada; reconciliar fuente/candidata antes de una publicación autorizada.
+- **Pending:** construir y validar rc.2; publicación requiere autorización final separada.
+- **Next action:** completar metadata rc.2, crear commit limpio y validar ZIP exportado.
+- **Why this is next:** usuario autorizó continuar con la preparación recomendada; rc.1 no puede reutilizarse.
+- **User action required:** false
+- **Decision required:** none durante preparación local.
+- **Expected output:** commit y artefactos rc.2 revisables con evidencia fresca.
+- **After this:** presentar hashes, tests y límites; pedir autorización concreta para push/tag/release.
 - **Blocked by:** none
-- **Runtime limitation:** unavailable-runtime-capability
-- **Runtime limitation detail:** solo piloto: controles efectivos del hijo no verificables según STATE de release. Routing no tiene pendientes ni limitación runtime.
-- **Resume instruction:** leer docs/requirements/release-2-3-0-rc-1/STATE.md, EVIDENCE.md y review. Routing completado en docs/requirements/model-routing-precision/; candidata ZIP previa e instalación canónica no incluyen automáticamente ese diff. Piloto NOT RUN; no publicar sin autorización nueva.
+- **Runtime limitation:** none para preparación; unavailable-runtime-capability sigue aplicando al piloto vivo.
+- **Runtime limitation detail:** RC-F02 no bloquea preview offline, pero impide activar/anunciar delegación operativa.
+- **Resume instruction:** leer docs/requirements/release-2-3-0-rc-2/STATE.md y 03_PLAN.md. Continuar preparación local; no push/tag/publicación sin autorización final.
 
 ## Mejora local de routing — 2026-09-23
 

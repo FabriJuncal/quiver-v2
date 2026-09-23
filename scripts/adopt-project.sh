@@ -27,7 +27,7 @@ if [[ -f "$PROJECT/AGENTS.md" ]]; then
 
 Este repositorio utiliza AI Software Factory.
 
-Factory version: 2.3.0-rc.1 (propuesta; integrar en AGENTS antes de declarar la capa actualizada).
+Factory version: 2.3.0-rc.2 (propuesta; integrar en AGENTS antes de declarar la capa actualizada).
 
 Antes de cambios significativos:
 - leer PROJECT_STATE.md;
