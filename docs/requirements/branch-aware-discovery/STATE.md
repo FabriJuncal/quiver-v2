@@ -1,10 +1,10 @@
 # STATE — Branch-aware discovery
 
-- **Status:** in-progress
-- **Current phase:** preparación de commit y PR autorizada.
+- **Status:** awaiting-review
+- **Current phase:** PR #3 abierto y pendiente de review.
 - **Current slice:** none
-- **Completed:** F0–F6; lector Git offline, integración optativa, 153 tests, check-release, self review y piloto privado de solo lectura con integridad preservada.
-- **Pending:** crear commit enfocado, publicar la rama y abrir el PR; merge y publicación quedan excluidos.
+- **Completed:** F0–F6; lector Git offline, integración optativa, 153 tests, check-release, self review, piloto privado preservado, commit `96fa624` y PR #3 abierto.
+- **Pending:** review del PR #3 y resolución de hallazgos; merge y publicación quedan excluidos de la autorización vigente.
 - **Risk level:** N2; integridad del contexto entre variantes y compatibilidad del discovery existente.
 - **Acceptance criteria:** inventario completo del alcance Git, lectura sin checkout, procedencia por OID, contexto acotado por tarea, validación stale, fallos explícitos, integración optativa y piloto de solo lectura.
 - **Plan version:** 1.
@@ -14,15 +14,21 @@
 - **Execution authorization:** MVP F0–F6 autorizado explícitamente el 2026-09-23. Preparación de commit y PR autorizada el 2026-09-23; sin merge ni publicación.
 - **Selected option:** Git plumbing, matriz de variantes y contexto por tarea; capacidad optativa y sin servicios nuevos.
 - **Test profile:** T2 reforzado; 153 tests PASS, check-release/dry-run/diff PASS; sin builds de aplicaciones cliente.
-- **Next action:** crear el commit de branch-aware discovery, verificar el staging y abrir un PR contra `main`.
-- **Why this is next:** el MVP está cerrado y el usuario autorizó explícitamente preparar commit y PR.
-- **User action required:** false
-- **Decision required:** none
-- **Expected output:** PR abierto, con SHA y evidencia registrados; sin merge ni publicación.
-- **After this:** esperar review y autorización separada para cualquier merge o publicación.
+- **Next action:** revisar https://github.com/FabriJuncal/quiver-v2/pull/3 y decidir si requiere cambios o queda aprobado.
+- **Why this is next:** commit, push y apertura del PR autorizados ya están completados; el merge requiere una decisión humana nueva.
+- **User action required:** true
+- **Decision required:** aprobar el PR, solicitar cambios o dejarlo abierto.
+- **Expected output:** review trazable y, si corresponde, autorización explícita de merge.
+- **After this:** resolver findings; mergear solo con autorización explícita y mantener la publicación como acción separada.
 - **Blocked by:** none
 - **Runtime limitation:** none
-- **Resume instruction:** revisar este STATE, `docs/PRs/BRANCH_AWARE_DISCOVERY.md` y `docs/guides/BRANCH_AWARE_DISCOVERY.md`. Continuar la preparación de commit/PR; preservar artefactos privados y trabajo ajeno; no mergear ni publicar.
+- **Resume instruction:** revisar este STATE, `docs/PRs/BRANCH_AWARE_DISCOVERY.md` y el PR #3. Preservar artefactos privados y trabajo ajeno; no mergear ni publicar sin autorización explícita.
+
+## Entrega
+
+- **Branch:** `improve/branch-aware-discovery`.
+- **Feature commit:** `96fa624` (`Add branch-aware discovery`).
+- **Pull request:** https://github.com/FabriJuncal/quiver-v2/pull/3
 
 ## Límites y privacidad
 
