@@ -60,6 +60,13 @@
 
 ### Switch policy
 
+Aplicar `routing-v1` de config/MODEL_CATALOG.md de la Factory. Una decisión breve
+por fase suficiente; heredar por referencia sin repetirla en cada slice. No prueba
+configuración efectiva. N0/consultas siguen las excepciones compactas del catálogo.
+
+- **Routing decision / reference:** fase, perfil/reasoning, motivo observable, verificación y límite, contexto suficiente/faltante; o referencia vigente que ya los contenga.
+- **Selection basis:** policy | measured (measured requiere referencia comparable; no inventar ahorro).
+
 - **Switch threshold:** HIGH
 - **Current phase switch benefit:** LOW | MEDIUM | HIGH
 - **Escalation triggers:**

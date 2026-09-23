@@ -40,6 +40,9 @@ Antes de cambios significativos:
 - trabajo autorizado ejecutable + User action required false obliga a continuar en el mismo turno;
 - STATE prevalece sobre Conversation Recap; registrar contradicciones;
 - persistir runtime limitations, pendiente y reanudación exacta sin fingir cierre.
+- aplicar model-router / routing-v1 del catálogo de Factory antes de planificar/implementar;
+- registrar decisión breve o referencia vigente en STATE/brief; review verifica evidencia;
+- respetar ruta rápida y excepciones N0/consultas; no inferir modelo activo ni crear gates por trámites.
 EOF
     echo "CREATE: $snippet"
     echo "Discovery debe comparar este snippet con AGENTS.md, integrar solo reglas compatibles si está autorizado y registrar el resultado."

@@ -122,27 +122,19 @@ No introducir herramientas o infraestructura sin justificar valor concreto.
 
 ## Guided AI Model Routing
 
-Antes de una fase/slice, aplicar la estrategia persistida y la skill `model-router` cuando corresponda.
+Antes de planificar o implementar una fase, aplicar obligatoriamente `model-router`
+y `routing-v1` de `config/MODEL_CATALOG.md` de la Factory canónica. Registrar decisión
+breve o referencia vigente en STATE/brief; respetar ruta rápida y excepciones N0/consultas.
+Si falta, reparar antes de la acción dependiente sin aprobación artificial. El review
+verifica esa evidencia; no inventar una aplicación previa ni identidad del runtime.
 
 No asumir el modelo activo.
 
-### Default de Factory
+### Selección
 
-BALANCED:
-
-**GPT-5.6 Terra (`gpt-5.6-terra`) / Medium**
-
-### Escalamiento
-
-Para tareas críticas, la Factory puede generar un AI Model Gate hacia:
-
-**GPT-5.6 Sol (`gpt-5.6-sol`) / High**
-
-Exceptional Override:
-
-**GPT-6 Astra (`gpt-6-astra`) / High o XHigh**
-
-solo cuando esté disponible y se justifique.
+BALANCED es el default; resolver modelo, reasoning y fallback en el catálogo actual.
+Considerar verificabilidad y contexto antes de escalar. No mantener otro mapeo aquí.
+Exceptional Override solo cuando esté disponible y se justifique según el catálogo.
 
 ### Guided Model Gate
 

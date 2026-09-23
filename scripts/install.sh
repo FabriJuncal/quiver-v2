@@ -49,6 +49,8 @@ Factory version: 2.3.0-rc.1
 - Routing: ECONOMICAL / BALANCED / ADVANCED desde config/MODEL_CATALOG.md;
   nombre completo + ID exacto. Perfil solicitado no prueba modelo/reasoning activo.
   Session Preflight solo por necesidad material; Model Gate solo con Switch Benefit HIGH.
+- Aplicar model-router / routing-v1 antes de planificar/implementar: decisión breve o
+  referencia vigente en STATE/brief; excepciones compactas del catálogo. Review verifica evidencia.
 
 Cuando un proyecto use AI Software Factory:
 

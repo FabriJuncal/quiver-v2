@@ -8,6 +8,30 @@ estos ejemplos es una actualización seguida de ejecución, nunca cierre con tra
 
 AI Software Factory gestiona modelos de forma **guiada**, no automática.
 
+## Aplicación obligatoria y límites
+
+Aplicar [routing-v1 del catálogo](../../config/MODEL_CATALOG.md#selección-proporcional-y-registro-de-routing)
+antes de planificar/implementar: verificabilidad, ruta rápida, diagnóstico y decisión
+breve o referencia vigente en STATE/brief. El review comprueba su correspondencia con
+el trabajo. No basta declarar «usé el router»; tampoco hace falta narrarlo en cada turno.
+Install, init y el snippet de adopt distribuyen la instrucción; proyectos existentes
+deben integrar el snippet compatible. Un snippet sin integrar no es una instrucción activa.
+
+Esto refuerza cumplimiento de procedimiento, no lo garantiza técnicamente. Markdown,
+un registro o un test de instalación no prueban que el modelo lo obedeció. Un control
+duro exigiría un runtime que medie cada ejecución, valide una decisión y compruebe la
+configuración aceptada; aun así eso no prueba razonamiento interno ni corrección.
+Ese controlador queda fuera del router guiado. El launcher solo fija intención de inicio.
+
+En Codex, comprobar que AGENTS.md sea la instrucción efectivamente descubierta: un
+AGENTS.override.md, instrucciones más cercanas o truncamiento pueden cambiar lo cargado.
+Las instrucciones se descubren al iniciar una ejecución/sesión; después de instalar
+cambios, iniciar una sesión nueva para comprobar su carga. Consultar el doctor de Factory
+y la [documentación oficial de descubrimiento](https://learn.chatgpt.com/docs/agent-configuration/agents-md#how-codex-discovers-guidance).
+
+Las verificaciones offline prueban propagación/consistencia, no ahorro o calidad medidos.
+No ejecutar benchmarks ni cambiar configuración personal para certificar esta política.
+
 La Factory:
 
 1. clasifica la capacidad requerida;

@@ -20,6 +20,12 @@ Context quality > context quantity.
 
 Do not dump the entire repository.
 
+Before suggesting more model capacity, check missing contracts/logs, truncated tool
+output, contradictory instructions and stale evidence. Recover only what can change
+the next decision; report unresolved gaps to model-router. More reasoning cannot
+replace missing evidence. Reuse validated findings only while their scope, dependencies
+and instructions remain current; do not reuse another session's runtime confirmation.
+
 Prefer existing project patterns over generic redesign.
 
 If a code graph is available, use it only when it reduces exploration.

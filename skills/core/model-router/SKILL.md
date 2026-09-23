@@ -11,14 +11,12 @@ Recommend the minimum sufficient AI configuration while preserving quality and G
 
 Never choose a model only because it is "better".
 
-## Canonical mapping
+## Canonical policy
 
-- ECONOMICAL → GPT-5.6 Luna (`gpt-5.6-luna`) / Low
-- BALANCED → GPT-5.6 Terra (`gpt-5.6-terra`) / Medium
-- ADVANCED → GPT-5.6 Sol (`gpt-5.6-sol`) / High
-- Exceptional Override → GPT-6 Astra (`gpt-6-astra`) / High or XHigh
-
-Read `config/MODEL_CATALOG.md` when resolving exact current recommendations.
+Apply before planning or implementing a phase. Read
+[`config/MODEL_CATALOG.md`](../../../config/MODEL_CATALOG.md) for mappings and
+`routing-v1` (Selección proporcional y registro de routing). Do not maintain another
+model table here. Reuse a current resolution/decision within its scope.
 
 ## Inputs
 
@@ -32,19 +30,25 @@ Consider:
 - debugging evidence;
 - amount of remaining work;
 - current phase;
-- review needs.
+- review needs;
+- verifiability: how errors will be detected, cost and limits of that check;
+- context sufficiency/freshness and the observed bottleneck.
 
 ## Selection
 
 Start from the requirement profile.
 
-Then refine per slice.
+Use the catalog's fast path: inherit when scope, risk, evidence and checks remain
+covered; reassess only material changes. No extra classifier call or routine user gate.
+Keep the brief routing decision (or a valid reference) in existing STATE/brief evidence.
+Missing evidence is repaired before dependent work, not manufactured retrospectively.
 
 ### Escalation soft
 
-If extra depth is useful but the current model family is adequate:
-
-increase reasoning before changing model.
+First distinguish environment, missing/stale context, pending product decisions and
+analysis failures using the catalog's diagnosis table. Increase reasoning only when
+input is sufficient and analysis depth is the issue. Recalculate effort on model change.
+Retries require a new hypothesis/evidence or approach and a discriminating check.
 
 ### Escalation hard
 
@@ -59,7 +63,8 @@ Use ADVANCED for:
 
 ### Exceptional
 
-Recommend GPT-6 Astra only if ADVANCED is insufficient or the task is extraordinary.
+Use Exceptional Override from the catalog only if ADVANCED is insufficient or the task
+is extraordinary. Do not force failed attempts through every reasoning level.
 
 ## Switch Benefit
 
@@ -121,11 +126,12 @@ guide the user:
 - N2 dedicated `/review` when material
 - N3 dedicated review required when technically possible; otherwise require an explicitly approved alternative before closure
 
-For critical review recommend GPT-5.6 Sol (`gpt-5.6-sol`).
+Resolve the critical review recommendation from the catalog; review policy remains in workflow 08.
 
 ## Output
 
-Return:
+For a new/material decision, record in existing STATE/brief (a valid inherited reference
+suffices otherwise; follow the catalog's N0/consultation exceptions):
 
 - profile;
 - full model name;
@@ -135,7 +141,11 @@ Return:
 - switch benefit;
 - gate required yes/no;
 - reason;
+- verification and its limits, context sufficient/missing, selection basis policy/measured;
 - review mode if relevant.
+
+Keep routine LOW decisions out of user-facing updates. Give the full actionable output
+only for a material recommendation/gate; do not narrate routing at every turn.
 
 If gate = no and no other Decision Boundary is pending:
 `ACCIÓN DEL USUARIO: ninguna` and continue the authorized work.

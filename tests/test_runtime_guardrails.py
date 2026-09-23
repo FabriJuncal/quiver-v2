@@ -2,9 +2,11 @@
 import json
 import os
 from pathlib import Path
+import re
 import shutil
 import subprocess
 import sys
+import tomllib
 import unittest
 
 import test_scripts as lifecycle
@@ -226,6 +228,53 @@ class RuntimeGuardrails(unittest.TestCase):
         self.run_script('install')
         self.assertLess(len(self.agents.read_bytes()), 3000)
         self.assertIn('Finalization Gate', self.agents.read_text())
+
+    def test_routing_policy_reaches_installed_skill_and_new_project(self):
+        self.run_script('install')
+        self.run_script('init-project')
+        installed = self.home / '.agents/skills/model-router/SKILL.md'
+        self.assertEqual(installed.resolve(), ROOT / 'skills/core/model-router/SKILL.md')
+        for path in (self.agents, installed, self.project / 'AGENTS.md'):
+            with self.subTest(path=path.name):
+                self.assertIn('routing-v1', path.read_text())
+        # Installed relative policy link must resolve to the canonical catalog.
+        self.assertTrue((installed.resolve().parent / '../../../config/MODEL_CATALOG.md').resolve().is_file())
+        agents = (self.project / 'AGENTS.md').read_text()
+        self.assertIn('obligatoriamente', agents)
+        self.assertIn('referencia vigente', agents)
+
+    def test_routing_adoption_preserves_local_instructions(self):
+        existing = '# Local rules\nPreserve project-specific decisions.\n'
+        self.put(self.project / 'AGENTS.md', existing)
+        self.run_script('adopt-project')
+        self.assertEqual((self.project / 'AGENTS.md').read_text(), existing)
+        snippet = self.project / 'docs/AI_SOFTWARE_FACTORY_AGENTS_SNIPPET.md'
+        self.assertIn('model-router / routing-v1', snippet.read_text())
+        self.assertIn('referencia vigente', snippet.read_text())
+        before = snapshot(self.project)
+        self.run_script('adopt-project')
+        self.assertEqual(before, snapshot(self.project))
+
+    def test_catalog_pairs_match_profiles_and_actual_launcher_arguments(self):
+        # Compare independent shipped artifacts, not unordered model/effort substrings.
+        catalog = (ROOT / 'config/MODEL_CATALOG.md').read_text()
+        rows = re.findall(
+            r'^\| (ECONOMICAL|BALANCED|ADVANCED|Exceptional Override) \| '
+            r'\*\*[^|]+\*\* \| `([^`]+)` \| (Low|Medium|High)(?: o XHigh)? \|',
+            catalog, re.MULTILINE)
+        self.assertEqual(len(rows), 4)
+        self.assertEqual(len({label for label, _, _ in rows}), 4)
+        capture = self.mock_capture()
+        for label, model, effort in rows:
+            profile = 'exceptional' if label == 'Exceptional Override' else label.lower()
+            with self.subTest(profile=profile):
+                data = tomllib.loads((ROOT / f'config/codex-profiles/asf-{profile}.config.toml').read_text())
+                self.assertEqual((data['model'], data['model_reasoning_effort']), (model, effort.lower()))
+                self.run_script('asf', profile, '--', 'Routing fixture; no inference.')
+                self.assertEqual(json.loads(capture.read_text()),
+                                 ['--model', model, '--config',
+                                  f'model_reasoning_effort="{effort.lower()}"',
+                                  '--', 'Routing fixture; no inference.'])
 
     def test_release_checks(self):
         self.run_script('check-release')

@@ -6,6 +6,10 @@
 
 Heredar AI Strategy del STATE del requirement. Si no hay excepción relevante, reemplazar los campos repetidos por `Inherit: STATE.md → AI Strategy / Implementation default`. Un gate recomendado debe reevaluarse contra la confirmación de fase en la sesión actual.
 
+Aplicar `routing-v1` del catálogo de Factory. La referencia heredada debe cubrir motivo,
+verificación y límite, contexto y base policy/measured de esta fase. Completar solo
+excepciones materiales; no inferir modelo efectivo ni pedir un gate por registro faltante.
+
 - **Profile:** ECONOMICAL | BALANCED | ADVANCED
 - **Preferred model full name:**
 - **Model ID:**

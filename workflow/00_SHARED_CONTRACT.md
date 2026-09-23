@@ -234,7 +234,15 @@ Reglas:
 
 ## Guided AI Model Routing
 
-Cuando una fase o slice tenga perfil de IA recomendado:
+Antes de planificar o implementar una fase, aplicar obligatoriamente `model-router`
+y la política `routing-v1` de `config/MODEL_CATALOG.md` (Selección proporcional y
+registro de routing). Dejar decisión breve o referencia vigente en STATE/brief;
+N0 y consultas siguen las excepciones compactas del catálogo. Si falta, subsanar
+antes de la siguiente acción dependiente sin inventar evaluación previa ni aprobación.
+El review comprueba esa evidencia y su correspondencia con riesgo/contexto/validación.
+Esta obligación es de procedimiento: no demuestra selección efectiva del runtime.
+
+Para resolver una decisión nueva o material:
 
 1. usar `model-router`;
 2. resolver nombre completo, ID y reasoning desde `config/MODEL_CATALOG.md`;
@@ -282,11 +290,5 @@ El alcance y evidencia, la política de una corrección dirigida y la salida ant
 
 ### Full model names
 
-Mensajes de Factory deben usar:
-
-- GPT-5.6 Luna (`gpt-5.6-luna`)
-- GPT-5.6 Terra (`gpt-5.6-terra`)
-- GPT-5.6 Sol (`gpt-5.6-sol`)
-- GPT-6 Astra (`gpt-6-astra`)
-
-No usar `GPT-5.6` a secas para indicar una selección.
+Resolver nombre completo + ID exacto desde `config/MODEL_CATALOG.md`;
+no mantener otro mapeo aquí ni usar aliases ambiguos para indicar una selección.
