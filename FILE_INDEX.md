@@ -12,6 +12,17 @@ AI Software Factory v2.3.0-rc.2 — Supervised Delegation Preview
 - `tests/test_release_candidate.py` — RC, upgrade y propuesta
 - `docs/guides/CONTEXT_ECONOMY_TEXT_HELPER.md` — selector, reutilización, RUN v3 y walkthroughs offline
 - `scripts/lib/context_economy.py` — primitivas offline; ningún SDK o transporte real incorporado
+- `scripts/lib/plan_usage.py` — observador opt-in de uso por plan e histórico prospectivo por proyecto/categoría; S03 validada en un intervalo real autorizado
+- `scripts/lib/work_activity.py` — recibos privados, clasificación conservadora y preparación Kev para histórico automático por actividad
+- `tests/test_plan_usage.py` — fixtures sintéticas de atribución, lifecycle, costos, recuperación e histórico
+- `tests/test_work_activity.py` — fixtures A01–A03 de actividad, privacidad, clasificación, conciliación e historial v2
+- `docs/guides/PLAN_USAGE.md` — uso y límites del observador offline y del histórico prospectivo
+- `docs/requirements/plan-usage-observer/06_CLOSURE.md` — cierre S01–S03 y límites de T13
+- `docs/requirements/project-work-history/06_CLOSURE.md` — cierre H01/H02 y límites del histórico
+- `docs/requirements/project-work-activity-attribution/03_PLAN.md` — plan v2 para clasificación Kev automática y consumo por actividad
+- `docs/requirements/project-work-activity-attribution/WIREFRAME.md` — avance, etapas restantes y límites del histórico v2
+- `docs/requirements/project-work-activity-attribution/EVIDENCE.md` — evidencia A01–A03 y preparación concreta de A04
+- `docs/requirements/project-work-activity-attribution/OTEL_PILOT_CONTRACT.md` — contrato v1 para captura OTel acotada y atribución automática condicionada
 - `tests/test_context_economy.py` — regresión CE-v1 con transporte sintético
 
 ## Runtime Guardrails conservados
@@ -25,6 +36,8 @@ AI Software Factory v2.3.0-rc.2 — Supervised Delegation Preview
 - `docs/references/OPENAI_CODEX_MODEL_ROUTING.md`
 - `scripts/asf` / `scripts/asf.sh`
 - `scripts/lib/runtime_doctor.py`
+- `templates/usage/MEASUREMENT.schema.json` — contrato v2 del reporte offline de uso por plan
+- `templates/usage/MEASUREMENT.v1.schema.json` — contrato S01 preservado
 - `scripts/check-release.sh` / `.github/workflows/ci.yml`
 - `tests/test_runtime_guardrails.py`
 
