@@ -1,26 +1,37 @@
 # PROJECT_STATE
 
+Este encabezado describe únicamente el estado integrado en `main`, comprobado
+al 2026-10-17 sobre `44dcd3fd914a7344edd26c2c6c10575a2469fa5e`.
+No describe el trabajo posterior de otras ramas: [`docs/otel-work-attribution-2026-09-29`](https://github.com/FabriJuncal/quiver-v2/tree/14189476655ef05a8b6e9bb25060ba01d366c73f)
+contiene un requirement de atribución/OTel separado, no integrado en `main`.
+Esta corrección no incorpora, aprueba ni ejecuta ese trabajo.
+
 - **Project:** AI Software Factory v2.3.0-rc.2 — Supervised Delegation Preview
 - **Status:** idle
-- **Current phase:** cierres documentales archivados en rama local; sin requirement activo
+- **Current phase:** cierres documentales integrados en main mediante PR #5; sin requirement activo en esta revisión de main
 - **Active requirement:** none
 - **Last completed requirement:** docs/requirements/branch-aware-operational-pilot/STATE.md
 - **Last closed requirement:** docs/requirements/branch-aware-operational-pilot-v2/STATE.md — cancelled; experimento inconcluso
 - **Current slice:** none
-- **Completed:** rc.2 publicada; discovery integrado; benchmark v1 cerrado; v2.1/T2 aprobado; P0–P2 completadas con key cerrado, paquetes A/B seguros y sello previo validado. Los cierres de v1, v2.1 y recurrencia de Skills quedaron en commits documentales locales separados.
-- **Pending:** P3–P6 de v2.1 canceladas sin ejecución; RC-F02 sigue fuera de alcance. No hay push ni PR para los commits documentales. La evidencia privada de discovery y el trabajo preexistente de optimización de Skills permanecen fuera de esos commits.
-- **Next action:** decidir si se revisa y publica la rama documental mediante un PR acotado; mantener los documentos privados fuera de Git hasta una decisión separada sobre derivados sanitizados.
-- **Why this is next:** los commits locales preservan los cierres aptos para versionar sin mezclar la evidencia privada; publicarlos o preparar derivados adicionales son decisiones distintas.
-- **User action required:** true
-- **Decision required:** autorizar o descartar push/PR de la rama documental; cualquier saneamiento de los grupos excluidos requiere alcance propio.
-- **Expected output:** decisión sobre la rama documental o nueva petición independiente.
-- **After this:** si se autoriza, revisar el diff final y abrir solo el PR documental; no reabrir el benchmark automáticamente.
+- **Completed:** rc.2 publicada; discovery integrado; benchmark v1 cerrado; v2.1/T2 aprobado; P0–P2 completadas con key cerrado, paquetes A/B seguros y sello previo validado. Los cierres de v1, v2.1 y recurrencia de Skills quedaron integrados mediante [PR #5](https://github.com/FabriJuncal/quiver-v2/pull/5), merge `44dcd3fd914a7344edd26c2c6c10575a2469fa5e` del 2026-09-24.
+- **Pending:** P3–P6 de v2.1 canceladas sin ejecución; RC-F02 sigue fuera de alcance. La publicación de los commits documentales mediante PR #5 está completada. La evidencia privada de discovery y el trabajo preexistente de optimización de Skills permanecen fuera de esos commits.
+- **Next action:** none
+- **Why this is next:** los cierres documentales ya están integrados en main; el trabajo posterior de otras ramas y cualquier derivado adicional tienen su propio alcance.
+- **User action required:** false
+- **Decision required:** none
+- **Expected output:** archivo documental publicado; sin nueva acción pendiente en este cierre.
+- **After this:** cualquier continuación se rige por el estado y alcance de la rama de trabajo elegida; no reabrir el benchmark ni sanear grupos excluidos sin alcance propio.
 - **Blocked by:** none; E-SENS-01 quedó excluido de los paquetes derivados.
 - **Runtime limitation:** none
 - **Runtime limitation detail:** ninguna. La configuración efectiva de P2 permanece `unknown`; las verificaciones se sustentan en artefactos y comandos reproducibles.
-- **Resume instruction:** revisar la rama local `docs/archive-closed-requirements-2026-09-24`, sus commits y el diff contra `origin/main`. No usar `git add .`: los archivos privados de discovery y el trabajo de optimización de Skills siguen untracked. No hacer push ni PR sin decisión explícita. El benchmark v2.1 permanece cancelado; los antiguos prompts de P3 no están vigentes.
+- **Resume instruction:** main ya contiene el PR #5; no repetir su push/PR. Antes de continuar otro requirement, leer el estado de su rama y no usar este cierre como prueba de inactividad global. Mantener fuera de Git la evidencia privada y el trabajo de optimización de Skills excluidos del archivo documental. El benchmark v2.1 permanece cancelado; los antiguos prompts de P3 no están vigentes.
 
 ## Archivo documental local — 2026-09-24
+
+Nota posterior: el texto siguiente conserva la instantánea local anterior al PR #5.
+La rama fue publicada e integrada el 2026-09-24 a las 03:32:55 UTC mediante
+[PR #5](https://github.com/FabriJuncal/quiver-v2/pull/5); sus afirmaciones sobre
+push/PR y archivos locales describen ese momento previo, no el estado actual.
 
 La rama `docs/archive-closed-requirements-2026-09-24` conserva, en commits separados,
 el resultado v1 (`9ee3d5f`), el cierre v2.1 (`b07d9f8`) y la investigación de

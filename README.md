@@ -26,7 +26,7 @@ no pueden garantizar obediencia del modelo ni evitar que el runtime interrumpa u
 
 **AI Software Factory** es un workflow liviano y reutilizable para crear y evolucionar software con agentes de IA sin convertir cada repositorio en una colección de prompts, documentos y automatizaciones difíciles de mantener.
 
-Trabajo local aún no publicado: [piloto de delegación guiada](docs/guides/GUIDED_DELEGATION.md),
+Incluido en la prerelease/preview offline publicada `v2.3.0-rc.2`: [piloto de delegación guiada](docs/guides/GUIDED_DELEGATION.md),
 con contrato, ejemplos sintéticos y validador offline. Incluye la modalidad
 [Factory multiagente supervisada](examples/supervised-multiagent/README.md): auditoría
 de copias y rechazo de incidentes, **sin garantía de solo lectura ni piloto vivo validado**.
@@ -87,9 +87,11 @@ gh repo clone FabriJuncal/quiver-v2
 cd quiver-v2
 ```
 
-El clon remoto no contiene necesariamente esta candidata local. Para evaluarla, usá
-el paquete local entregado; para uso estable consultá las [releases publicadas](https://github.com/FabriJuncal/quiver-v2/releases).
-Dentro de la carpeta extraída, comprobá FACTORY_VERSION.md antes de instalar:
+Para evaluar esta preview offline, usá el paquete y su SHA-256 de la
+[prerelease `v2.3.0-rc.2`](https://github.com/FabriJuncal/quiver-v2/releases/tag/v2.3.0-rc.2)
+o el tag `v2.3.0-rc.2`; `main` incluye cambios posteriores y no identifica ese paquete.
+Para uso estable consultá las [releases publicadas](https://github.com/FabriJuncal/quiver-v2/releases).
+Dentro de la carpeta de la versión elegida, comprobá FACTORY_VERSION.md antes de instalar:
 
 ```bash
 ASF_ROOT="$(pwd -P)"
